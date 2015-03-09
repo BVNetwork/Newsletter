@@ -15,13 +15,14 @@ using EPiServer.Web;
 using PreMailer.Net;
 using RestSharp;
 using RestSharp.Deserializers;
+// ReSharper disable PossibleMultipleEnumeration
 
 namespace BVNetwork.EPiSendMail.Library
 {
 	/// <summary>
 	/// This class does the actual mail sending, using the standard .NET Framework
 	/// </summary>
-	public class MailSenderMailgun : MailSenderBase, IMailSenderVerification
+    public class MailSenderMailgun : MailSenderBatchBase, IMailSenderVerification
 	{
 		private const string MAILGUN_CAMPAIGN_PROPERTYNAME = "MailgunCampaignName";
 		private const string MAILGUN_TAG_PROPERTYNAME = "MailgunTagName";
@@ -62,7 +63,7 @@ namespace BVNetwork.EPiSendMail.Library
 
 
 		/// <summary>
-		/// Send mail to mailreceivers using System.Net.Mail 
+		/// Send mail to mailreceivers using Mailgun REST API
 		/// </summary>
 		/// <param name="mailInfo"></param>
 		/// <param name="recepients">receivers</param>
@@ -70,40 +71,16 @@ namespace BVNetwork.EPiSendMail.Library
 		/// <returns>A html formatted report of the send process</returns>
 		public override SendMailLog SendEmail(MailInformation mailInfo, JobWorkItems recepients, bool testMode)
 		{
-			_log.Debug("Starting Send");
-			// for logging
-			SendMailLog log = new SendMailLog();
-
-			// Need someone to send to
-			if (recepients.Items.Count == 0)
-			{
-				_log.Error("Trying to send newsletter with an empty JobWorkCollection. Please check the collection before attemting to send mail.");
-				throw new ArgumentNullException("recepients", "Recipient collection is empty, there is no recipients to send to.");
-			}
-
-			// And, we need a sender address
-			if (string.IsNullOrEmpty(mailInfo.From))
-			{
-				_log.Error("Missing from address. SMTP servers do not allow sending without a sender.");
-				throw new ArgumentNullException("mailInfo", "Missing from address. SMTP servers do not allow sending without a sender.");
-			}
-
-			MailgunSettings settings = GetSettings();
-			if (string.IsNullOrEmpty(settings.ApiKey))
-			{
-				throw new ConfigurationErrorsException("Missing Mailgun.ApiKey setting in configuration.");
-			}
-
-			if (string.IsNullOrEmpty(settings.Domain))
-			{
-				throw new ConfigurationErrorsException("Missing Mailgun.Domain setting in configuration.");
-			}
+			_log.Debug("Starting Mailgun Send");
 
 			// Inline all css
 			InlineResult cssInline = PreMailer.Net.PreMailer.MoveCssInline(mailInfo.BodyHtml);
 			mailInfo.BodyHtml = cssInline.Html;
 			
-            // Log any messages, debug is only detected
+            // Base will send
+		    SendMailLog log = base.SendEmail(mailInfo, recepients, testMode);
+
+		    // Log any messages, debug is only detected
             // if we have an HttpContext.
             if (IsInDebugMode())
             {
@@ -111,70 +88,15 @@ namespace BVNetwork.EPiSendMail.Library
                 log.WarningMessages.AddRange(cssInline.Warnings.ToArray());
             }
 
-			// Loop through receivers collection, add to collection and send
-			// one email per batch size.
-			int batchRun = 0;
-			int batchSize = GetBatchSize();
-
-			do
-			{
-				IEnumerable<JobWorkItem> workItems = recepients.Skip(batchRun*batchSize).Take(batchSize);
-				int numberofItemsToSend = workItems.Count();
-				if (numberofItemsToSend == 0)
-					break;
-				batchRun++;
-
-				try
-				{
-					if (SendMail(settings, mailInfo, workItems, testMode))
-					{
-						// Mark each item as sent
-						foreach (JobWorkItem workItem in workItems)
-						{
-							log.SuccessMessages.Add(workItem.EmailAddress);
-							// Update status and save it
-							workItem.Status = JobWorkStatus.Complete;
-							// Only save if real work item (could be a test item)
-							if (workItem.JobId > 0)
-								workItem.Save();
-						}
-					}
-				}
-				catch (Exception ex)
-				{
-					_log.Error(string.Format("Error sending batch (to {0} recipients).", recepients.Count()), ex);
-					string exceptionMsg = ex.Message;
-					log.ErrorMessages.Add(exceptionMsg);
-
-					// Update work item
-					foreach (JobWorkItem workItem in workItems)
-					{
-						workItem.Status = JobWorkStatus.Failed;
-						if (exceptionMsg.Length >= 2000)
-							exceptionMsg = exceptionMsg.Substring(0, 1999);
-						workItem.Info = exceptionMsg;
-						if (workItem.JobId > 0)
-							workItem.Save();
-					}
-
-					// can't continue
-					break;
-				}
-			} while (true);
-
-			// Finished
-			log.SendStop = DateTime.Now;
-
-			_log.Debug("Ending Send");
+			_log.Debug("Ending Mailgun Send");
 			// return report 
 			return log;
 		}
 
-		/// <summary>
-		/// Does the actual send action for the emails
-		/// </summary>
-		internal bool SendMail(MailgunSettings settings, MailInformation mail, IEnumerable<JobWorkItem> recipients, bool onlyTestDontSendMail)
-		{
+	    public override bool SendMailBatch(MailInformation mail, IEnumerable<JobWorkItem> recipients, bool onlyTestDontSendMail)
+	    {
+	        MailgunSettings settings = GetSettings();
+
 			// ReSharper disable PossibleMultipleEnumeration
 			if(recipients == null || recipients.Count() == 0)
 				throw new ArgumentException("No workitems", "recipients");

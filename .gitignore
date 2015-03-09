@@ -159,3 +159,4 @@ $RECYCLE.BIN/
 *.nupkg
 #src/Newsletter/pack.cmd
 src/pack.cmd
+src/Newsletter.SendGrid/pack.cmd

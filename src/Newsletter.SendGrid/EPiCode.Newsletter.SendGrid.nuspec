@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>EPiCode.Newsletter.SendGrid</id>
+        <version>$version$</version>
+        <authors>The EPiCode Community</authors>
+        <owners>BV Network AS</owners>
+        <projectUrl>https://www.coderesort.com/p/epicode/wiki/Newsletter</projectUrl>
+        <iconUrl>http://www.coderesort.com/favicon.ico</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <summary>Send newsletters using the SendGrid API</summary>
+        <description>The SendGrid package for the EPiCode Newsletter module allows you to send newsletters using SendGrid (http://www.sendgrid.com)</description>
+        <dependencies>
+            <dependency id="EPiCode.Newsletter"
+                        version="3.0.11" />
+            <dependency id="Sendgrid"
+                        version="5.1.0" />
+            <dependency id="SendGrid.SmtpApi"
+                        version="1.2.1" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\BVNetwork.EPiSendMail.SendGrid.dll"
+              target="lib\net45\BVNetwork.EPiSendMail.SendGrid.dll" />
+        <file src="bin\BVNetwork.EPiSendMail.SendGrid.dll"
+              target="lib\net451\BVNetwork.EPiSendMail.SendGrid.dll" />
+    </files>
+</package>

@@ -1,0 +1,32 @@
+<%@ Master Language="C#" Inherits="System.Web.UI.MasterPage" AutoEventWireup="true" %>
+<html>
+<head runat="server">
+    <link rel="stylesheet" type="text/css" href="test.css" />
+        <%-- The navigate script is needed by EPiServer to be able to
+         navigate away from this page --%>
+    <script type='text/javascript'>
+		<!--
+		function onNavigate(newPageLink)
+		{
+			return -1;
+		}
+		function onCommand(newCommand)
+		{
+			return -1;
+		}
+		// -->
+	</script>
+</head>
+<body>
+    <form runat="server" runat="server">
+        <a href="." style="color: #aaa;">Test Home</a> | 
+        <a href="<%= Request.Url.ToString() %>" style="color: #aaa;">Reload</a>
+        <br />
+        <a href="Jobs.aspx">Jobs</a> | <a href="WorkItems.aspx">Worker Items</a> | <a href="RecipientLists.aspx">Recipient Lists</a>
+        <br />
+        <asp:ContentPlaceHolder runat="server" id="MainRegion">
+        
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

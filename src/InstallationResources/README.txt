@@ -1,0 +1,1 @@
+This folder contains resources used when packaging the installation module for distribution.

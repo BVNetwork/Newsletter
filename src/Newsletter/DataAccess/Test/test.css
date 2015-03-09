@@ -1,0 +1,39 @@
+/* Styles for test pages */
+body {
+    font-family: Tahoma;
+    font-size: 0.8em;
+}
+
+h1 
+{
+    font-size: 1.5em;
+}
+
+.container {
+    border: 2px #eee solid;
+    padding: 1em;
+    padding-top: 0.6em;
+    margin-top: 1em;
+}
+
+.container h2 {
+    margin-top: -1.2em;
+    font-size: 1.3em;
+}
+
+.container label {
+    width: 7em;
+}
+
+.container table {
+    border: solid 1px #eee;
+    font-size: 1em;
+}
+
+.container td {
+    border: solid 1px #eee;
+}
+
+.container th {
+    text-align: left;
+}

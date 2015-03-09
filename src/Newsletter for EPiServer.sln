@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiCode.Newsletter", "Newsletter\EPiCode.Newsletter.csproj", "{E2EAD191-5D74-4558-BCA7-CA2686BB1759}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{47269F79-2197-4036-9A05-B930EB1BCC09}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiCode.Newsletter.Commerce", "Newsletter.CommerceProvider\EPiCode.Newsletter.Commerce.csproj", "{2474E192-41AE-44C2-9740-80511A1B25AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{7E267B09-C761-4EA2-AA71-C671F26FF0A8}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\MVC\EPiCode.Newsletter.Examples.nuspec = Examples\MVC\EPiCode.Newsletter.Examples.nuspec
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2EAD191-5D74-4558-BCA7-CA2686BB1759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2EAD191-5D74-4558-BCA7-CA2686BB1759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2EAD191-5D74-4558-BCA7-CA2686BB1759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2EAD191-5D74-4558-BCA7-CA2686BB1759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2474E192-41AE-44C2-9740-80511A1B25AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2474E192-41AE-44C2-9740-80511A1B25AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2474E192-41AE-44C2-9740-80511A1B25AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2474E192-41AE-44C2-9740-80511A1B25AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

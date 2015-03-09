@@ -1,0 +1,51 @@
+﻿@using BVNetwork.EPiSendMail.Api
+@model PageViewModel<NewsletterUnsubscribePage>
+
+@{
+    Layout = "~/Views/Shared/Layouts/_LeftNavigation.cshtml";
+    var subscriptionResult = ViewData["SubscriptionResult"] != null ? (SubscriptionResult)ViewData["SubscriptionResult"] : SubscriptionResult.EmailNotValid;
+    var email = ViewData["email"] != null ? ViewData["email"].ToString() : "";
+    if (string.IsNullOrEmpty(email))
+    {
+        subscriptionResult = SubscriptionResult.EmailNotValid;
+    }
+        
+}
+
+<h1>@Html.PropertyFor(m => m.CurrentPage.PageName)</h1>
+<div class="row">
+    <div class="span8 clearfix" @Html.EditAttributes(x => x.CurrentPage.MainBody)>
+        @Html.DisplayFor(m => m.CurrentPage.MainBody)
+    </div>
+</div>
+@if (subscriptionResult == SubscriptionResult.Success)
+{
+    <div class="row">
+        <div class="span8 clearfix">
+            <div class="alert alert-success">
+                <strong>@email</strong> has been unsubscribed.
+            </div>
+        </div>
+    </div>
+}
+else if (subscriptionResult == SubscriptionResult.NotMemberOfList)
+{
+    <div class="row">
+        <div class="span8 clearfix">
+            <div class="alert alert-warning">
+                <strong>Oops!</strong> It seems you have already been unsubscribed.
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="span8 clearfix">
+            <div class="alert alert-error">
+                <strong>We're so sorry!</strong> There was an error during the unsubscription attempt. Please contact us, and we will fix this.
+            </div>
+        </div>
+    </div>
+
+}

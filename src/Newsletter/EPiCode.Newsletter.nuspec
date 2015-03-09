@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>EPiCode.Newsletter</id>
+        <version>$version$</version>
+        <authors>The EPiCode Community</authors>
+        <owners>BV Network AS</owners>
+        <projectUrl>https://www.coderesort.com/p/epicode/wiki/Newsletter</projectUrl>
+        <iconUrl>http://www.coderesort.com/favicon.ico</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Create a new newsletter page, send it to your recipients as an email. Easy to use and quick to integrate.</description>
+        <summary>Sends pages as newsletters through the EPiServer UI.</summary>
+        <references>
+            <reference file="BVNetwork.EPiSendMail.dll" />
+        </references>
+
+        <dependencies>
+            <dependency id="PreMailer.Net"
+                        version="1.2.6" />
+            <dependency id="Microsoft.AspNet.WebApi"
+                        version="5.1.2" />
+            <dependency id="RestSharp"
+                        version="104.4.0" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="content\**\*.*" target="content\modules\epicode.newsletter\content\" />
+        <file src="lang\**\*.*" target="content\lang\" /> 
+        <file src="Plugin\**\*.as?x" target="content\modules\epicode.newsletter\plugin\" />
+        <file src="Plugin\**\*.css"
+              target="content\modules\epicode.newsletter\plugin\" />
+        <file src="Plugin\**\*.config"
+              target="content\modules\epicode.newsletter\plugin\" />
+        <file src="preview.aspx"
+              target="content\modules\epicode.newsletter\preview.aspx" />
+        <file src="module.config"
+              target="content\modules\epicode.newsletter\module.config" />
+
+        <file src="bin\debug\BVNetwork.EPiSendMail.dll"
+              target="lib\net45\BVNetwork.EPiSendMail.dll" />
+        <file src="references\aspNetEmail.dll"
+              target="lib\net45\aspNetEmail.dll" />
+
+        <file src="bin\debug\BVNetwork.EPiSendMail.dll"
+              target="lib\net451\BVNetwork.EPiSendMail.dll" />
+        <file src="references\aspNetEmail.dll"
+              target="lib\net451\aspNetEmail.dll" />
+
+        <!-- This is where the database script goes -->
+        <file src="tools\**\*.*"
+              target="tools\" />
+    </files>
+</package>

@@ -1,0 +1,21 @@
+= Installing the Newsletter Module =
+
+== Requirements ==
+ * EPiServer CMS 7.8 or newer
+
+== Installation ==
+ 1. Install the EPiCode.Newsletter nuget package
+ 1. Install one or more example newsletter templates
+ 1. Run the `Newsletter_Install_SqlScript.sql` in SQL Server Query Editor or SQL Server Management Studio against your EPiServer database (do not create a separate database as we're reusing the same connection string)
+ 1. Inspect your `<system.net><mailSettings><smtp>` settings in web.config. You cannot use the IIS Pick Up Directory setting. Add a network, host and and optionally port, username and password to a local or external SMTP server.
+ 1. An EPiServer scheduled task is responsible for sending the emails. You need to enable the `Send Newsletter Task` scheduled task in Admin mode. Unless you have changed the email batch size, set the job to run every minute.
+ 
+== Getting Started ==
+A newsletter is a ordinary page on your site, based on the Newsletter page type. When you create pages of this type, you will get a new edit panel tab, allowing you to add recipients and send the content of page as an email.
+
+If you want users to be able to subscribe to newsletters you need to create one or more public Recipient Lists (a list of recipients that you'll later use for sending newsletters to.) You can list these lists, and add UI to allow users to subscribe (adding an email to the recipient list).
+
+== Configuration ==
+The module comes with sensible defaults for most configuration settings.
+
+See the online documentation for more information about configuring the Newsletter module.

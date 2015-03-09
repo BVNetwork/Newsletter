@@ -1,0 +1,40 @@
+@model NewsletterContactDetailsBlock
+
+<h6 style="margin-bottom:5px;">Contact Us:</h6>
+@if (@Model.FacebookUrl != null)
+{
+    <table class="tiny-button facebook">
+        <tr>
+            <td>
+                <a href="@Model.FacebookUrl">Facebook</a>
+            </td>
+        </tr>
+    </table>
+    <hr />
+}
+@if (@Model.TwitterUrl != null)
+{
+    <table class="tiny-button twitter">
+        <tr>
+            <td>
+
+                <a href="@Model.TwitterUrl">Twitter</a>
+            </td>
+        </tr>
+    </table>
+    <hr />
+}
+@if (@Model.GooglePlusUrl != null)
+{
+    <table class="tiny-button google-plus">
+        <tr>
+            <td>
+                <a href="@Model.GooglePlusUrl">Google +</a>
+            </td>
+        </tr>
+    </table>
+    <br />
+}
+<h6 style="margin-bottom:5px;">Contact Info:</h6>
+<p>@Model.PhoneNumber</p>
+<p>Email: <a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a></p>

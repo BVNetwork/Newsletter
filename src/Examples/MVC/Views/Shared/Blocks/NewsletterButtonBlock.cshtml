@@ -1,0 +1,16 @@
+@model NewsletterButtonBlock
+
+<table class="button">
+    <tr>
+        <td>
+            <a href="@Url.ContentUrl(Model.ButtonLink)" @Html.EditAttributes(m => m.ButtonText) title="@Model.ButtonText">
+                @{
+                    var buttonText = string.IsNullOrWhiteSpace(Model.ButtonText)
+                        ? Html.TranslateFallback("/blocks/buttonblockcontrol/buttondefaulttext", "Button Text")
+                        : Model.ButtonText;
+                }
+                @buttonText
+            </a>
+        </td>
+    </tr>
+</table>

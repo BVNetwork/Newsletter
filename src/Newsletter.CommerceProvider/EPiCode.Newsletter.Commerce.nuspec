@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>EPiCode.Newsletter.Commerce</id>
+        <version>$version$</version>
+        <authors>The EPiCode Community</authors>
+        <owners>BV Network AS</owners>
+        <projectUrl>https://www.coderesort.com/p/epicode/wiki/Newsletter</projectUrl>
+        <iconUrl>http://www.coderesort.com/favicon.ico</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <summary>Add recipients to your newsletters from EPiServer Commerce contacts</summary>
+        <description>The Commerce package for the EPiCode Newsletter module adds a work item provider for public contact lists in Commerce.</description>
+        <dependencies>
+            <dependency id="EPiCode.Newsletter"
+                        version="3.0.5" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="Plugin\**\*.as?x"
+              target="content\modules\epicode.newsletter\plugin\" />
+        <file src="bin\BVNetwork.EPiSendMail.CommerceProvider.dll"
+              target="lib\net45\BVNetwork.EPiSendMail.CommerceProvider.dll" />
+        <file src="bin\BVNetwork.EPiSendMail.CommerceProvider.dll"
+              target="lib\net451\BVNetwork.EPiSendMail.CommerceProvider.dll" />
+    </files>
+</package>

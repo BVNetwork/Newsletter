@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modifications>
+  <add path="/system.net/mailSettings">
+        <!-- 
+          The Newsletter Module cannot use the
+          pickup directory from IIS. You must
+          add a server and optionally the username
+          and password to it.
+        -->
+        <!--
+        <smtp deliveryMethod="Network">
+            <network host="YourServerHere" 
+                     port="25" 
+                     userName="YourUserName" 
+                     password="YourPassword" 
+                     defaultCredentials="false" />
+        -->
+  </add>
+</modifications>

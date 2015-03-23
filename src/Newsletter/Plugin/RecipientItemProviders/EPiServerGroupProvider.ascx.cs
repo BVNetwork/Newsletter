@@ -23,11 +23,15 @@ namespace BVNetwork.EPiSendMail.Plugin.RecipientItemProviders
 
         private void LoadEPiGroups()
         {
-            if (dropListEPiGroups.Items.Count == 0)
+            if(Roles.Enabled)
             {
-                // Fill it, but only first time
-                dropListEPiGroups.DataSource = Roles.GetAllRoles();
-                dropListEPiGroups.DataBind();
+                if (dropListEPiGroups.Items.Count == 0)
+                {
+                    // Fill it, but only first time
+                    dropListEPiGroups.DataSource = Roles.GetAllRoles();
+                    dropListEPiGroups.DataBind();
+                }
+                
             }
         }
 

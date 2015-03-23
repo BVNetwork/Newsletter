@@ -5,9 +5,9 @@
         <version>$version$</version>
         <authors>The EPiCode Community</authors>
         <owners>BV Network AS</owners>
-        <projectUrl>https://www.coderesort.com/p/epicode/wiki/Newsletter</projectUrl>
+        <projectUrl>https://github.com/BVNetwork/Newsletter</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Example newsletters in MVC for the EPiCode Newsletter module.</description>
+        <description>Example newsletters in MVC for the Alloy sample site. This package uses features in the Alloy site, and will probably not work as expected without it.</description>
         <summary>Install and change the example as you see fit. This package should not be updated, as you will lose your changes.</summary>
         <iconUrl>http://www.coderesort.com/favicon.ico</iconUrl>
         <dependencies>

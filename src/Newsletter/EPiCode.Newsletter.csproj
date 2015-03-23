@@ -210,6 +210,7 @@
     <Compile Include="Api\Models\Configuration.cs" />
     <Compile Include="Api\Models\JobStatus.cs" />
     <Compile Include="Api\Models\RecipientStatus.cs" />
+    <Compile Include="Api\RecipientListController.cs" />
     <Compile Include="Api\RecipientsController.cs" />
     <Compile Include="Api\SubscriptionApi.cs" />
     <Compile Include="Api\SubscriptionController.cs" />

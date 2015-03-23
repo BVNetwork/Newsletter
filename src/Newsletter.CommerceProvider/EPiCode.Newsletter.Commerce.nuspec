@@ -5,7 +5,7 @@
         <version>$version$</version>
         <authors>The EPiCode Community</authors>
         <owners>BV Network AS</owners>
-        <projectUrl>https://www.coderesort.com/p/epicode/wiki/Newsletter</projectUrl>
+        <projectUrl>https://github.com/BVNetwork/Newsletter</projectUrl>
         <iconUrl>http://www.coderesort.com/favicon.ico</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <summary>Add recipients to your newsletters from EPiServer Commerce contacts</summary>

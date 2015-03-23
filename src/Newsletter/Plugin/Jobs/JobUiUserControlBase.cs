@@ -180,14 +180,18 @@ namespace BVNetwork.EPiSendMail.Plugin
         }
 
 
+        // Note! This broke with CMS 8, but since we're not using the languageselector
+        //       from code, we just ignore it
+        //public virtual T Get<T>(ContentReference contentLink) where T : IContentData
+        //{
+        //    // CMS 8
+        //    // LoaderOptions options  = new LoaderOptions();
+        //    // options.Add(new LanguageLoaderOption() {FallbackBehaviour = LanguageBehaviour.Fallback});
+        //    return this.Get<T>(contentLink, (LanguageSelector)LanguageSelector.AutoDetect(true));
+        //}
         public virtual T Get<T>(ContentReference contentLink) where T : IContentData
         {
-            return this.Get<T>(contentLink, LanguageSelector.AutoDetect(true));
-        }
-
-        public virtual T Get<T>(ContentReference contentLink, ILanguageSelector selector) where T : IContentData
-        {
-            T obj = Locate.ContentRepository().Get<T>(contentLink, selector);
+            T obj = Locate.ContentRepository().Get<T>(contentLink);
             if ((object)obj == null)
                 return default(T);
             AccessLevel access = contentLink.CompareToIgnoreWorkID(this.CurrentContentLink) ? AccessLevel.Read : AccessLevel.Read;

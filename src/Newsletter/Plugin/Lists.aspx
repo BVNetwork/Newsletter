@@ -3,11 +3,28 @@
     Inherits="BVNetwork.EPiSendMail.Plugin.Lists" %>
 
 <%@ Import Namespace="BVNetwork.EPiSendMail.DataAccess" %>
+<%@ Import Namespace="BVNetwork.EPiSendMail.Configuration" %>
 <%@ Register TagPrefix="EPiServerShell" Assembly="EPiServer.Shell" Namespace="EPiServer.Shell.Web.UI.WebControls" %>
 <%@ Register TagPrefix="EPiSendMail" TagName="PluginStyles" Src="PluginStyles.ascx" %>
 
 <asp:content runat="server" contentplaceholderid="HeaderContentRegion">
     <EPiSendMail:PluginStyles runat="server" />
+    <script type="text/javascript">
+        function deleteList(listId, rowId) {
+            if (confirm("Are you sure you want to delete this list and all it's recipients?")) {
+                var script = '<%= NewsLetterConfiguration.GetModuleBaseDir("/api/recipientlist/delete?id=") %>' + listId;
+                $.ajax({
+                    url: script,
+                    type: 'DELETE',
+                    success: function (result) {
+                        $("#" + rowId).remove();
+                    }
+                });
+
+            }
+            return false;
+        }
+    </script>
 </asp:content>
 <asp:content runat="server" ContentPlaceHolderID="FullRegion" >
     <EPiServerShell:ShellMenu ID="ShellMenu2" runat="server" SelectionPath="/global/newsletter/lists" Area="Newsletter" />
@@ -30,11 +47,12 @@
                                         <th>Type</th>
                                         <th>Recipients</th>
                                         <th>Description</th>
+                                        <th>&nbsp;</th>
                                     </tr>
                                 </thead>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <tr>
+                            <tr id="<%# "listRow" + Eval("Id") %>">
                                 <td><span class="glyphicon glyphicon-list" style="font-size: 16px;"></span></td>
                                 <td>
                                     <strong>
@@ -47,6 +65,7 @@
                                 <td><%# GetRecipientListTypeString(Eval("ListType")) %></td>
                                 <td><span class="badge"><%# ((RecipientList)Container.DataItem).EmailAddressCount %></span></td>
                                 <td><%# Eval("Description") %></td>
+                                <td><button class="btn btn-sm" onclick="<%# "return deleteList(" + Eval("Id") + ", 'listRow" + Eval("Id") + "')" %>">Delete</button></td>
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>

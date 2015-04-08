@@ -56,6 +56,8 @@ The module will send a page in EPiServer CMS if it inherits the `NewsletterBase`
 
 You can have multiple newsletter pagetypes for different designs, just make sure you inherit the `NewsletterBase` base class in order to show the editor view for it.
 
+If you want to have a plain text version of the newsletter as part of the same email, add a `MainBodyText` property to your newsletter page type. The different senders will use the content of this property as the plain text version of the email (both HTML and plain text is then sent as part of the same email). Email clients that does not support display of HTML can then fall back to the plain text version instead.
+
 ## Installation ##
 1. Select the [EPiServer Nuget Feed](http://nuget.episerver.com/feed/packages.svc/) in Visual Studio Nuget Package Manager Dialog or the Packet Manger Console
 1. Install the EPiCode.Newsletter or EPiCode.Newsletter.Examples (for Alloy) package

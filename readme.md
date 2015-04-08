@@ -75,8 +75,7 @@ The aspnetEmail sender engine is included for backwards compatibility, but will 
 When installing the module, the default sender is the built-in SMTP client in .NET. In order to send emails using SMTP, you need to configure the standard `mailSettings` in web.config:
 
 Example using smtp server. There are more settings you can configure for password protected servers, ssl support etc.
-```
-#!xml
+```xml
 <system.net>
   <mailSettings>
     <smtp deliveryMethod="Network" from="noreply@my.domain.com">
@@ -87,8 +86,7 @@ Example using smtp server. There are more settings you can configure for passwor
 ```
 
 You can also use a pick up directory if you have a SMTP server on your network that can access the pickup directory. The pickup directory delivery is preferable to network, as sending emails goes a lot faster, and you are less likely to get timeouts in the scheduled job.
-```
-#!xml
+```xml
 <system.net>
   <mailSettings>
     <smtp deliveryMethod="SpecifiedPickupDirectory" from="noreply@my.domain.com">
@@ -101,8 +99,7 @@ You can also use a pick up directory if you have a SMTP server on your network t
 
 ### Configuring Mailgun ###
 Add the following keys to the `<appSettings>` section in web.config to use Mailgun:
-```
-#!text/xml
+```xml
 <add key="Newsletter.SenderType" value="BVNetwork.EPiSendMail.Library.MailSenderMailgun, BVNetwork.EPiSendMail" />
 <add key="Mailgun.ApiKey"    value="your-mailgun-api-key-here" />
 <add key="Mailgun.Domain"    value="your-mailgun-domain-here" />
@@ -115,14 +112,12 @@ You also need to configure your mail sending domain for your Mailgun account, wh
 
 ### Configuring SendGrid ###
 Add the following keys to the `<appSettings>` section in web.config to use Mailgun:
-```
-#!text/xml
+```xml
 <add key="Newsletter.SenderType" value="BVNetwork.EPiSendMail.SendGrid.MailSenderSendGrid, BVNetwork.EPiSendMail.SendGrid" />
 ```
 
 Add a new connectionString to configure your SendGrid account:
-```
-#!text/xml
+```xml
 <connectionStrings>
   ...
   <add name="EPiCode.Newsletter.SendGrid" connectionString="username=sendgridusername;password=sendgridpassword" providerName="Custom" />
@@ -135,8 +130,7 @@ If you get an error during startup like this: `Cannot add duplicate collection e
 
 ### Missing Assembly Redirects ###
 In some cases, there are missing assembly redirects for some of the `System.Net` and `System.Web` assemblies. Make sure you have these in your web.config:
-```
-#!xml
+```xml
 <assemblyBinding>
   ...
   <dependentAssembly>

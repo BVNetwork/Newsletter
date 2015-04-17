@@ -8,7 +8,7 @@ using BVNetwork.EPiSendMail.DataAccess.DataUtil;
 
 namespace BVNetwork.EPiSendMail.DataAccess
 {
-    public class Job
+    public class Job : IEmailImporter
     {
         private int _id = 0;
         private JobWorkItems _workItems = null;

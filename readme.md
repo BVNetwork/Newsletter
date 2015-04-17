@@ -65,13 +65,52 @@ If you want to have a plain text version of the newsletter as part of the same e
 
 ## Configuration ##
 The module supports sending emails through different mail senders (also called a ''sender engine''):
+
 1. Recommended: Mailgun (http://mailgun.com) or SendGrid (http://sendgrid.com)
 1. Built-in SMTP support (default)
-1. aspnetEmail component from [AdvancedIntellect](http://www.advancedintellect.com/product.aspx?smtp) (license purchase required). **Note!** This sender is not actively supported.
+1. aspnetEmail component from [AdvancedIntellect](http://www.advancedintellect.com/product.aspx?smtp) (license purchase required). **Note!** This sender is not actively supported and will eventually be removed from the module.
 
 **Note!** We recommend using a cloud sender (Mailgun or SendGrid), as it has the most features and offloads the sending process to the cloud.
 
-The aspnetEmail sender engine is included for backwards compatibility, but will eventually be removed from the module.
+### Configuration Settings in web.config ###
+When you install the module using Nuget, the following configuration is added to web.config: 
+```xml
+<configSections>
+    <section name="epicodeNewsletter" type="BVNetwork.EPiSendMail.Configuration.NewsletterConfigurationSection, BVNetwork.EPiSendMail" />
+</configSections>
+...
+<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderNetSmtp, BVNetwork.EPiSendMail">
+    <recipientListProviders>
+        <add name="RecipientList" displayName="Add from one of your Recipient Lists" url="/modules/epicode.newsletter/plugin/recipientitemproviders/recipientprovider.ascx" />
+        <add name="TextImport" displayName="Import from text" url="/modules/epicode.newsletter/plugin/recipientitemproviders/TextImportProvider.ascx" />
+        <add name="EPiServerGroup" displayName="Add email addresses from an EPiServer Group" url="/modules/epicode.newsletter/plugin/recipientitemproviders/EPiServerGroupProvider.ascx" />
+        <add name="CommerceUsers" displayName="Add email addresses from Commerce Contacts" url="/modules/epicode.newsletter/plugin/recipientitemproviders/CommerceUsersProvider.ascx" />
+    </recipientListProviders>
+</epicodeNewsletter>
+
+```
+> Note! The configuration section was added in version 3.2.0. Prior to this, the sendertype was stored in `<appSettings>`.
+
+**Important!** When you uninstall the module, you need to remove the settings from web.config manually. 
+
+#### Available Sender Engines ####
+The default is the MailSenderNetSmtp engine. Change the `senderType` to select another sender engine.
+SMTP Server: `<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderNetSmtp, BVNetwork.EPiSendMail">`
+Mailgun: `<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderMailgun, BVNetwork.EPiSendMail">`
+SendGrid: `<epicodeNewsletter senderType="BVNetwork.EPiSendMail.SendGrid.MailSenderSendGrid, BVNetwork.EPiSendMail.SendGrid">`
+> Note! Mailgun and SendGrid requires additional settings.
+
+### Recipient List Providers ###
+You can configure which recipient list providers should be available for the user to add 
+```xml
+<recipientListProviders>
+    <add name="RecipientList" displayName="Add from one of your Recipient Lists" url="/modules/epicode.newsletter/plugin/recipientitemproviders/recipientprovider.ascx" />
+    <add name="TextImport" displayName="Import from text" url="/modules/epicode.newsletter/plugin/recipientitemproviders/TextImportProvider.ascx" />
+    <add name="EPiServerGroup" displayName="Add email addresses from an EPiServer Group" url="/modules/epicode.newsletter/plugin/recipientitemproviders/EPiServerGroupProvider.ascx" />
+    <add name="CommerceUsers" displayName="Add email addresses from Commerce Contacts" url="/modules/epicode.newsletter/plugin/recipientitemproviders/CommerceUsersProvider.ascx" />
+</recipientListProviders>
+```
+> Note! This configuration feature is not available prior to version 3.2.0 
 
 ### Configuring SMTP ###
 When installing the module, the default sender is the built-in SMTP client in .NET. In order to send emails using SMTP, you need to configure the standard `mailSettings` in web.config:
@@ -100,9 +139,16 @@ You can also use a pick up directory if you have a SMTP server on your network t
 **Note!** The `pickupDirectoryLocation` can be on a network share.
 
 ### Configuring Mailgun ###
-Add the following keys to the `<appSettings>` section in web.config to use Mailgun:
+Change the `senderType` to the `<epicodeNewsletter>` section in web.config to use Mailgun:
 ```xml
-<add key="Newsletter.SenderType" value="BVNetwork.EPiSendMail.Library.MailSenderMailgun, BVNetwork.EPiSendMail" />
+<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderMailgun, BVNetwork.EPiSendMail">
+ ...
+</epicodeNewsletter>
+
+```
+You also need to add the following `<appSettings>` values in order for the Mailgun sender to be able to authenticate aginst it's REST API. 
+
+```xml
 <add key="Mailgun.ApiKey"    value="your-mailgun-api-key-here" />
 <add key="Mailgun.Domain"    value="your-mailgun-domain-here" />
 <add key="Mailgun.PublicKey" value="your-mailgun-public-key-here" />

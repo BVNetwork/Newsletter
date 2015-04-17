@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BVNetwork.EPiSendMail.Configuration;
+using BVNetwork.EPiSendMail.Plugin.ItemProviders;
 using BVNetwork.EPiSendMail.Plugin.RecipientItemProviders;
 
 namespace BVNetwork.EPiSendMail.Plugin
@@ -12,35 +13,13 @@ namespace BVNetwork.EPiSendMail.Plugin
     {
         const string PROVIDER_SUFFIX = "Provider";
         private Dictionary<string, Control> _providerCtrls = new Dictionary<string, Control>();
-        private List<RecipientListProviderDescriptor> _recipientProviders = new List<RecipientListProviderDescriptor>(); 
+        private List<RecipientListProviderDescriptor> _recipientProviders = null;
 
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
 
-            _recipientProviders.Add(new RecipientListProviderDescriptor(
-                "RecipientList",
-                "Add from one of your Recipient Lists",
-                BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir() + "/plugin/recipientitemproviders/recipientprovider.ascx"
-            ));
-
-            _recipientProviders.Add(new RecipientListProviderDescriptor(
-                "TextImport",
-                "Import from text",
-                BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir() + "/plugin/recipientitemproviders/TextImportProvider.ascx"
-            ));
-
-            _recipientProviders.Add(new RecipientListProviderDescriptor(
-            "EPiServerGroup",
-            "Add email addresses from an EPiServer Group",
-            BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir() + "/plugin/recipientitemproviders/EPiServerGroupProvider.ascx"
-            ));
-
-            _recipientProviders.Add(new RecipientListProviderDescriptor(
-                "CommerceUsers",
-                "Add email addresses from an EPiServer Group",
-                BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir() + "/plugin/recipientitemproviders/CommerceUsersProvider.ascx"
-            ));
+            _recipientProviders = NewsLetterConfiguration.GetRecipientListProviderDescriptors();
 
             foreach (RecipientListProviderDescriptor descriptor in _recipientProviders)
             {
@@ -51,9 +30,13 @@ namespace BVNetwork.EPiSendMail.Plugin
                     ctrl.ID = descriptor.ProviderName + PROVIDER_SUFFIX;
                     _providerCtrls.Add(descriptor.ProviderName, ctrl);
                     pnlProviderContainer.Controls.Add(ctrl);
+
+                    // Initialize the provider, needs to be done this
+                    // early, or post backs won't work
+                    ((IEmailImporterProvider)ctrl).Initialize(RecipientList, RecipientListBase);
+
                 }
             }
-
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -80,7 +63,7 @@ namespace BVNetwork.EPiSendMail.Plugin
             pnlProviderUiContainer.Visible = true;
 
             // Initialize provider
-            ((IRecipientItemProvider)ctrl).Initialize(RecipientList, RecipientListBase);
+            ((IEmailImporterProvider)ctrl).Initialize(RecipientList, RecipientListBase);
             
             // Databind it, to have it load it's values
             ctrl.DataBind();

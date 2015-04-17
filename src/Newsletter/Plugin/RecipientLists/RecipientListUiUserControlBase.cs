@@ -3,13 +3,13 @@ using BVNetwork.EPiSendMail.DataAccess;
 
 namespace BVNetwork.EPiSendMail.Plugin
 {
-    public class RecipientListUiUserControlBase : EPiServer.UserControlBase, IRecipientListUi
+    public class RecipientListUiUserControlBase : EPiServer.UserControlBase, IRecipientListUi, IShowFeedback
     {
         public RecipientListUiPageBase RecipientListBase
         {
             get
             {
-                return this.Page as RecipientListUiPageBase; ;
+                return this.Page as RecipientListUiPageBase;
             }
         }
 

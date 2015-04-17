@@ -7,27 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BVNetwork.EPiSendMail.Plugin.WorkItemProviders {
+namespace BVNetwork.EPiSendMail.Plugin.ItemProviders {
     
     
-    public partial class TextImportProvider {
+    public partial class RecipientProvider {
         
         /// <summary>
-        /// txtAddEmailWorkItems control.
+        /// rptAddFromRecipientLists control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddEmailWorkItems;
-        
-        /// <summary>
-        /// cmdAddCsvEmailAddresses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button cmdAddCsvEmailAddresses;
+        protected global::System.Web.UI.WebControls.Repeater rptAddFromRecipientLists;
     }
 }

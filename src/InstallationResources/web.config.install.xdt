@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+	<configSections>
+		<section name="epicodeNewsletter" type="BVNetwork.EPiSendMail.Configuration.NewsletterConfigurationSection, BVNetwork.EPiSendMail"
+             xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing"/>
+	</configSections>
+	<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderNetSmtp, BVNetwork.EPiSendMail"
+            xdt:Transform="InsertIfMissing">
+        <recipientListProviders>
+            <add name="RecipientList"
+                 displayName="Add from one of your Recipient Lists"
+                 url="/modules/epicode.newsletter/plugin/itemproviders/recipientprovider.ascx" />
+            <add name="TextImport"
+                 displayName="Import from text"
+                 url="/modules/epicode.newsletter/plugin/itemproviders/TextImportProvider.ascx" />
+            <add name="EPiServerGroup"
+                 displayName="Add email addresses from an EPiServer Group"
+                 url="/modules/epicode.newsletter/plugin/itemproviders/EPiServerGroupProvider.ascx"/>
+            <add name="CommerceUsers"
+                 displayName="Add email addresses from Commerce Contacts"
+                 url="/modules/epicode.newsletter/plugin/itemproviders/CommerceUsersProvider.ascx"/>
+        </recipientListProviders>
+	</epicodeNewsletter>
+</configuration>

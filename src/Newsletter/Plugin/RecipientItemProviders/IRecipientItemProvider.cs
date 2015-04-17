@@ -7,7 +7,7 @@ namespace BVNetwork.EPiSendMail.Plugin.RecipientItemProviders
         /// <summary>
         /// Initializes the provider with a recipient list.
         /// </summary>
-        void Initialize(RecipientList list, IRecipientListUi recipientListUi);
+        void Initialize(RecipientList list, IShowFeedback feedbackUi);
 
     }
 }

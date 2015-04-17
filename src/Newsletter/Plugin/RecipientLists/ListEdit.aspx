@@ -1,4 +1,5 @@
 <%@ Page Language="c#" EnableViewState="true" CodeBehind="ListEdit.aspx.cs" AutoEventWireup="True" Inherits="BVNetwork.EPiSendMail.Plugin.RecipientListEdit" %>
+<%@ Import Namespace="BVNetwork.EPiSendMail.Configuration" %>
 
 <%@ Register TagPrefix="EPiSendMail" TagName="StatusMessage" Src="../StatusMessage.ascx" %>
 <%@ Register TagPrefix="EPiSendMail" TagName="AddRecipients" Src="../RecipientLists/AddRecipients.ascx" %>
@@ -9,6 +10,24 @@
 
 <asp:content runat="server" contentplaceholderid="HeaderContentRegion">
     <EPiSendMail:PluginStyles runat="server" />
+    <script type="text/javascript">
+        var statusCountId = '#<%= lblCountOfEmails.ClientID %>';
+        var listId = <%= RecipientListId %>;
+        function updateListInfo() {
+            $.ajax({
+                dataType: "json",
+                type: "GET",
+                url: '<%= NewsLetterConfiguration.GetModuleBaseDir() + "/api/recipientlist/get/" %>' + listId,
+                success: function (data) {
+                    $(statusCountId).html(data.EmailAddressCount);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.debug(jqXHR, textStatus, errorThrown);
+                    $(statusCountId).html('Error');
+                }
+            });
+        }
+    </script>
 </asp:content>
 <asp:content runat="server" contentplaceholderid="FullRegion">
     <EPiServerShell:ShellMenu ID="ShellMenu1" runat="server" SelectionPath="/global/newsletter/lists" Area="Newsletter" />
@@ -39,7 +58,7 @@
                 <%-- Status of list --%>
                 <p>
                 Number of addresses: <span class="badge">
-                <asp:Label ID="lblCountOfEmails" Font-Bold="true" runat="server" /></span>
+                <asp:Label ID="lblCountOfEmails" ClientIDMode="Predictable" Font-Bold="true" runat="server" /></span>
                 </p>    
                 <b>Actions</b>
                 <%-- This link will get it's href from code --%>

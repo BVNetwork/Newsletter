@@ -3,7 +3,7 @@ using EPiServer.Web.Hosting;
 
 namespace BVNetwork.EPiSendMail.Plugin
 {
-    public class RecipientListUiPageBase : PluginWebFormsBase, IRecipientListUi
+    public class RecipientListUiPageBase : PluginWebFormsBase, IRecipientListUi, IShowFeedback
     {
         private RecipientList _recipientList;
         private int _recipientListId = -1;

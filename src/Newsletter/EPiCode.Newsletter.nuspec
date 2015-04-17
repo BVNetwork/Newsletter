@@ -36,6 +36,14 @@
         <file src="module.config"
               target="content\modules\epicode.newsletter\module.config" />
 
+        <!-- Configuration -->
+        <file src="..\InstallationResources\web.config.install.xdt"
+              target="content" />
+        <!--
+        // This removes all changed settings on updates, which is a pain
+        <file src="..\InstallationResources\web.config.uninstall.xdt"
+              target="content" />-->
+        
         <file src="bin\debug\BVNetwork.EPiSendMail.dll"
               target="lib\net45\BVNetwork.EPiSendMail.dll" />
         <file src="references\aspNetEmail.dll"

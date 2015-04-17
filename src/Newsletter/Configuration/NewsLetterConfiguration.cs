@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
 using BVNetwork.EPiSendMail.Library;
+using BVNetwork.EPiSendMail.Plugin;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
@@ -306,6 +307,67 @@ namespace BVNetwork.EPiSendMail.Configuration
             NameValueCollection config = ConfigurationManager.GetSection("newsletterRecipientProviders") as NameValueCollection;
             return config;
         }
+
+
+        /// <summary>
+        /// Gets the recipient list provider descriptors.
+        /// </summary>
+        /// <returns>A list of all the configured recipient list providers</returns>
+        public static List<RecipientListProviderDescriptor> GetRecipientListProviderDescriptors()
+        {
+            List<RecipientListProviderDescriptor> providerList;
+            if(NewsletterConfigurationSection.Instance.RecipientListProviders.Count > 0)
+            {
+                providerList = new List<RecipientListProviderDescriptor>();
+                foreach (RecipientListProvider provider in NewsletterConfigurationSection.Instance.RecipientListProviders)
+                {
+                    providerList.Add(new RecipientListProviderDescriptor(
+                        provider.Name, provider.DisplayName, provider.Url));
+                }
+            }
+            else
+            {
+                // Nothing configured, 
+                providerList = GetDefaultRecipientListProviders();
+            }
+            return providerList;
+        }
+
+        private static List<RecipientListProviderDescriptor> GetDefaultRecipientListProviders()
+        {
+
+            List<RecipientListProviderDescriptor> providerList = new List<RecipientListProviderDescriptor>();
+            providerList.Add(new RecipientListProviderDescriptor(
+                "RecipientList",
+                "Add from one of your Recipient Lists",
+                BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir() +
+                "/plugin/itemproviders/recipientprovider.ascx"
+                ));
+
+            providerList.Add(new RecipientListProviderDescriptor(
+                "TextImport",
+                "Import from text",
+                BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir() +
+                "/plugin/itemproviders/TextImportProvider.ascx"
+                ));
+
+            providerList.Add(new RecipientListProviderDescriptor(
+                "EPiServerGroup",
+                "Add email addresses from an EPiServer Group",
+                BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir() +
+                "/plugin/itemproviders/EPiServerGroupProvider.ascx"
+                ));
+
+            providerList.Add(new RecipientListProviderDescriptor(
+                "CommerceUsers",
+                "Add email addresses from Commerce Contacts",
+                BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir() +
+                "/plugin/itemproviders/CommerceUsersProvider.ascx"
+                ));
+
+            return providerList;
+        }
+
 
     }
 }

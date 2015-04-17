@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{7E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiCode.Newsletter.SendGrid", "Newsletter.SendGrid\EPiCode.Newsletter.SendGrid.csproj", "{DC95640C-908A-49B6-B460-2157586A5DA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiCode.Newsletter.Configuration", "Newsletter.Configuration\EPiCode.Newsletter.Configuration.csproj", "{495118BF-965F-41B3-8077-4A1D789FCE51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{DC95640C-908A-49B6-B460-2157586A5DA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC95640C-908A-49B6-B460-2157586A5DA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC95640C-908A-49B6-B460-2157586A5DA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{495118BF-965F-41B3-8077-4A1D789FCE51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{495118BF-965F-41B3-8077-4A1D789FCE51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{495118BF-965F-41B3-8077-4A1D789FCE51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{495118BF-965F-41B3-8077-4A1D789FCE51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

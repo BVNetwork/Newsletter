@@ -1,23 +1,18 @@
 using System;
 using System.Collections.Generic;
 using BVNetwork.EPiSendMail.DataAccess;
+using BVNetwork.EPiSendMail.Plugin.ItemProviders;
 
-namespace BVNetwork.EPiSendMail.Plugin.RecipientItemProviders
+namespace BVNetwork.EPiSendMail.Plugin.ItemProviders
 {
-    public partial class TextImportProvider : System.Web.UI.UserControl, IRecipientItemProvider
+    public partial class TextImportProvider : System.Web.UI.UserControl, IEmailImporterProvider
     {
-        private static RecipientList _list;
-        private static IRecipientListUi _listUi;
-
+        private IEmailImporter _importer;
+        private IShowFeedback _feedbackCtrl;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // Do not do databind here - the container will do this for us
-        }
-
-        protected override void OnDataBinding(EventArgs e)
-        {
-            base.OnDataBinding(e);
         }
 
         protected void cmdAddCsvEmailAddresses_Click(object sender, EventArgs e)
@@ -25,7 +20,7 @@ namespace BVNetwork.EPiSendMail.Plugin.RecipientItemProviders
             string addresses = txtAddEmailWorkItems.Text;
             if (string.IsNullOrEmpty(addresses))
             {
-                _listUi.ShowError("Please enter email addresses to import.");
+                _feedbackCtrl.ShowError("Please enter email addresses to import.");
                 return;
             }
 
@@ -34,7 +29,7 @@ namespace BVNetwork.EPiSendMail.Plugin.RecipientItemProviders
             List<string> invalidAddresses;
             
             System.Diagnostics.Stopwatch tmr = System.Diagnostics.Stopwatch.StartNew();
-            int count = _list.ImportEmailAddresses(addresses, out invalidAddresses, out duplicateAddresses);
+            int count = _importer.ImportEmailAddresses(addresses, out invalidAddresses, out duplicateAddresses);
             tmr.Stop();
 
             string invalidMessage = "";
@@ -52,7 +47,7 @@ namespace BVNetwork.EPiSendMail.Plugin.RecipientItemProviders
                              "Number of invalid addresses: {3} <br />\n" +
                              "{4}";
 
-            _listUi.ShowInfo(string.Format(message,
+            _feedbackCtrl.ShowInfo(string.Format(message,
                                         count.ToString(),
                                         tmr.ElapsedMilliseconds.ToString(),
                                         duplicateAddresses.Count.ToString(),
@@ -61,25 +56,10 @@ namespace BVNetwork.EPiSendMail.Plugin.RecipientItemProviders
                                 ));
         }
 
-        #region IRecipientItemProvider Members
-
-        public void Initialize(BVNetwork.EPiSendMail.DataAccess.RecipientList list, IRecipientListUi listUi)
+        public void Initialize(IEmailImporter importer, IShowFeedback feedbackUi)
         {
-            _list = list;
-            _listUi = listUi;
-        }
-
-        #endregion
-
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            cmdAddCsvEmailAddresses.Click += new EventHandler(cmdAddCsvEmailAddresses_Click);
+            _importer = importer;
+            _feedbackCtrl = feedbackUi;
         }
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using BVNetwork.EPiSendMail.DataAccess.DataUtil;
+using Newtonsoft.Json;
 
 namespace BVNetwork.EPiSendMail.DataAccess
 {
-    public class RecipientList
+    public class RecipientList : IEmailImporter
     {
         private RecipientListType _type = RecipientListType.PrivateList;
         private int _id = 0;
@@ -184,6 +185,7 @@ namespace BVNetwork.EPiSendMail.DataAccess
         /// in the database.
         /// </remarks>
         /// <value>The email addresses.</value>
+        [JsonIgnore]
         public EmailAddresses EmailAddresses
         {
             get

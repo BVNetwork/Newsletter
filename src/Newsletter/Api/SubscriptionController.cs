@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace BVNetwork.EPiSendMail.Api
 {
-    public class SubscriptionController : ApiController
+    public class SubscriptionController : ApiBaseController
     {
         private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(SubscriptionController));
 
@@ -128,7 +128,7 @@ namespace BVNetwork.EPiSendMail.Api
             return result;
         }
 
-        protected static JObject GetSubscriptionResult(bool result)
+        protected JObject GetSubscriptionResult(bool result)
         {
             return JObject.FromObject(new
             {

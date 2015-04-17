@@ -205,6 +205,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Newsletter.Configuration\NewsletterConfigurationSection1.csd.cs">
+      <Link>Configuration\NewsletterConfigurationSection1.csd.cs</Link>
+    </Compile>
+    <Compile Include="Api\ApiBaseController.cs" />
     <Compile Include="Api\InstallerController.cs" />
     <Compile Include="Api\JobController.cs" />
     <Compile Include="Api\Models\Configuration.cs" />
@@ -231,6 +235,7 @@
     <Compile Include="DataAccess\EmailAddresses.cs" />
     <Compile Include="DataAccess\EmailAddressSource.cs" />
     <Compile Include="DataAccess\EmailSyntaxValidator.cs" />
+    <Compile Include="DataAccess\IEmailImporter.cs" />
     <Compile Include="DataAccess\Job.cs" />
     <Compile Include="DataAccess\Jobs.cs" />
     <Compile Include="DataAccess\JobStatus.cs" />
@@ -294,6 +299,7 @@
     <Compile Include="Plugin\Admin\NewsLetterInstall.aspx.designer.cs">
       <DependentUpon>NewsLetterInstall.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Plugin\ItemProviders\IEmailImporterProvider.cs" />
     <Compile Include="Plugin\Jobs\AddWorkItems.ascx.cs">
       <DependentUpon>AddWorkItems.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -416,26 +422,12 @@
       <DependentUpon>WorkItemsEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Plugin\NewsLetterMenuProvider.cs" />
-    <Compile Include="Plugin\RecipientItemProviders\EPiServerGroupProvider.ascx.cs">
-      <DependentUpon>EPiServerGroupProvider.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Plugin\RecipientItemProviders\EPiServerGroupProvider.ascx.designer.cs">
-      <DependentUpon>EPiServerGroupProvider.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Plugin\RecipientItemProviders\IRecipientItemProvider.cs" />
-    <Compile Include="Plugin\RecipientItemProviders\RecipientProvider.ascx.cs">
-      <DependentUpon>RecipientProvider.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Plugin\RecipientItemProviders\RecipientProvider.ascx.designer.cs">
-      <DependentUpon>RecipientProvider.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Plugin\RecipientItemProviders\TextImportProvider.ascx.cs">
+    <Compile Include="Plugin\ItemProviders\TextImportProvider.ascx.cs">
       <DependentUpon>TextImportProvider.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Plugin\RecipientItemProviders\TextImportProvider.ascx.designer.cs">
+    <Compile Include="Plugin\ItemProviders\TextImportProvider.ascx.designer.cs">
       <DependentUpon>TextImportProvider.ascx</DependentUpon>
     </Compile>
     <Compile Include="Plugin\RecipientLists\AddRecipients.ascx.cs">
@@ -494,11 +486,11 @@
     <Compile Include="Plugin\StatusMessage.ascx.designer.cs">
       <DependentUpon>StatusMessage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Plugin\WorkItemProviders\EPiServerGroupProvider.ascx.cs">
+    <Compile Include="Plugin\ItemProviders\EPiServerGroupProvider.ascx.cs">
       <DependentUpon>EPiServerGroupProvider.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Plugin\WorkItemProviders\EPiServerGroupProvider.ascx.designer.cs">
+    <Compile Include="Plugin\ItemProviders\EPiServerGroupProvider.ascx.designer.cs">
       <DependentUpon>EPiServerGroupProvider.ascx</DependentUpon>
     </Compile>
     <Compile Include="Plugin\WorkItemProviders\RecipientRemoveProvider.ascx.cs">
@@ -515,19 +507,12 @@
     <Compile Include="Plugin\WorkItemProviders\TextRemoveProvider.ascx.designer.cs">
       <DependentUpon>TextRemoveProvider.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Plugin\WorkItemProviders\TextImportProvider.ascx.cs">
-      <DependentUpon>TextImportProvider.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Plugin\WorkItemProviders\TextImportProvider.ascx.designer.cs">
-      <DependentUpon>TextImportProvider.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Plugin\WorkItemProviders\IWorkItemProvider.cs" />
-    <Compile Include="Plugin\WorkItemProviders\RecipientProvider.ascx.cs">
+    <Compile Include="Plugin\ItemProviders\RecipientProvider.ascx.cs">
       <DependentUpon>RecipientProvider.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Plugin\WorkItemProviders\RecipientProvider.ascx.designer.cs">
+    <Compile Include="Plugin\ItemProviders\RecipientProvider.ascx.designer.cs">
       <DependentUpon>RecipientProvider.ascx</DependentUpon>
     </Compile>
     <Compile Include="ScheduledTasks\SendNewsLetterTask.cs" />
@@ -603,11 +588,7 @@
     <Content Include="Plugin\Newsletters.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Plugin\RecipientItemProviders\EPiServerGroupProvider.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
-    <Content Include="Plugin\RecipientItemProviders\RecipientProvider.ascx" />
-    <Content Include="Plugin\RecipientItemProviders\TextImportProvider.ascx">
+    <Content Include="Plugin\ItemProviders\TextImportProvider.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Plugin\RecipientLists\AddRecipients.ascx">
@@ -621,7 +602,9 @@
     <Content Include="Plugin\RecipientLists\ListEdit.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Plugin\RecipientLists\RecipientItemsEdit.aspx" />
+    <Content Include="Plugin\RecipientLists\RecipientItemsEdit.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Plugin\PluginStyles.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -631,17 +614,14 @@
     <Content Include="Plugin\StatusMessage.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Plugin\WorkItemProviders\EPiServerGroupProvider.ascx" />
+    <Content Include="Plugin\ItemProviders\EPiServerGroupProvider.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Plugin\WorkItemProviders\RecipientRemoveProvider.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Plugin\WorkItemProviders\TextRemoveProvider.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
-    <Content Include="Plugin\WorkItemProviders\TextImportProvider.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
-    <Content Include="Plugin\WorkItemProviders\RecipientProvider.ascx">
+    <Content Include="Plugin\WorkItemProviders\TextRemoveProvider.ascx" />
+    <Content Include="Plugin\ItemProviders\RecipientProvider.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="preview.aspx" />
@@ -673,31 +653,32 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-            @echo off
-            echo POST BUILD EVENT DISABLED
-            goto continue
+    <PostBuildEvent>@echo off
+echo Copy "$(TargetDir)$(TargetName).*" to "C:\EPiServer\Demo78\Demo78\bin\"
+copy "$(TargetDir)$(TargetName).*" "C:\EPiServer\Demo78\Demo78\bin\"
+REM echo POST BUILD EVENT DISABLED
+goto continue
 
-            echo Running custom deployment script from: $(SolutionDir)
+echo Running custom deployment script from: $(SolutionDir)
 
-            REM Don't copy if there is no solution defined
-            set solutionName=$(SolutionName)
-            if "%25solutionName%25"=="*Undefined*" GOTO Skip
+REM Don't copy if there is no solution defined
+set solutionName=$(SolutionName)
+if "%25solutionName%25"=="*Undefined*" GOTO Skip
 
-            if exist $(SolutionDir)DeployNewsletter.cmd (
-            call $(SolutionDir)DeployNewsletter.cmd $(ConfigurationName) "$(ProjectDir)" "$(TargetDir)" "$(SolutionDir)"
-            goto continue
-            ) else (
-            echo No custom deployment will be performed.
-            echo $(SolutionDir)DeployNewsletter.cmd does not exist.
-            goto continue
-            )
+if exist $(SolutionDir)DeployNewsletter.cmd (
+call $(SolutionDir)DeployNewsletter.cmd $(ConfigurationName) "$(ProjectDir)" "$(TargetDir)" "$(SolutionDir)"
+goto continue
+) else (
+echo No custom deployment will be performed.
+echo $(SolutionDir)DeployNewsletter.cmd does not exist.
+goto continue
+)
 
-            :skip
-            echo No solution, skipping deployment step
+:skip
+echo No solution, skipping deployment step
 
-            :continue
-        </PostBuildEvent>
+:continue
+</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

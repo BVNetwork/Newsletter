@@ -1,9 +1,7 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EPiServerGroupProvider.ascx.cs" Inherits="BVNetwork.EPiSendMail.Plugin.WorkItemProviders.EPiServerGroupProvider" %>
-<%@ Import Namespace="BVNetwork.EPiSendMail.Configuration" %>
-
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EPiServerGroupProvider.ascx.cs" Inherits="BVNetwork.EPiSendMail.Plugin.ItemProviders.EPiServerGroupProvider" %>
 
 <script>
-
+    
     function addEPiServerGroupRecipients() {
         $.ajax({
             beforeSend: function () {
@@ -14,7 +12,8 @@
             },
             dataType: "json",
             type: 'POST',
-            url: '<%= NewsLetterConfiguration.GetModuleBaseDir() %>/api/recipients/addrecipientsfromepiservergroupname?jobid=<%= this.NewsletterJob.Id %>&groupname=' + $("#dropListEPiGroups").val(),
+            <%-- Important that this is added through databinding --%>
+            url: '<%# ApiUrl %>&groupname=' + $("#dropListEPiGroups").val(),
             success: function (data) {
                 var html = $('#successEPiServerGroupTemplate').render(data);
                 $('#pnlSendStatus').html(html);
@@ -35,7 +34,7 @@
 </script>
 <asp:Panel ID="Panel1" runat="server">
     <!-- Add Work Items from group in EPiServer-->
-    <b>Select EPiServer group to add users as worker items:</b>
+    <b>Select EPiServer group to add email addresses from:</b>
     <br />
 
     <asp:DropDownList runat="server" ID="dropListEPiGroups" enableviewstate="false"

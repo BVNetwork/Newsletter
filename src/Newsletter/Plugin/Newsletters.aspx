@@ -18,7 +18,7 @@
 					<div class="col-lg-12">
 						<h1>Newsletters</h1>
 						<%-- Newsletters that has not been sent, or that is in progress of beeing sent. --%>
-						<asp:Repeater runat="server" ID="rptNewsLettersInProgress" >
+						<asp:Repeater runat="server" ID="rptNewsLettersInProgress" EnableViewState="False" >
 							<HeaderTemplate>
                             <table class="table table-striped">
                                 <thead>

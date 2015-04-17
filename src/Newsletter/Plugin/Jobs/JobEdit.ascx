@@ -19,8 +19,9 @@
                 $('#pnlSendStatus').html(html);
 
                 // Attempt to update the job status
-                if (updateStatus)
+                if (typeof updateStatus === 'function') {
                     updateStatus();
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.debug(jqXHR, textStatus, errorThrown);
@@ -130,7 +131,7 @@
 
                                 <div class="col-md-12">
                                     <h2>Test the Newsletter</h2>
-                                    <p>Send a test newsletter to make sure it looks OK. Add email addresses to the text box, separated by comma or newline.
+                                    <p>Send a test newsletter to make sure it looks OK. Add email addresses separated by comma or newline.
                                     </p>
                                     <p>
                                     <b>Note!</b> The email subject will show "(TEST)"

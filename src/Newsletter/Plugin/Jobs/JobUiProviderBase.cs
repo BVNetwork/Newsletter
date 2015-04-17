@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BVNetwork.EPiSendMail.Plugin.ItemProviders;
 using BVNetwork.EPiSendMail.Plugin.WorkItemProviders;
 
 namespace BVNetwork.EPiSendMail.Plugin
@@ -9,10 +10,10 @@ namespace BVNetwork.EPiSendMail.Plugin
     public abstract class JobUiProviderBase : JobUiUserControlBase
     {
         const string PROVIDER_SUFFIX = "Provider";
-        private List<WorkItemProviderDescriptor> _workItemProviders = new List<WorkItemProviderDescriptor>();
-        private Dictionary<string, Control> _providerCtrls = new Dictionary<string, Control>();
+        private readonly List<RecipientListProviderDescriptor> _workItemProviders = new List<RecipientListProviderDescriptor>();
+        private readonly Dictionary<string, Control> _providerCtrls = new Dictionary<string, Control>();
 
-        public List<WorkItemProviderDescriptor> WorkItemProviders
+        public List<RecipientListProviderDescriptor> WorkItemProviders
         {
             get
             {
@@ -41,7 +42,7 @@ namespace BVNetwork.EPiSendMail.Plugin
         protected void LoadProviderControls()
         {
             // Add controls from descriptors
-            foreach (WorkItemProviderDescriptor provider in _workItemProviders)
+            foreach (RecipientListProviderDescriptor provider in WorkItemProviders)
             {
                 Control ctrl = null;
                 ctrl = Page.LoadControl(provider.UserControlUrl);
@@ -56,7 +57,7 @@ namespace BVNetwork.EPiSendMail.Plugin
         protected void AddProvidersToUiContainer()
         {
             // Hide the other controls
-            foreach (KeyValuePair<string, Control> keyValue in _providerCtrls)
+            foreach (KeyValuePair<string, Control> keyValue in ProviderControls)
             {
                 ProviderContainer.Controls.Add(keyValue.Value);
             }
@@ -77,7 +78,7 @@ namespace BVNetwork.EPiSendMail.Plugin
            
         }
 
-        protected void AddProviderWithChecks(List<WorkItemProviderDescriptor> providers, WorkItemProviderDescriptor provider)
+        protected void AddProviderWithChecks(List<RecipientListProviderDescriptor> providers, RecipientListProviderDescriptor provider)
         {
             if (provider.ProviderControlExists == true)
                 providers.Add(provider);
@@ -107,7 +108,7 @@ namespace BVNetwork.EPiSendMail.Plugin
             ctrl = _providerCtrls[CurrentProvider];
             ctrl.Visible = true;
             // Initialize provider
-            ((IWorkItemProvider)ctrl).Initialize(NewsletterJob, this);
+            ((IEmailImporterProvider)ctrl).Initialize(NewsletterJob, this);
             // Databind it, to have it load it's values
             ctrl.DataBind();
 

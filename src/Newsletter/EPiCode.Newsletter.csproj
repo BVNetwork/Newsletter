@@ -413,7 +413,6 @@
     <Compile Include="Plugin\GettingStarted.ascx.designer.cs">
       <DependentUpon>GettingStarted.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Plugin\WorkItemProviderDescriptor.cs" />
     <Compile Include="Plugin\Jobs\WorkItemsEdit.aspx.cs">
       <DependentUpon>WorkItemsEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -443,13 +442,6 @@
     </Compile>
     <Compile Include="Plugin\RecipientLists\RecipientListDeleted.aspx.designer.cs">
       <DependentUpon>RecipientListDeleted.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Plugin\RecipientLists\RemoveRecipients.ascx.cs">
-      <DependentUpon>RemoveRecipients.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Plugin\RecipientLists\RemoveRecipients.ascx.designer.cs">
-      <DependentUpon>RemoveRecipients.ascx</DependentUpon>
     </Compile>
     <Compile Include="Plugin\RecipientLists\NewRecipientList.aspx.cs">
       <DependentUpon>NewRecipientList.aspx</DependentUpon>
@@ -595,9 +587,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Plugin\RecipientLists\RecipientListDeleted.aspx" />
-    <Content Include="Plugin\RecipientLists\RemoveRecipients.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
     <Content Include="Plugin\RecipientLists\NewRecipientList.aspx" />
     <Content Include="Plugin\RecipientLists\ListEdit.aspx">
       <SubType>ASPXCodeBehind</SubType>

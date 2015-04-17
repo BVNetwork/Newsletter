@@ -9,8 +9,6 @@ namespace BVNetwork.EPiSendMail.Plugin.ItemProviders
     public partial class RecipientProvider : System.Web.UI.UserControl, IEmailImporterProvider
     {
         public string ApiUrl = null;
-        private IEmailImporter _importer;
-        private IShowFeedback _feedbackCtrl;
 
         protected void Page_Load(object sender, EventArgs e)
         {

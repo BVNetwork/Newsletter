@@ -3,7 +3,7 @@
             Inherits="BVNetwork.EPiSendMail.Plugin.AddRecipients" %>
 
 <h2>Add Recipients</h2>
-Please choose a provider for importing more recipients:
+Please choose a provider for importing recipients:
 <br />
 <asp:Panel ID="pnlImportProviders" runat="server" style="padding-left: 1.5em;">
     <asp:Repeater runat="server" ID="lstRecipientProviders2">

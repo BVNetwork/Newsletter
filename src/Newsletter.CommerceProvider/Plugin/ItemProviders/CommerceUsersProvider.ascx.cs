@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using BVNetwork.EPiSendMail.DataAccess;
 using BVNetwork.EPiSendMail.Plugin;
+using BVNetwork.EPiSendMail.Plugin.ItemProviders;
 using BVNetwork.EPiSendMail.Plugin.WorkItemProviders;
 using EPiServer.Framework.Localization;
 using Mediachase.BusinessFoundation.Core;
 using Mediachase.BusinessFoundation.Data.Business;
 using Mediachase.Commerce.Security;
 
-namespace BVNetwork.EPiSendMail.CommerceProvider.modules.bvn.SendMail.Plugin.WorkItemProviders
+namespace BVNetwork.EPiSendMail.CommerceProvider.Plugin.ItemProviders
 {
-    public partial class CommerceUsersProvider : System.Web.UI.UserControl, IWorkItemProvider
+    public partial class CommerceUsersProvider : System.Web.UI.UserControl, IEmailImporterProvider
     {
-        private Job _job;
-        private IJobUi _jobUi;
+        private IEmailImporter _job;
+        private IShowFeedback _jobUi;
         private const string MetaClassName = "Contact";
 
         protected void Page_Load(object sender, EventArgs e)
@@ -37,7 +38,7 @@ namespace BVNetwork.EPiSendMail.CommerceProvider.modules.bvn.SendMail.Plugin.Wor
                 List<KeyValuePair<string, string>> allCustomerViews = new List<KeyValuePair<string, string>>();
                 foreach (ListViewProfile listViewProfile in systemProfiles)
                 {
-                    arrayList.Add((object)listViewProfile.Id);
+                    arrayList.Add((object) listViewProfile.Id);
                     string name = listViewProfile.Name;
                     if (name.StartsWith("{"))
                     {
@@ -48,21 +49,21 @@ namespace BVNetwork.EPiSendMail.CommerceProvider.modules.bvn.SendMail.Plugin.Wor
                     }
                     allCustomerViews.Add(new KeyValuePair<string, string>(listViewProfile.Id, "  " + name));
                 }
-                ListViewProfile[] userProfiles = ListViewProfile.GetProfiles(MetaClassName, "EntityList", SecurityContext.Current.CurrentContactId);
+                ListViewProfile[] userProfiles = ListViewProfile.GetProfiles(MetaClassName, "EntityList",
+                    SecurityContext.Current.CurrentContactId);
                 foreach (ListViewProfile listViewProfile in userProfiles)
                 {
-                    if (!arrayList.Contains((object)listViewProfile.Id))
-                        allCustomerViews.Add(new KeyValuePair<string, string>(listViewProfile.Id, "  " + listViewProfile.Name));
+                    if (!arrayList.Contains((object) listViewProfile.Id))
+                        allCustomerViews.Add(new KeyValuePair<string, string>(listViewProfile.Id,
+                            "  " + listViewProfile.Name));
                 }
                 dropListUserViews.DataSource = allCustomerViews;
                 dropListUserViews.DataTextField = "Value";
                 dropListUserViews.DataValueField = "Key";
                 dropListUserViews.DataBind();
             }
+        }
 
-          
-            }
-   
         protected void cmdCustomerViewEmailAddresses_Click(object sender, EventArgs e)
         {
             ListViewProfile selectedProfile = ListViewProfile.Load(MetaClassName, dropListUserViews.SelectedValue, "EntityList");
@@ -117,15 +118,11 @@ namespace BVNetwork.EPiSendMail.CommerceProvider.modules.bvn.SendMail.Plugin.Wor
 
         }
 
-        #region IRecipientItemProvider Members
-
-
-        #endregion
-
-        public void Initialize(Job job, IJobUi jobUi)
+        public void Initialize(IEmailImporter importer, IShowFeedback feedbackUi)
         {
-            _job = job;
-            _jobUi = jobUi;
+            _job = importer;
+            _jobUi = feedbackUi;
+            
         }
     }
 }

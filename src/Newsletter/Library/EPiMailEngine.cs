@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
+using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
 using EPiServer.Core;
 
@@ -112,9 +113,18 @@ namespace BVNetwork.EPiSendMail.Library
         public string GetMailSenderTypeName()
         {
             const string defSender = "MailSenderNetSmtp";
-            string typeName = Configuration.NewsLetterConfiguration.MailSenderTypename;
+
+            // First get from new config section
+            string typeName = NewsletterConfigurationSection.Instance.SenderType;
+            if(string.IsNullOrEmpty(typeName))
+            {
+                // Fallback to previous way of configuration in appSettings
+                typeName = NewsLetterConfiguration.MailSenderTypename;
+            }
+
             if (typeName == null)
             {
+                // Last resort - use SMTP as default as sensible default
                 typeName = this.GetType().Namespace + "." + defSender + ", " + this.GetType().Assembly.FullName;
             }
 

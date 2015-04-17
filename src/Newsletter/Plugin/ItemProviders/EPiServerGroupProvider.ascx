@@ -17,6 +17,11 @@
             success: function (data) {
                 var html = $('#successEPiServerGroupTemplate').render(data);
                 $('#pnlSendStatus').html(html);
+                // Ask to update the total count too
+                if (typeof updateListInfo === 'function') {
+                    updateListInfo();
+                }
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.debug(jqXHR, textStatus, errorThrown);

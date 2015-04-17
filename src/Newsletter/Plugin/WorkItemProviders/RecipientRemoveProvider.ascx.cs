@@ -1,13 +1,14 @@
 using System;
 using System.Web.UI.WebControls;
 using BVNetwork.EPiSendMail.DataAccess;
+using BVNetwork.EPiSendMail.Plugin.ItemProviders;
 
 namespace BVNetwork.EPiSendMail.Plugin.WorkItemProviders
 {
-    public partial class RecipientRemoveProvider : System.Web.UI.UserControl, IWorkItemProvider
+    public partial class RecipientRemoveProvider : System.Web.UI.UserControl, IEmailImporterProvider
     {
         private Job _job;
-        private IJobUi _jobUi;
+        private IShowFeedback _jobUi;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -75,14 +76,10 @@ namespace BVNetwork.EPiSendMail.Plugin.WorkItemProviders
             }
         }
 
-        #region IWorkItemProvider Members
-
-        public void Initialize(BVNetwork.EPiSendMail.DataAccess.Job job, IJobUi jobUi)
+        public void Initialize(IEmailImporter importer, IShowFeedback feedbackUi)
         {
-            _job = job;
-            _jobUi = jobUi;
+            _job = (Job)importer;
+            _jobUi = feedbackUi;
         }
-
-        #endregion
     }
 }

@@ -12,7 +12,7 @@ using EPiServer.Web.Routing;
 
 namespace BVNetwork.EPiSendMail.Plugin
 {
-    public class JobUiUserControlBase : EPiServer.UserControlBase, IJobUi
+    public class JobUiUserControlBase : EPiServer.UserControlBase, IJobUi, IShowFeedback
     {
         private Job _job;
         private int _jobId = -1;

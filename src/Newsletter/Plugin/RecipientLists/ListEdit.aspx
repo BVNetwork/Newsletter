@@ -45,14 +45,6 @@
                 <asp:Panel ID="pnlAddEmailAddressesToList" runat="server">
                     <EPiSendMail:AddRecipients runat="server" id="ucAddRecipients" />
                 </asp:Panel>
-
-                <%-- Remove recipiants items from different sources 
-                         NOTE! This is not working yet, the providers can only add, not remove
-                --%>
-                <asp:Panel ID="pnlRemoveFromList" runat="server" Visible="false">
-                    <EPiSendMail:removerecipients runat="server" id="ucRemoveRecipients" />
-                </asp:Panel>
-
             </div>
             <div class="col-lg-3 well" style="padding-top: 1em;">
                 <%-- Status of list --%>

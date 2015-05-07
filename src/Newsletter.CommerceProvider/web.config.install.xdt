@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+	<epicodeNewsletter>
+        <recipientListProviders>
+            <add name="CommerceUsers"
+                 displayName="Add email addresses from Commerce Contacts"
+                 url="/modules/epicode.newsletter/plugin/itemproviders/CommerceUsersProvider.ascx"
+                 xdt:Locator="Match(name)"
+                 xdt:Transform="InsertIfMissing" />
+        </recipientListProviders>
+	</epicodeNewsletter>
+</configuration>

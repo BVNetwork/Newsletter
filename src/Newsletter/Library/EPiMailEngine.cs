@@ -114,12 +114,13 @@ namespace BVNetwork.EPiSendMail.Library
         {
             const string defSender = "MailSenderNetSmtp";
 
-            // First get from new config section
-            string typeName = NewsletterConfigurationSection.Instance.SenderType;
+            // For backwards compatibility, we need to use the appSettings value first
+            string typeName = NewsLetterConfiguration.MailSenderTypename;
+
             if(string.IsNullOrEmpty(typeName))
             {
-                // Fallback to previous way of configuration in appSettings
-                typeName = NewsLetterConfiguration.MailSenderTypename;
+                // Get from new config section
+                typeName = NewsletterConfigurationSection.Instance.SenderType;
             }
 
             if (typeName == null)

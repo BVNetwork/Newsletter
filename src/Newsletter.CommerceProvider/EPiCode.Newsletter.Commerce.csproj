@@ -30,9 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EPiServer.Framework, Version=7.5.394.2, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\EPiServer.Framework.dll</HintPath>
+    <Reference Include="EPiServer.Framework">
+      <HintPath>..\Newsletter\References\EPiServer.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Mediachase.BusinessFoundation">
       <HintPath>References\Mediachase.BusinessFoundation.dll</HintPath>
@@ -52,17 +51,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfoVersion.cs" />
-    <Compile Include="Plugin\WorkItemProviders\CommerceUsersProvider.ascx.cs">
+    <Compile Include="Plugin\ItemProviders\CommerceUsersProvider.ascx.cs">
       <DependentUpon>CommerceUsersProvider.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Plugin\WorkItemProviders\CommerceUsersProvider.ascx.designer.cs">
+    <Compile Include="Plugin\ItemProviders\CommerceUsersProvider.ascx.designer.cs">
       <DependentUpon>CommerceUsersProvider.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Plugin\WorkItemProviders\CommerceUsersProvider.ascx">
+    <Content Include="Plugin\ItemProviders\CommerceUsersProvider.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
   </ItemGroup>
@@ -76,6 +75,7 @@
     <None Include="EPiCode.Newsletter.Commerce.nuspec">
       <SubType>Designer</SubType>
     </None>
+    <None Include="web.config.install.xdt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

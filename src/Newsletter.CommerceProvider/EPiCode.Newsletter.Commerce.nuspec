@@ -18,6 +18,11 @@
     <files>
         <file src="Plugin\**\*.as?x"
               target="content\modules\epicode.newsletter\plugin\" />
+
+        <!-- Configuration -->
+        <file src="web.config.install.xdt"
+              target="content" />
+
         <file src="bin\BVNetwork.EPiSendMail.CommerceProvider.dll"
               target="lib\net45\BVNetwork.EPiSendMail.CommerceProvider.dll" />
         <file src="bin\BVNetwork.EPiSendMail.CommerceProvider.dll"

@@ -49,6 +49,7 @@ namespace BVNetwork.EPiSendMail.CommerceProvider.Plugin.ItemProviders
                     }
                     allCustomerViews.Add(new KeyValuePair<string, string>(listViewProfile.Id, "  " + name));
                 }
+
                 ListViewProfile[] userProfiles = ListViewProfile.GetProfiles(MetaClassName, "EntityList",
                     SecurityContext.Current.CurrentContactId);
                 foreach (ListViewProfile listViewProfile in userProfiles)

@@ -7,7 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BVNetwork.EPiSendMail.CommerceProvider.modules.bvn.SendMail.Plugin.WorkItemProviders {
+namespace BVNetwork.EPiSendMail.CommerceProvider.Plugin.ItemProviders
+{
     
     
     public partial class CommerceUsersProvider {

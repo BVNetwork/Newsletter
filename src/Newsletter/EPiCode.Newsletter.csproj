@@ -609,7 +609,9 @@
     <Content Include="Plugin\WorkItemProviders\RecipientRemoveProvider.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Plugin\WorkItemProviders\TextRemoveProvider.ascx" />
+    <Content Include="Plugin\WorkItemProviders\TextRemoveProvider.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Plugin\ItemProviders\RecipientProvider.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -619,6 +621,7 @@
     <Content Include="lang\EPiCode.Newsletter.NO.xml" />
     <EmbeddedResource Include="Tools\newsletter-validating-query-301.sql" />
     <EmbeddedResource Include="Tools\newsletter-install-301.sql" />
+    <None Include="web.config.install.xdt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

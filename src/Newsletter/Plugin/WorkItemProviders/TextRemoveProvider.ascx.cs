@@ -1,21 +1,19 @@
 using System;
 using BVNetwork.EPiSendMail.DataAccess;
+using BVNetwork.EPiSendMail.Plugin.ItemProviders;
 
 namespace BVNetwork.EPiSendMail.Plugin.WorkItemProviders
 {
-    public partial class TextRemoveProvider : System.Web.UI.UserControl, IWorkItemProvider
+    public partial class TextRemoveProvider : System.Web.UI.UserControl, IEmailImporterProvider
     {
+        private IEmailImporter _importer;
+        private IShowFeedback _feedbackCtrl;
+
         private Job _job;
-        private IJobUi _jobUi;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // Do not do databind here - the container will do this for us
-        }
-
-        protected override void OnDataBinding(EventArgs e)
-        {
-            base.OnDataBinding(e);
         }
 
         protected void cmdRemoveCsvEmailAddresses_Click(object sender, EventArgs e)
@@ -23,7 +21,7 @@ namespace BVNetwork.EPiSendMail.Plugin.WorkItemProviders
             string addresses = txtRemoveEmailWorkItems.Text;
             if (string.IsNullOrEmpty(addresses))
             {
-                _jobUi.ShowError("Please enter email addresses to remove.");
+                _feedbackCtrl.ShowError("Please enter email addresses to remove.");
                 return;
             }
             
@@ -34,19 +32,14 @@ namespace BVNetwork.EPiSendMail.Plugin.WorkItemProviders
                 item.Delete();
             }
 
-            // Construct log message
-            string message = "Removed email addresses";
-            _jobUi.ShowInfo(string.Format(message)); 
+            _feedbackCtrl.ShowInfo("Removed email addresses"); 
         }
 
-        #region IWorkItemProvider Members
-
-        public void Initialize(BVNetwork.EPiSendMail.DataAccess.Job job, IJobUi jobUi)
+        public void Initialize(IEmailImporter importer, IShowFeedback feedbackUi)
         {
-            _job = job;
-            _jobUi = jobUi;
+            _importer = importer;
+            _job = (Job) importer;
+            _feedbackCtrl = feedbackUi;
         }
-
-        #endregion
     }
 }

@@ -16,9 +16,6 @@
             <add name="EPiServerGroup"
                  displayName="Add email addresses from an EPiServer Group"
                  url="/modules/epicode.newsletter/plugin/itemproviders/EPiServerGroupProvider.ascx"/>
-            <add name="CommerceUsers"
-                 displayName="Add email addresses from Commerce Contacts"
-                 url="/modules/epicode.newsletter/plugin/itemproviders/CommerceUsersProvider.ascx"/>
         </recipientListProviders>
 	</epicodeNewsletter>
 </configuration>

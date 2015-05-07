@@ -34,6 +34,22 @@
                 console.debug(data);
                 var html =  $('#jobStatusTemplate').render(data);
                 $('#pnlStatusMessage').html(html);
+            },
+            error: function(data) {
+                console.debug(data);
+                if (data.status === 500) {
+                    var errorData = {};
+                    errorData.status = data.status;
+                    errorData.errorMessage = data.statusText;
+                    if (data.responseJSON) {
+                        errorData.detailedMessage = data.responseJSON.ExceptionMessage;
+                    }
+                    var html = $('#jobStatusErrorTemplate').render(errorData);
+                    $('#pnlStatusMessage').html(html);
+                } 
+                else {
+                    $('#pnlStatusMessage').html("An error occured.");
+                }
             }
         });
     }
@@ -58,6 +74,13 @@
 <a href="#" cssclass="btn btn-info" tooltip="Update the status with fresh values" onclick="updateStatusManually();return false;">
       <span style="font-size: 14px;" class="glyphicon glyphicon-refresh"></span> Update status
 </a>
+
+<script id="jobStatusErrorTemplate" type="text/x-jsrender">
+    <div class="alert alert-warning" role="alert">
+        <span class="label label-warning">{{:status}} - {{:errorMessage}}</span>
+        <p>{{:detailedMessage}}</p>
+    </div>
+</script>
 
 <script id="jobStatusTemplate" type="text/x-jsrender">
     {{if SchedulerIsOnline===false}}

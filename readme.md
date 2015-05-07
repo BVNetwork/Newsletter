@@ -95,9 +95,13 @@ When you install the module using Nuget, the following configuration is added to
 
 #### Available Sender Engines ####
 The default is the MailSenderNetSmtp engine. Change the `senderType` to select another sender engine.
+
 SMTP Server: `<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderNetSmtp, BVNetwork.EPiSendMail">`
+
 Mailgun: `<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderMailgun, BVNetwork.EPiSendMail">`
+
 SendGrid: `<epicodeNewsletter senderType="BVNetwork.EPiSendMail.SendGrid.MailSenderSendGrid, BVNetwork.EPiSendMail.SendGrid">`
+
 > Note! Mailgun and SendGrid requires additional settings.
 
 ### Recipient List Providers ###
@@ -159,7 +163,7 @@ The Api keys can be found on the Mailgun Account home page: https://mailgun.com/
 You also need to configure your mail sending domain for your Mailgun account, which is well described on your Mailgun account page. For testing purposes, you can use the sandbox domain that is created when you register your Mailgun account.
 
 ### Configuring SendGrid ###
-Add the following keys to the `<appSettings>` section in web.config to use Mailgun:
+Add the following keys to the `<appSettings>` section in web.config to use SendGrid:
 ```xml
 <add key="Newsletter.SenderType" value="BVNetwork.EPiSendMail.SendGrid.MailSenderSendGrid, BVNetwork.EPiSendMail.SendGrid" />
 ```
@@ -200,7 +204,7 @@ In some cases, there are missing assembly redirects for some of the `System.Net`
 </assemblyBinding>
 
 ```
-'''Important! ''' You might have never versions of these referenced in your project. Make sure you check the actual versions of the assemblies before you add the redirects.
+**Important!** You might have never versions of these referenced in your project. Make sure you check the actual versions of the assemblies before you add the redirects.
 
 ## Support ##
 This module is open source and unsupported. Feel free to [register new issues](https://github.com/BVNetwork/Newsletter/issues/new) though.

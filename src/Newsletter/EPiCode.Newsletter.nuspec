@@ -37,7 +37,7 @@
               target="content\modules\epicode.newsletter\module.config" />
 
         <!-- Configuration -->
-        <file src="..\InstallationResources\web.config.install.xdt"
+        <file src="web.config.install.xdt"
               target="content" />
         <!--
         // This removes all changed settings on updates, which is a pain

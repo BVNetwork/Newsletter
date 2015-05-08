@@ -50,7 +50,9 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfoVersion.cs" />
+    <Compile Include="..\Newsletter\AssemblyInfoVersion.cs">
+      <Link>AssemblyInfoVersion.cs</Link>
+    </Compile>
     <Compile Include="Plugin\ItemProviders\CommerceUsersProvider.ascx.cs">
       <DependentUpon>CommerceUsersProvider.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

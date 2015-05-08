@@ -56,7 +56,9 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfoVersion.cs" />
+    <Compile Include="..\Newsletter\AssemblyInfoVersion.cs">
+      <Link>AssemblyInfoVersion.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MailSenderSendGrid.cs" />
   </ItemGroup>

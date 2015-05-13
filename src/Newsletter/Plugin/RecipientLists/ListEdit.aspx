@@ -3,7 +3,7 @@
 
 <%@ Register TagPrefix="EPiSendMail" TagName="StatusMessage" Src="../StatusMessage.ascx" %>
 <%@ Register TagPrefix="EPiSendMail" TagName="AddRecipients" Src="../RecipientLists/AddRecipients.ascx" %>
-<%@ Register TagPrefix="EPiSendMail" TagName="RemoveRecipients" Src="../RecipientLists/RemoveRecipients.ascx" %>
+
 <%@ Register TagPrefix="EPiServerShell" Assembly="EPiServer.Shell" Namespace="EPiServer.Shell.Web.UI.WebControls" %>
 
 <%@ Register TagPrefix="EPiSendMail" TagName="PluginStyles" Src="../PluginStyles.ascx" %>

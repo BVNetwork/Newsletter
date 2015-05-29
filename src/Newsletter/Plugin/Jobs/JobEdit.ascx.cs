@@ -51,6 +51,8 @@ namespace BVNetwork.EPiSendMail.Plugin
                 }
                 Session.Remove("CurrentSelection");
             }
+
+            cmdSendTest.DataBind();
         }
 
         public void BindJobData(Job job)
@@ -77,6 +79,12 @@ namespace BVNetwork.EPiSendMail.Plugin
                 return mailSender.GetMailSender(CurrentPage);
             }
         }
+
+        protected string ButtonEnabled()
+        {
+            return CurrentPage.IsPendingPublish ? "disabled" : String.Empty;
+        }
+
 
         /// <summary>
         /// Verifies the environment. This should be done
@@ -182,5 +190,7 @@ namespace BVNetwork.EPiSendMail.Plugin
             }
                 
         }
+
+
     }
 }

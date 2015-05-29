@@ -143,7 +143,7 @@
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <asp:Button ID="cmdSendTest" runat="server"
+                                    <asp:Button Enabled="<%# !CurrentPage.IsPendingPublish %>" ID="cmdSendTest" runat="server"
                                         Text="Test Newsletter" CssClass="btn btn-primary" />
                                 </div>
                             </asp:Panel>
@@ -158,7 +158,7 @@
                             <h2>Send the Newsletter</h2>
                             Click the button to start sending the newsletter
                         <br />
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#send-newsletter-confirmation-dialog">Send Newsletter...</button>
+                            <button <%= ButtonEnabled() %> class="btn btn-primary" data-toggle="modal" data-target="#send-newsletter-confirmation-dialog">Send Newsletter...</button>
 
                             <div class="modal fade" id="send-newsletter-confirmation-dialog" tabindex="-1" role="dialog" aria-labelledby="sendNewsletterLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
@@ -207,7 +207,7 @@
                     Click the button to preview the newsletter in a new window.
                 </p>
 
-                <button class="btn btn-info"
+                <button class="btn btn-info" <%= ButtonEnabled() %>
                     onclick="window.open('<%= NewsLetterConfiguration.GetModuleBaseDir() %>/preview.aspx?pageid=<%= CurrentPage.PageLink.ID.ToString() %>&epslanguage=<%= CurrentPage.LanguageBranch %>').focus()"
                     type="button">
                     <span class="glyphicon glyphicon-eye-open"></span>

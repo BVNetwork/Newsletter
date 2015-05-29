@@ -20,8 +20,8 @@ A free module for sending newsletters from your EPiServer CMS or Commerce site. 
  * Supports the Mailgun campaign feature to get a better overview of your newsletters
  * Variable substitution in the email markup (for adding the recipient email address to unsubscribe links for an example).
 
-## Downloads ##
-The installation is done through Visual Studio using the EPiServer Nuget Feed on http://nuget.episerver.com/ 
+## Installation ##
+The installation is done through Visual Studio using the EPiServer Nuget Feed (currently located on http://nuget.episerver.com/feed/packages.svc/) 
 
 Main Newsletter Add-on:
 ```
@@ -43,6 +43,8 @@ MVC Examples for Alloy:
 Install-Package EPiCode.Newsletter.Examples
 ```
 > **Note!** The examples package has requirements to code and configuration in the Alloy MVC sample. It will most likely fail to compile if you install it in a custom built site. It also uses Bootstrap for the CSS.
+
+Build your site after installation, log in to edit mode and open the Newsletter main menu. You will be asked to create the necessary database tables and scripts needed by the module. Click the button and the Newsletter module is ready for use.  
    
 ## Example Newsletter Designs ##
 In addition to the Newsletter module itself, you also need a layout and design for the newsletter, that works across as many Email clients as possible. The MVC Examples for Alloy has two example newsletters based on the [Zurb Ink](http://zurb.com/ink/) framework.
@@ -57,11 +59,6 @@ The module will send a page in EPiServer CMS if it inherits the `NewsletterBase`
 You can have multiple newsletter pagetypes for different designs, just make sure you inherit the `NewsletterBase` base class in order to show the editor view for it.
 
 If you want to have a plain text version of the newsletter as part of the same email, add a `MainBodyText` property to your newsletter page type. The different senders will use the content of this property as the plain text version of the email (both HTML and plain text is then sent as part of the same email). Email clients that does not support display of HTML can then fall back to the plain text version instead.
-
-## Installation ##
-1. Select the [EPiServer Nuget Feed](http://nuget.episerver.com/feed/packages.svc/) in Visual Studio Nuget Package Manager Dialog or the Packet Manger Console
-1. Install the EPiCode.Newsletter or EPiCode.Newsletter.Examples (for Alloy) package
-1. Recompile your site
 
 ## Configuration ##
 The module supports sending emails through different mail senders (also called a ''sender engine''):
@@ -177,6 +174,21 @@ Add a new connectionString to configure your SendGrid account:
 ```
 **Note!** You can create additional SendGrid users that only has access to the API, and not the full administration interface. It is recommended to create a separate account in order to authorize access to the SendGrid API.
 
+### Access Rights ###
+By default, only members of the `CmsAdmins` and `NewsletterEditors` roles are allowed to send newsletters. You can add `NewsletterEditors` as a virtual role and add other roles to it if you do not want to add it as a group with individual users.
+
+Example setting up a virtual role (in `episerver.framework` section of web.config):
+```xml
+<virtualRoles>
+    <providers>
+        ...
+        <add name="NewsletterEditors" 
+			 type="EPiServer.Security.MappedRole, EPiServer.Framework" 
+			 roles="WebEditors, WebAdmins" 
+			 mode="Any" />
+    </providers>
+</virtualRoles>
+```
 ## Troubleshooting ##
 If you get an error during startup like this: `Cannot add duplicate collection entry of type 'add' with unique key attribute 'name' set to 'ExtensionlessUrlHandler-Integrated-4.0'` please check your web.config and remove any duplicate `ExtensionlessUrlHandler-Integrated-4.0` handlers (under `system.webServer`)
 

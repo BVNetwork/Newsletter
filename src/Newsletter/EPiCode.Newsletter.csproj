@@ -94,8 +94,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
+      <HintPath>..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EPiServer">
       <HintPath>References\EPiServer.dll</HintPath>
@@ -126,6 +126,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -133,16 +134,16 @@
       <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PreMailer.Net, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\PreMailer.Net.1.2.7\lib\net40\PreMailer.Net.dll</HintPath>
+      <HintPath>..\packages\PreMailer.Net.1.2.7\lib\net40\PreMailer.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -537,6 +538,7 @@
     <Content Include="content\images\userguide\UG-OpenDetails-205.png" />
     <Content Include="content\images\userguide\UG-Ready-To-Send-500.png" />
     <Content Include="content\images\userguide\UG-Send-Test-400.png" />
+    <Content Include="content\js\bootstrap.js" />
     <Content Include="content\js\jsrender.js" />
     <Content Include="content\js\jsrender.min.js" />
     <Content Include="Plugin\Admin\NewsLetterInstall.aspx">
@@ -568,7 +570,6 @@
     <Content Include="Plugin\Jobs\WorkItemsEdit.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="content\js\bootstrap.js" />
     <Content Include="content\js\bootstrap.min.js" />
     <Content Include="content\js\jquery-2.0.3.min.js" />
     <Content Include="Plugin\Lists.aspx">
@@ -587,7 +588,9 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Plugin\RecipientLists\RecipientListDeleted.aspx" />
-    <Content Include="Plugin\RecipientLists\NewRecipientList.aspx" />
+    <Content Include="Plugin\RecipientLists\NewRecipientList.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Plugin\RecipientLists\ListEdit.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -645,32 +648,8 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>@echo off
-echo Copy "$(TargetDir)$(TargetName).*" to "C:\EPiServer\Demo78\Demo78\bin\"
-copy "$(TargetDir)$(TargetName).*" "C:\EPiServer\Demo78\Demo78\bin\"
-REM echo POST BUILD EVENT DISABLED
-goto continue
-
-echo Running custom deployment script from: $(SolutionDir)
-
-REM Don't copy if there is no solution defined
-set solutionName=$(SolutionName)
-if "%25solutionName%25"=="*Undefined*" GOTO Skip
-
-if exist $(SolutionDir)DeployNewsletter.cmd (
-call $(SolutionDir)DeployNewsletter.cmd $(ConfigurationName) "$(ProjectDir)" "$(TargetDir)" "$(SolutionDir)"
-goto continue
-) else (
-echo No custom deployment will be performed.
-echo $(SolutionDir)DeployNewsletter.cmd does not exist.
-goto continue
-)
-
-:skip
-echo No solution, skipping deployment step
-
-:continue
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

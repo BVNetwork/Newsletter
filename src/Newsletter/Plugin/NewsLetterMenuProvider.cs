@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Routing;
 using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
 using EPiServer.Shell.Navigation;
+using EPiServer.Security;
+using EPiServer;
 
 namespace BVNetwork.EPiSendMail.Plugin
 {
@@ -12,9 +15,12 @@ namespace BVNetwork.EPiSendMail.Plugin
         public IEnumerable<MenuItem> GetMenuItems()
         {
             List<MenuItem> menuItems = new List<MenuItem>();
-
+            var newsletterRoles = new List<string>()
+            {
+                "NewsletterAdmins","NewsletterEditors","CmsAdmins"
+            };
             SectionMenuItem sectionMenuItem = new SectionMenuItem("Newsletter", "/global/newsletter");
-            sectionMenuItem.IsAvailable = ((RequestContext request) => true);
+            sectionMenuItem.IsAvailable = x => newsletterRoles.Any(y => x.HttpContext.User.IsInRole(y));
             menuItems.Add(sectionMenuItem);
             
             

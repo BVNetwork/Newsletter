@@ -27,7 +27,7 @@ namespace BVNetwork.EPiSendMail.DataAccess
         /// </summary>
         public RecipientList()
         {
-            
+
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace BVNetwork.EPiSendMail.DataAccess
             else
                 _description = description;
         }
-        
-        
+
+
         /// <summary>
         /// The unique id of this recipient list
         /// </summary>
@@ -224,7 +224,7 @@ namespace BVNetwork.EPiSendMail.DataAccess
         }
 
 
-        
+
 
         /// <summary>
         /// Deletes the email address items for this recipient list
@@ -242,9 +242,37 @@ namespace BVNetwork.EPiSendMail.DataAccess
             ClearEmailAddressCount();
         }
 
+        private static List<string> ExtractFromString(string text, string startString, string endString)
+        {
+            var matched = new List<string>();
+            int indexStart = 0, indexEnd = 0;
+            bool exit = false;
+            while (!exit)
+            {
+                indexStart = text.IndexOf(startString);
+                indexEnd = text.IndexOf(endString);
+                if (indexStart != -1 && indexEnd != -1)
+                {
+                    matched.Add(text.Substring(indexStart + startString.Length,
+                        indexEnd - indexStart - startString.Length));
+                    text = text.Substring(indexEnd + endString.Length);
+                }
+                else
+                    exit = true;
+            }
+            return matched;
+        }
+
         public int ImportEmailAddresses(string emailAddressesDelimited, out List<string> invalidEmailAddresses, out List<string> duplicateAddresses)
         {
-            string[] emailAddressArray = emailAddressesDelimited.Split(new char[] { ';', ',', ' ', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] emailAddressArray = null;
+            // Extract outlook formatted list - John Doe<john@doe.com>;
+            if (emailAddressesDelimited.Contains('<'))
+            {
+                emailAddressArray = ExtractFromString(emailAddressesDelimited, "<", ">").ToArray();
+            }
+            else
+                emailAddressArray = emailAddressesDelimited.Split(new char[] { ';', ',', ' ', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             // Do Import
             return ImportEmailAddresses(emailAddressArray, out invalidEmailAddresses, out duplicateAddresses);
@@ -295,7 +323,7 @@ namespace BVNetwork.EPiSendMail.DataAccess
             return ImportEmailAddresses(emailArray, out invalidEmailAddresses, out duplicateAddresses);
         }
 
-       
+
         /// <summary>
         /// Imports email addresses into a Recipient List
         /// </summary>
@@ -316,7 +344,7 @@ namespace BVNetwork.EPiSendMail.DataAccess
 
                 // Clean address (this is done on save, so we need to make sure it's correct)
                 string emailAddressCleaned = NewsLetterUtil.CleanEmailAddress(emailAddress);
-                
+
                 // Validate email address
                 if (EmailSyntaxValidator.Validate(emailAddressCleaned) == false)
                 {
@@ -333,7 +361,7 @@ namespace BVNetwork.EPiSendMail.DataAccess
                         emailItem = EmailAddress.Load(Id, emailAddressCleaned);
                         if (emailItem == null)
                         {
-                            
+
                             // Create it, and save it. It is automatically
                             // added to the WorkItems collection
                             emailItem = this.CreateEmailAddress(emailAddressCleaned);
@@ -438,9 +466,9 @@ namespace BVNetwork.EPiSendMail.DataAccess
                 // New list
                 // Verify that we do not have a list with same name
                 RecipientList existing = Load(_name);
-                if(existing != null)
+                if (existing != null)
                 {
-                    throw new ArgumentException("A Recipient List with the same name exists.");
+                    throw new ArgumentException("A recipient list with the same name already exists.");
                 }
 
                 int newId = dataUtil.RecipientListCreate(_type, _name, _description);
@@ -521,7 +549,7 @@ namespace BVNetwork.EPiSendMail.DataAccess
         {
             return string.Format("ID:{0} \nName: {1} \nType: {2} \nCreated: {3} \nDescription: {4}",
                                  _id.ToString(),
-                                 _name ?? "(null)", 
+                                 _name ?? "(null)",
                                  _type.ToString(),
                                  _created.ToString(),
                                  _description ?? "(null)");

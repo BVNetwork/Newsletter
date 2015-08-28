@@ -28,7 +28,7 @@ namespace BVNetwork.EPiSendMail.Plugin
         {
             if (Page.ClientScript.IsClientScriptIncludeRegistered("jquery") == false)
             {
-                Page.ClientScript.RegisterClientScriptInclude(Page.GetType(), "jquery", NewsLetterConfiguration.GetModuleBaseDir() + "/content/js/jquery-2.0.3.min.js");
+                Page.ClientScript.RegisterClientScriptInclude(Page.GetType(), "jquery", NewsLetterConfiguration.GetModuleBaseDir() + "/content/js/jquery-1.11.2.min.js");
 
             }
             if (Page.ClientScript.IsClientScriptIncludeRegistered("bootstrap") == false)

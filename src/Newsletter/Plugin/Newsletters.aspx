@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"
     CodeBehind="Newsletters.aspx.cs"
-    Inherits="BVNetwork.EPiSendMail.Plugin.NewsLetters" %>
+    Inherits="BVNetwork.EPiSendMail.Plugin.NewsLetters"%>
 
 <%@ Import Namespace="BVNetwork.EPiSendMail.DataAccess" %>
 <%@ Register TagPrefix="EPiServerShell" Assembly="EPiServer.Shell" Namespace="EPiServer.Shell.Web.UI.WebControls" %>

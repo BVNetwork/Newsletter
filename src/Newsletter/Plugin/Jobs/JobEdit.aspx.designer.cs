@@ -10,6 +10,6 @@
 namespace BVNetwork.EPiSendMail.Plugin {
     
     
-    public partial class JobEditStandAlone {
+    public partial class NewsLetterJobEdit {
     }
 }

@@ -1,4 +1,6 @@
 
+using System;
+using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
 using EPiServer.Shell.WebForms;
 
@@ -74,6 +76,15 @@ namespace BVNetwork.EPiSendMail.Plugin
             MessageControl.InfoMessage = message;
         }
 
+        protected override void OnPreInit(EventArgs e)
+        {
+            base.OnPreInit(e);
+            MasterPageFile = string.Format("~{0}", NewsLetterConfiguration.GetModuleBaseDir("Plugin/Newsletter.Master"));           
+        }
 
+        protected override bool SetMasterPageOnPreInit
+        {
+            get { return false; }
+        }
     }
 }

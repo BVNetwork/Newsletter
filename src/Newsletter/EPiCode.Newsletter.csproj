@@ -339,6 +339,13 @@
     <Compile Include="Plugin\GettingStarted.aspx.designer.cs">
       <DependentUpon>GettingStarted.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Plugin\Newsletter.Master.cs">
+      <DependentUpon>Newsletter.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Plugin\Newsletter.Master.designer.cs">
+      <DependentUpon>Newsletter.Master.cs</DependentUpon>
+    </Compile>
     <Compile Include="Plugin\Newsletters.aspx.cs">
       <DependentUpon>Newsletters.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -539,6 +546,7 @@
     <Content Include="content\images\userguide\UG-Ready-To-Send-500.png" />
     <Content Include="content\images\userguide\UG-Send-Test-400.png" />
     <Content Include="content\js\bootstrap.js" />
+    <Content Include="content\js\jquery-1.11.2.min.js" />
     <Content Include="content\js\jsrender.js" />
     <Content Include="content\js\jsrender.min.js" />
     <Content Include="Plugin\Admin\NewsLetterInstall.aspx">
@@ -571,7 +579,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="content\js\bootstrap.min.js" />
-    <Content Include="content\js\jquery-2.0.3.min.js" />
     <Content Include="Plugin\Lists.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -624,6 +631,9 @@
     <Content Include="lang\EPiCode.Newsletter.NO.xml" />
     <EmbeddedResource Include="Tools\newsletter-validating-query-301.sql" />
     <EmbeddedResource Include="Tools\newsletter-install-301.sql" />
+    <None Include="Plugin\Newsletter.Master">
+      <SubType>ASPXCodeBehind</SubType>
+    </None>
     <None Include="web.config.install.xdt" />
   </ItemGroup>
   <ItemGroup>
@@ -661,19 +671,15 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <!--<Target Name="CreateAddOnPackage">
-        <Exec Command="..\.nuget\nuget pack EPiCode.Newsletter.csproj -OutputDirectory $(OutputPath)" />
-    </Target>
-    <Target Name="AfterBuild"
-            DependsOnTargets="CreateAddOnPackage">
-    </Target>-->
-  <!--
-    <Import Project="..\.nuget\nuget.targets" />
-    <Target Name="AfterBuild"
-            DependsOnTargets="CreateAddOnPackage">
-    </Target>
-    <Target Name="CreateAddOnPackage">
-        <Exec Command="..\.nuget\nuget pack EPiCode.Newsletter.nuspec -OutputDirectory $(OutputPath)" />
-    </Target>
--->
+  <Target Name="CreateAddOnPackage">
+    <Exec Command="..\.nuget\nuget pack EPiCode.Newsletter.csproj -OutputDirectory $(OutputPath)" />
+  </Target>
+  <Target Name="AfterBuild" DependsOnTargets="CreateAddOnPackage">
+  </Target>
+  <Import Project="..\.nuget\nuget.targets" />
+  <Target Name="AfterBuild" DependsOnTargets="CreateAddOnPackage">
+  </Target>
+  <Target Name="CreateAddOnPackage">
+    <Exec Command="..\.nuget\nuget pack EPiCode.Newsletter.nuspec -OutputDirectory $(OutputPath)" />
+  </Target>
 </Project>

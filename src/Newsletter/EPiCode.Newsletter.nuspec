@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>EPiCode.Newsletter</id>
-        <version>$version$</version>
+        <version>3.3.0</version>
         <authors>The EPiCode Community</authors>
         <owners>BV Network AS</owners>
         <projectUrl>https://github.com/BVNetwork/Newsletter</projectUrl>
@@ -32,7 +32,9 @@
         <file src="Plugin\**\*.config"
               target="content\modules\epicode.newsletter\plugin\" />
         <file src="preview.aspx"
-              target="content\modules\epicode.newsletter\preview.aspx" />
+              target="content\modules\epicode.newsletter\preview.aspx" /> 
+      <file src="Plugin\Newsletter.Master"
+              target="content\modules\epicode.newsletter\plugin\Newsletter.Master" />
         <file src="module.config"
               target="content\modules\epicode.newsletter\module.config" />
 
@@ -48,11 +50,6 @@
               target="lib\net45\BVNetwork.EPiSendMail.dll" />
         <file src="references\aspNetEmail.dll"
               target="lib\net45\aspNetEmail.dll" />
-
-        <file src="bin\debug\BVNetwork.EPiSendMail.dll"
-              target="lib\net451\BVNetwork.EPiSendMail.dll" />
-        <file src="references\aspNetEmail.dll"
-              target="lib\net451\aspNetEmail.dll" />
 
         <!-- This is where the database script goes -->
         <file src="tools\**\*.*"

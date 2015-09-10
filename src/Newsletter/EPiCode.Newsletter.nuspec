@@ -46,7 +46,7 @@
         <file src="..\InstallationResources\web.config.uninstall.xdt"
               target="content" />-->
         
-        <file src="bin\debug\BVNetwork.EPiSendMail.dll"
+        <file src="bin\BVNetwork.EPiSendMail.dll"
               target="lib\net45\BVNetwork.EPiSendMail.dll" />
         <file src="references\aspNetEmail.dll"
               target="lib\net45\aspNetEmail.dll" />

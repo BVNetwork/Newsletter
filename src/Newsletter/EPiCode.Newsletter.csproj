@@ -41,7 +41,7 @@
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -670,16 +670,5 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
-  <Target Name="CreateAddOnPackage">
-    <Exec Command="..\.nuget\nuget pack EPiCode.Newsletter.csproj -OutputDirectory $(OutputPath)" />
-  </Target>
-  <Target Name="AfterBuild" DependsOnTargets="CreateAddOnPackage">
-  </Target>
-  <Import Project="..\.nuget\nuget.targets" />
-  <Target Name="AfterBuild" DependsOnTargets="CreateAddOnPackage">
-  </Target>
-  <Target Name="CreateAddOnPackage">
-    <Exec Command="..\.nuget\nuget pack EPiCode.Newsletter.nuspec -OutputDirectory $(OutputPath)" />
   </Target>
 </Project>

@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>EPiCode.Newsletter</id>
+        <id>Regjeringen.Newsletter</id>
         <version>$version$</version>
         <authors>The EPiCode Community</authors>
         <owners>BV Network AS</owners>
         <projectUrl>https://github.com/BVNetwork/Newsletter</projectUrl>
         <iconUrl>http://www.coderesort.com/favicon.ico</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Create a new newsletter page, send it to your recipients as an email. Easy to use and quick to integrate.</description>
+        <description>Forked from EpiCode.Newsletter. Create a new newsletter page, send it to your recipients as an email. Easy to use and quick to integrate.</description>
         <summary>Sends pages as newsletters through the EPiServer UI.</summary>
         <references>
             <reference file="BVNetwork.EPiSendMail.dll" />

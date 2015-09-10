@@ -4,7 +4,7 @@ using EPiServer.Shell;
 namespace BVNetwork.EPiSendMail.UIExtensions
 {
     [UIDescriptorRegistration]
-    public class NewsletterDetailsViewUiDescriptor : UIDescriptor<NewsletterBase>
+    public class NewsletterDetailsViewUiDescriptor : UIDescriptor<INewsletterBase>
     {
 
     }

@@ -7,7 +7,7 @@ using EPiServer.Shell;
 namespace BVNetwork.EPiSendMail.UIExtensions
 {
     [ServiceConfiguration(typeof(EPiServer.Shell.ViewConfiguration))]
-    public class NewsLetterDetailsView : ViewConfiguration<NewsletterBase>
+    public class NewsLetterDetailsView : ViewConfiguration<INewsletterBase>
     {
         public NewsLetterDetailsView()
         {

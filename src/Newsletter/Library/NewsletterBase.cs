@@ -5,7 +5,7 @@ using EPiServer.DataAbstraction;
 
 namespace BVNetwork.EPiSendMail
 {
-	public class NewsletterBase2 : PageData, INewsletterBase,IRegisterNewsletterDetailsView
+	public class NewsletterBase : PageData, INewsletterBase,IRegisterNewsletterDetailsView
 	{
 
 		[Display(

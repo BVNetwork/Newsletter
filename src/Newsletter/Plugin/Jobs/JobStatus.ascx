@@ -9,7 +9,7 @@
     var delay = 1000; // One second increment
 
     function InitializeTimer() {
-        timerID = setInterval(updateStatus(), durationInSeconds * delay);
+        timerID = setInterval(updateStatus, durationInSeconds * delay);
     }
 
     function StopTheTimer() {

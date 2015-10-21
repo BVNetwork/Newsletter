@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using BVNetwork.EPiSendMail.DataAccess;
 using BVNetwork.EPiSendMail.Library;
+using EPiServer.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace BVNetwork.EPiSendMail.Api
 {
     public class SubscriptionController : ApiBaseController
     {
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(SubscriptionController));
+        private static readonly ILogger _log = LogManager.GetLogger();
 
         /// <summary>
         /// Adds an email address to the one public recipient list, or the one named 
@@ -36,7 +37,7 @@ namespace BVNetwork.EPiSendMail.Api
                 return GetSubscriptionResult(true);
             else
             {
-                _log.InfoFormat("Unable to subcribe '{0}' to a public list. Result: {1}", email, result);
+                _log.Information("Unable to subcribe '{0}' to a public list. Result: {1}", email, result);
                 return GetSubscriptionResult(false);
             }
         }
@@ -62,7 +63,7 @@ namespace BVNetwork.EPiSendMail.Api
                 return GetSubscriptionResult(true);
             else
             {
-                _log.InfoFormat("Unable to subcribe '{0}' to a list {1}. Result: {2}", email, recipientList, result);
+                _log.Information("Unable to subcribe '{0}' to a list {1}. Result: {2}", email, recipientList, result);
                 return GetSubscriptionResult(false);
             }
         }
@@ -77,7 +78,7 @@ namespace BVNetwork.EPiSendMail.Api
                 return GetSubscriptionResult(true);
             else
             {
-                _log.InfoFormat("Unable to unsubcribe '{0}' from a public list. Result: {1}", email, result);
+                _log.Information("Unable to unsubcribe '{0}' from a public list. Result: {1}", email, result);
                 return GetSubscriptionResult(false);
             }
         }
@@ -92,7 +93,7 @@ namespace BVNetwork.EPiSendMail.Api
                 return GetSubscriptionResult(true);
             else
             {
-                _log.InfoFormat("Unable to unsubcribe '{0}' from list '{1}'. Result: {2}", email, recipientList, result);
+                _log.Information("Unable to unsubcribe '{0}' from list '{1}'. Result: {2}", email, recipientList, result);
                 return GetSubscriptionResult(false);
             }
         }
@@ -101,7 +102,7 @@ namespace BVNetwork.EPiSendMail.Api
         [HttpGet]
         public List<string> ValidateRecipientList(int recipientList, int blockList)
         {
-            _log.DebugFormat("Validating recipient list {0}, adding to block list {1}", recipientList, blockList);
+            _log.Debug("Validating recipient list {0}, adding to block list {1}", recipientList, blockList);
 
             RecipientList list = RecipientList.Load(recipientList);
             RecipientList blocked = RecipientList.Load(blockList);
@@ -115,7 +116,7 @@ namespace BVNetwork.EPiSendMail.Api
             }
             catch (Exception e)
             {
-                _log.Error(e);
+                _log.Error("Errpr validating recipent list", e);
                 throw new HttpResponseException(
                     Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Cannot validate emails: " + e.Message));
             }

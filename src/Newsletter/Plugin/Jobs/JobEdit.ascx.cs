@@ -3,13 +3,14 @@ using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
 using BVNetwork.EPiSendMail.Library;
 using EPiServer.Framework.Web.Mvc.Html;
+using EPiServer.Logging;
 
 namespace BVNetwork.EPiSendMail.Plugin
 {
     public partial class JobEditControl : JobUiUserControlBase
     {
         // Logger
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(JobEditControl));
+        private static readonly ILogger _log = LogManager.GetLogger();
 
         private const string TEST_SUBJECT_POSTFIX = " (TEST)";
 
@@ -122,7 +123,7 @@ namespace BVNetwork.EPiSendMail.Plugin
         /// <param name="workItems">The work items.</param>
         public void SendMail(EPiMailEngine engine, JobWorkItems workItems, bool isTestSend)
         {
-            if (_log.IsDebugEnabled)
+            if (_log.IsDebugEnabled())
                 _log.Debug("Starting send process. Testmode: " + isTestSend.ToString());
 
             // First we verify the environment
@@ -152,7 +153,7 @@ namespace BVNetwork.EPiSendMail.Plugin
             if (isTestSend)
                 subject += TEST_SUBJECT_POSTFIX;
 
-            if (_log.IsDebugEnabled)
+            if (_log.IsDebugEnabled())
                 _log.Debug(string.Format("Start sending newsletter based on WorkItems. Subject: '{0}', From: '{1}', Count '{2}', Test Mode: '{3}'",
                     subject, fromAddress, workItems.Items.Count.ToString(), isTestSend.ToString()));
 
@@ -167,7 +168,7 @@ namespace BVNetwork.EPiSendMail.Plugin
             lblSendResult.Text = sendStatus;
             pnlSendResult.Visible = true;
 
-            if (_log.IsDebugEnabled)
+            if (_log.IsDebugEnabled())
                 _log.Debug("Send process finished. Testmode: " + isTestSend.ToString());
             
         }

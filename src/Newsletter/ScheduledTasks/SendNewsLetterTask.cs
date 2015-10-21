@@ -6,6 +6,7 @@ using BVNetwork.EPiSendMail.Library;
 using EPiServer.BaseLibrary.Scheduling;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
+using EPiServer.Logging;
 using EPiServer.PlugIn;
 using EPiServer.ServiceLocation;
 
@@ -18,9 +19,9 @@ namespace BVNetwork.EPiSendMail.ScheduledTasks
         DisplayName="Send Newsletter  Task", 
         Description="Sends newsletters that has been scheduled for sending.")]
     public class SendNewsLetterTask : JobBase
-    { 
+    {
         // Logger
-        private static log4net.ILog _log = null;
+        private static readonly ILogger _log = LogManager.GetLogger();
         // static lock
         private static object TaskLock = null;
 
@@ -30,7 +31,6 @@ namespace BVNetwork.EPiSendMail.ScheduledTasks
         static SendNewsLetterTask()
         {
         	TaskLock = new object();
-            _log = log4net.LogManager.GetLogger(typeof(SendNewsLetterTask));
         }
 
         public SendNewsLetterTask()
@@ -106,7 +106,7 @@ namespace BVNetwork.EPiSendMail.ScheduledTasks
             catch (Exception ex)
             {
                 // Log it:
-                if (_log.IsErrorEnabled)
+                if (_log.IsErrorEnabled())
                     _log.Error("SendNewsLetterTask failed (on " + Environment.MachineName + ")", ex);
 
                 // Handle exception, or rethrow to signal that the job failed   
@@ -211,7 +211,7 @@ namespace BVNetwork.EPiSendMail.ScheduledTasks
 
         private void DebugWrite(string text)
         {
-            if (_log.IsDebugEnabled)
+            if (_log.IsDebugEnabled())
                 _log.Debug(text);
         }
 

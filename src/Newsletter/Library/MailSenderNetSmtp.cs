@@ -1,8 +1,7 @@
 using System;
-using System.Diagnostics;
 using System.Net.Mail;
 using BVNetwork.EPiSendMail.DataAccess;
-using EPiServer.Web;
+using EPiServer.Logging;
 
 namespace BVNetwork.EPiSendMail.Library
 {
@@ -11,7 +10,7 @@ namespace BVNetwork.EPiSendMail.Library
 	/// </summary>
     public class MailSenderNetSmtp : MailSenderBase, IMailSenderVerification
 	{
-		private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(MailSenderNetSmtp));
+        private static readonly ILogger _log = LogManager.GetLogger();
 
         /// <summary>
 		/// Verifies the environment, called before the send process 

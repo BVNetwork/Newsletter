@@ -12,7 +12,7 @@
         <description>The SendGrid package for the EPiCode Newsletter module allows you to send newsletters using SendGrid (http://www.sendgrid.com)</description>
         <dependencies>
             <dependency id="EPiCode.Newsletter"
-                        version="3.0.11" />
+                        version="4.0.1" />
             <dependency id="Sendgrid"
                         version="5.1.0" />
             <dependency id="SendGrid.SmtpApi"

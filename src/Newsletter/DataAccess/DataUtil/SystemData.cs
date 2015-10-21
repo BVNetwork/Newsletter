@@ -6,7 +6,8 @@ using System.IO;
 using System.Reflection;
 using EPiServer.Data;
 using EPiServer.DataAccess;
-using log4net;
+using EPiServer.Logging;
+
 
 namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
 {
@@ -25,7 +26,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// We cannot use a static logger here as the base class defines that
         /// </summary>
         /// <returns></returns>
-        protected ILog GetLogger()
+        protected ILogger GetLogger()
         {
             return LogManager.GetLogger(GetType());
         }
@@ -47,14 +48,14 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
 
                                           if (result == null)
                                           {
-                                              GetLogger().Warn("Unable to get database version for module.");
+                                              GetLogger().Warning("Unable to get database version for module.");
                                               throw new ApplicationException(
                                                   "Unable to get database version for module.");
                                           }
                                           if (int.TryParse(result.ToString(), out version) == false)
                                           {
                                               GetLogger()
-                                                  .Warn(
+                                                  .Warning(
                                                       "Unable to get database version for module. Unexpected return value: " +
                                                       result);
                                               throw new ApplicationException(
@@ -62,7 +63,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
                                           }
                                       });
 
-            GetLogger().DebugFormat("Current Newsletter Database Version is {0}", version);
+            GetLogger().Debug("Current Newsletter Database Version is {0}", version.ToString());
             return version;
 
         }

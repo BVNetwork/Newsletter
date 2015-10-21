@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-
-namespace BVNetwork.EPiSendMail.Library
+﻿namespace BVNetwork.EPiSendMail.Library
 {
     public static class HtmlHelpers
     {

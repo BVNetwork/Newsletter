@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BVNetwork.EPiSendMail.DataAccess;
+using EPiServer.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace BVNetwork.EPiSendMail.Api
 {
     public class SubscriptionApi 
     {
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(SubscriptionApi));
+        private static readonly ILogger _log = LogManager.GetLogger();
 
         /// <summary>
         /// Adds an email address to the one public recipient list, or the one named 
@@ -72,7 +73,7 @@ namespace BVNetwork.EPiSendMail.Api
             EmailSyntaxValidator validator = new EmailSyntaxValidator(email, false);
             if (validator.IsValid)
             {
-                _log.DebugFormat("Attemt to add email subscription for {0}", email);
+                _log.Debug("Attemt to add email subscription for {0}", email);
 
 
                 EmailAddress emailAddress = selectedList.CreateEmailAddress(email);
@@ -84,7 +85,7 @@ namespace BVNetwork.EPiSendMail.Api
             }
             else
             {
-                _log.WarnFormat("Failed to add email subscription for '{0}' (not valid)", email);
+                _log.Warning("Failed to add email subscription for '{0}' (not valid)", email);
                 return SubscriptionResult.EmailNotValid;
             }
         }

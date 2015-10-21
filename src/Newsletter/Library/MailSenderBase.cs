@@ -1,17 +1,13 @@
 using System;
 using System.Net;
-using System.Security.Policy;
 using System.Text;
 using System.Web;
-using System.Web.Configuration;
-using aspNetEmail;
 using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.Contracts;
 using BVNetwork.EPiSendMail.DataAccess;
-using CsQuery.ExtensionMethods;
 using EPiServer;
-using EPiServer.Configuration;
 using EPiServer.Core;
+using EPiServer.Logging;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
@@ -23,8 +19,8 @@ namespace BVNetwork.EPiSendMail.Library
 	/// </summary>
 	public abstract class MailSenderBase
 	{
-		private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(MailSenderBase));
-		protected Injected<IContentRepository> ContentRepository { get; set; }
+        private static readonly ILogger _log = LogManager.GetLogger();
+        protected Injected<IContentRepository> ContentRepository { get; set; }
 
 		/// <summary>
 		/// Creates the mail info object with only meta information like subject
@@ -184,8 +180,8 @@ namespace BVNetwork.EPiSendMail.Library
 		/// <returns>HTML</returns>
 		public virtual string GetPageHtml(PageReference pageRef)
 		{
-			if (_log.IsDebugEnabled)
-				_log.DebugFormat("Beginning to generate Page Html for {0}.", pageRef.ToString());
+			if (_log.IsDebugEnabled())
+				_log.Debug("Beginning to generate Page Html for {0}.", pageRef.ToString());
 
 			PageData pageData = GetPage(pageRef);
 			return GetPageHtml(pageData);
@@ -198,24 +194,24 @@ namespace BVNetwork.EPiSendMail.Library
 			string hostUrl;
 			bool hasHttpContext = HttpContext.Current != null;
 
-			if (_log.IsDebugEnabled)
-				_log.DebugFormat("Beginning to generate Page Html for {0}. Has HttpContext: {1}", pageData.PageLink.ToString(), hasHttpContext);
+			if (_log.IsDebugEnabled())
+				_log.Debug("Beginning to generate Page Html for {0}. Has HttpContext: {1}", pageData.PageLink.ToString(), hasHttpContext);
 
 			// Standard way of getting a url
 			UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
 			url = UrlResolver.Current.GetUrl(pageData.PageLink, pageData.LanguageBranch);
-			_log.DebugFormat("UrlResolver says link to newsletter is: {0}", url);
+			_log.Debug("UrlResolver says link to newsletter is: {0}", url);
 
 			hostUrl = GetSiteUrl(pageData);
 
-			if (_log.IsDebugEnabled)
-				_log.DebugFormat("Link to newsletter page: {0} (Hosturl: {1})", url, hostUrl);
+			if (_log.IsDebugEnabled())
+				_log.Debug("Link to newsletter page: {0} (Hosturl: {1})", url, hostUrl);
 
 			if (url.StartsWith("/"))
 			{
 				// We have a relative url
 				url = hostUrl.TrimEnd('/') + url;
-				_log.DebugFormat("Constructed full url from relative: {0} ", url);
+				_log.Debug("Constructed full url from relative: {0} ", url);
 			}
 			else
 			{
@@ -231,12 +227,12 @@ namespace BVNetwork.EPiSendMail.Library
 					uriBuilder.Port = -1;
 				}
 				url = uriBuilder.ToString();
-				_log.DebugFormat("Constructed full url from two hosts: {0} ", url);
+				_log.Debug("Constructed full url from two hosts: {0} ", url);
 			}
 
 			html = DownloadHtml(url);
 
-			_log.DebugFormat("Downloaded {0} bytes of html from {1}", html.Length, url);
+			_log.Debug("Downloaded {0} bytes of html from {1}", html.Length, url);
 
 			return html;
 		}
@@ -329,13 +325,13 @@ namespace BVNetwork.EPiSendMail.Library
 		                                               page.ContentLink.ToString());
 		            }
 
-		            if (_log.IsDebugEnabled)
+		            if (_log.IsDebugEnabled())
 		            {
-		                _log.DebugFormat("Looked up Site Definition: {0}, Url: {1}", siteDefinition.Name,
+		                _log.Debug("Looked up Site Definition: {0}, Url: {1}", siteDefinition.Name,
 		                    siteDefinition.SiteUrl);
 		                foreach (HostDefinition host in siteDefinition.Hosts)
 		                {
-		                    _log.DebugFormat("Available Site Definition Host: {0} (language: {1})", host.Name, host.Language);
+		                    _log.Debug("Available Site Definition Host: {0} (language: {1})", host.Name, host.Language);
 		                }
 		            }
 

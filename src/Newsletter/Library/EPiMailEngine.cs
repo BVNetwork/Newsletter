@@ -5,6 +5,7 @@ using System.Net.Mail;
 using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
 using EPiServer.Core;
+using EPiServer.Logging;
 
 namespace BVNetwork.EPiSendMail.Library
 {
@@ -14,7 +15,7 @@ namespace BVNetwork.EPiSendMail.Library
     /// </summary>
     public class EPiMailEngine
     {
-        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(EPiMailEngine));
+        private static readonly ILogger _log = LogManager.GetLogger();
 
         /// <summary>
         /// Gets preview HTML to be shown on the web.
@@ -91,7 +92,7 @@ namespace BVNetwork.EPiSendMail.Library
         {
             string typeName = GetMailSenderTypeName();
 
-            if (_log.IsDebugEnabled)
+            if (_log.IsDebugEnabled())
                 _log.Debug("Creating sender object: " + typeName);
 
             Type senderType = Type.GetType(typeName);

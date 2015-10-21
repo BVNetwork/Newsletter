@@ -4,7 +4,7 @@ using System.Net.Mail;
 using aspNetEmail;
 using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
-using EPiServer.Core;
+using EPiServer.Logging;
 using EPiServer.Web;
 
 namespace BVNetwork.EPiSendMail.Library
@@ -14,7 +14,7 @@ namespace BVNetwork.EPiSendMail.Library
     /// </summary>
     public class MailSenderAdvIntellect : MailSenderBase, IMailSenderVerification
     {
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(MailSenderAdvIntellect));
+        private static readonly ILogger _log = LogManager.GetLogger();
         private const string REL_LICENSE_PATH = @"modules\bvn\sendmail\license\aspNetEmail.xml.lic";
 
         public MailSenderAdvIntellect()
@@ -211,8 +211,8 @@ namespace BVNetwork.EPiSendMail.Library
         /// <returns></returns>
         private EmailMessage CreateMessage(MailInformation mailInfo)
         {
-            if (_log.IsDebugEnabled)
-                _log.DebugFormat("Begin CreateMessage. Base Url: {0}", mailInfo.BaseUrl);
+            if (_log.IsDebugEnabled())
+                _log.Debug("Begin CreateMessage. Base Url: {0}", mailInfo.BaseUrl);
 
             EmailMessage email = new EmailMessage();
             HtmlUtility utility = new HtmlUtility(email);
@@ -298,8 +298,8 @@ namespace BVNetwork.EPiSendMail.Library
             email.From = mailInfo.From;
             email.TextBodyPart = mailInfo.BodyText;
 
-            if (_log.IsDebugEnabled)
-                _log.DebugFormat("Rendered Mail Message: {0}", email.Subject);
+            if (_log.IsDebugEnabled())
+                _log.Debug("Rendered Mail Message: {0}", email.Subject);
 
             return email;
         }

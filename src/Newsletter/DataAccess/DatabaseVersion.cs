@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BVNetwork.EPiSendMail.DataAccess.DataUtil;
+using EPiServer.Logging;
 
 namespace BVNetwork.EPiSendMail.DataAccess
 {
     public static class DatabaseVersion
     {
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(DatabaseVersion));
+        private static readonly ILogger _log = LogManager.GetLogger();
         public static int NotInstalled = -1;
         public static int CurrentDatabaseVersion = 301;
 
@@ -24,7 +25,7 @@ namespace BVNetwork.EPiSendMail.DataAccess
             catch (Exception e)
             {
                 // Nothing we can do here, we'll report -1
-                _log.Warn("Unable to determine Database version for Newsletter module", e);
+                _log.Warning("Unable to determine Database version for Newsletter module", e);
             }
             return version;
         }

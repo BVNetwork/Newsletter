@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BVNetwork.EPiSendMail.DataAccess;
-using log4net;
+using EPiServer.Logging;
 using PreMailer.Net;
 
 // ReSharper disable PossibleMultipleEnumeration
@@ -14,16 +14,16 @@ namespace BVNetwork.EPiSendMail.Library
 	/// </summary>
 	public abstract class MailSenderBatchBase : MailSenderBase
 	{
-        private static ILog _log = LogManager.GetLogger(typeof(MailSenderBatchBase));
+        private static readonly ILogger _log = LogManager.GetLogger();
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="mailInfo"></param>
-		/// <param name="recepients">receivers</param>
-		/// <param name="testMode">No mails are sent, generating report for user</param>
-		/// <returns>A html formatted report of the send process</returns>
-		public override SendMailLog SendEmail(MailInformation mailInfo, JobWorkItems recepients, bool testMode)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mailInfo"></param>
+        /// <param name="recepients">receivers</param>
+        /// <param name="testMode">No mails are sent, generating report for user</param>
+        /// <returns>A html formatted report of the send process</returns>
+        public override SendMailLog SendEmail(MailInformation mailInfo, JobWorkItems recepients, bool testMode)
 		{
 			_log.Debug("Starting Send");
 			// for logging

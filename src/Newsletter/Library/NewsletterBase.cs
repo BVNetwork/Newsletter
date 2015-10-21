@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography;
 using BVNetwork.EPiSendMail.Contracts;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;

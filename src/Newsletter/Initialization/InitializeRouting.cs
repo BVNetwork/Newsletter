@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
+using EPiServer.Logging;
 
 namespace BVNetwork.EPiSendMail.Initialization
 {
@@ -10,7 +11,7 @@ namespace BVNetwork.EPiSendMail.Initialization
     [ModuleDependency(typeof(EPiServer.Web.InitializationModule))]
     public class InitializeRouting : IInitializableModule
     {
-        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(InitializeRouting));
+        private static readonly ILogger _log = LogManager.GetLogger();
 
         public void Initialize(InitializationEngine context)
         {
@@ -18,7 +19,7 @@ namespace BVNetwork.EPiSendMail.Initialization
             var config = GlobalConfiguration.Configuration;
             string apiRouteTemplate = Configuration.NewsLetterConfiguration.GetModuleBaseDir().TrimStart(new[] {'/'}) +
                                    "/api/{controller}/{action}/{id}";
-            _log.DebugFormat("Initializing Newsletter API on route: {0}", apiRouteTemplate);
+            _log.Debug("Initializing Newsletter API on route: {0}", apiRouteTemplate);
             config.Routes.MapHttpRoute(
                 name: "NewsletterApi",
                 routeTemplate: apiRouteTemplate,
@@ -29,7 +30,7 @@ namespace BVNetwork.EPiSendMail.Initialization
             //// Standard routing - needs to be after API (as this catches all below the module root)
             // string pluginRouteTemplate = Configuration.NewsLetterConfiguration.GetModuleBaseDir().TrimStart(new[] { '/' }) +
             //                        "/{controller}/{action}/{id}";
-            // _log.DebugFormat("Initializing Newsletter plugin on route: {0}", pluginRouteTemplate);
+            // _log.Debug("Initializing Newsletter plugin on route: {0}", pluginRouteTemplate);
             //RouteTable.Routes.MapRoute("NewsletterPlugin", pluginRouteTemplate,
             //                            new { action = "Index", id = UrlParameter.Optional },
             //                            new string[] { "BVNetwork.EPiSendMail.Controllers" });

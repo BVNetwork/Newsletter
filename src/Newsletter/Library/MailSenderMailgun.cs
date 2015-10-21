@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Net.Mail;
 using System.Text;
 using System.Web;
-using System.Web.Razor.Parser.SyntaxTree;
 using BVNetwork.EPiSendMail.Contracts;
 using BVNetwork.EPiSendMail.DataAccess;
 using EPiServer.Core;
-using EPiServer.Web;
+using EPiServer.Logging;
 using PreMailer.Net;
 using RestSharp;
 using RestSharp.Deserializers;
@@ -26,9 +22,9 @@ namespace BVNetwork.EPiSendMail.Library
 	{
 		private const string MAILGUN_CAMPAIGN_PROPERTYNAME = "MailgunCampaignName";
 		private const string MAILGUN_TAG_PROPERTYNAME = "MailgunTagName";
-		private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(MailSenderMailgun));
+        private static readonly ILogger _log = LogManager.GetLogger();
 
-		public class MailgunSettings
+        public class MailgunSettings
 		{
 			public string ApiKey { get; set; }
 			public string Domain { get; set; }
@@ -173,15 +169,15 @@ namespace BVNetwork.EPiSendMail.Library
 			}
 			catch (Exception e)
 			{
-				_log.Warn("Unable to parse Mailgun response.", e);
+				_log.Warning("Unable to parse Mailgun response.", e);
 			}
 
 			if(response.StatusCode == HttpStatusCode.OK)
 			{
-				_log.DebugFormat("Mailgun responded with: {0} - {1}", response.StatusCode, response.StatusDescription);
+				_log.Debug("Mailgun responded with: {0} - {1}", response.StatusCode, response.StatusDescription);
 				if(string.IsNullOrEmpty(response.ErrorMessage) == false)
 				{
-					_log.ErrorFormat("Response Error: {0}", response.ErrorMessage);
+					_log.Error("Response Error: {0}", response.ErrorMessage);
 				}
 				_log.Debug(response.Content);
 
@@ -204,14 +200,14 @@ namespace BVNetwork.EPiSendMail.Library
 			}
 			else
 			{
-				_log.DebugFormat("Mailgun responded with: {0} - {1}", response.StatusCode, response.StatusDescription);
+				_log.Debug("Mailgun responded with: {0} - {1}", response.StatusCode, response.StatusDescription);
 				string errorMessage = response.StatusDescription;
 				if(resultParams != null)
 					errorMessage = resultParams["message"];
 
 				if (string.IsNullOrEmpty(response.ErrorMessage) == false)
 				{
-					_log.ErrorFormat("Response Error: {0}", response.ErrorMessage);
+					_log.Error("Response Error: {0}", response.ErrorMessage);
 				}
 				_log.Debug(response.Content);
 
@@ -310,7 +306,7 @@ namespace BVNetwork.EPiSendMail.Library
 
         public List<string> ValidateRecipientList(List<EmailAddress> recipientAddresses, RecipientList blocked)
 		{
-            _log.DebugFormat("Validating {0} emails using block list {1} ({2})", recipientAddresses.Count, blocked.Name, blocked.Id);
+            _log.Debug("Validating {0} emails using block list {1} ({2})", recipientAddresses.Count, blocked.Name, blocked.Id);
 
             if(recipientAddresses.Count == 0)
                 return new List<string>();
@@ -343,7 +339,7 @@ namespace BVNetwork.EPiSendMail.Library
 		        addresses += emailAddress.Email + ",";
 		    }
 
-            _log.DebugFormat("Length of address field sent to Mailgun: {0}", addresses.Length);
+            _log.Debug("Length of address field sent to Mailgun: {0}", addresses.Length);
 
             if(addresses.Length > 8000)
             {
@@ -353,7 +349,7 @@ namespace BVNetwork.EPiSendMail.Library
             request.AddParameter("addresses", addresses.TrimEnd(','));
 
 		    var response = client.Execute(request);
-            _log.DebugFormat("Mailgun responded with status: {0} - {1}", (int)response.StatusCode, response.StatusDescription);
+            _log.Debug("Mailgun responded with status: {0} - {1}", (int)response.StatusCode, response.StatusDescription);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 /*
@@ -374,7 +370,7 @@ namespace BVNetwork.EPiSendMail.Library
                 }
                 catch (Exception e)
                 {
-                    _log.Warn("Unable to parse Mailgun response.", e);
+                    _log.Warning("Unable to parse Mailgun response.", e);
                 }
 
                 // Update all recipients with information
@@ -402,7 +398,7 @@ namespace BVNetwork.EPiSendMail.Library
             {
                 // Attempt to log error from Mailgun
                 if(string.IsNullOrEmpty(response.ErrorMessage) == false)
-                    _log.Warn(response.ErrorMessage);
+                    _log.Warning(response.ErrorMessage);
 
                 if(string.IsNullOrEmpty(response.Content) == false)
                     _log.Debug(response.Content);

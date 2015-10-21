@@ -41,7 +41,7 @@ namespace BVNetwork.EPiSendMail.Initialization
                 return;
             }
 
-            NewsletterBase correctBase = page as NewsletterBase;
+            var correctBase = page as INewsletterBase;
             if (correctBase != null)
             {
                 Job job = Job.LoadByPageId(page.PageLink.ID);
@@ -65,7 +65,7 @@ namespace BVNetwork.EPiSendMail.Initialization
                 return;
             }
 
-            NewsletterBase correctBase = page as NewsletterBase;
+            var correctBase = page as INewsletterBase;
             if (correctBase != null)
             {
                 Job job = Job.LoadByPageId(page.PageLink.ID);
@@ -85,7 +85,7 @@ namespace BVNetwork.EPiSendMail.Initialization
                 return;
             }
 
-            NewsletterBase correctBase = page as NewsletterBase;
+            var correctBase = page as INewsletterBase;
             if (correctBase != null)
             {
                 Job job = Job.LoadByPageId(page.PageLink.ID);

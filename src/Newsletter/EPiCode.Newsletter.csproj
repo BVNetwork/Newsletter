@@ -265,6 +265,7 @@
     <Compile Include="Library\HtmlHelpers.cs" />
     <Compile Include="Library\IMailSenderVerification.cs" />
     <Compile Include="Contracts\IPopulateCustomProperties.cs" />
+    <Compile Include="Library\INewsletterBase.cs" />
     <Compile Include="Library\MailInformation.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -18,8 +18,8 @@
             <dependency id="PreMailer.Net" version="1.2.6" />
             <dependency id="Microsoft.AspNet.WebApi" version="5.1.2" />
             <dependency id="RestSharp" version="104.4.0" />
-            <dependency id="EPiServer.CMS.UI.Core" version="9.0.0" />
-            <dependency id="EPiServer.Framework" version="9.0.0" />
+            <dependency id="EPiServer.CMS.UI.Core" version="[9.0, 10.0)" />
+            <dependency id="EPiServer.Framework" version="[9.0, 10.0)" />
             <dependency id="EPiServer.Logging.Log4Net" version="2.0.0" />
         </dependencies>
     </metadata>
@@ -46,10 +46,16 @@
         <file src="..\InstallationResources\web.config.uninstall.xdt"
               target="content" />-->
 
-        <file src="bin\debug\BVNetwork.EPiSendMail.dll"
+        <file src="bin\$configuration$\BVNetwork.EPiSendMail.dll"
               target="lib\net45\BVNetwork.EPiSendMail.dll" />
+        <file src="bin\$configuration$\BVNetwork.EPiSendMail.dll"
+              target="lib\net451\BVNetwork.EPiSendMail.dll" />
+        
+        <!-- For backwards compatibility -->
         <file src="references\aspNetEmail.dll"
               target="lib\net45\aspNetEmail.dll" />
+        <file src="references\aspNetEmail.dll"
+              target="lib\net451\aspNetEmail.dll" />
 
         <!-- This is where the database script goes -->
         <file src="tools\**\*.*"

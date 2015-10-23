@@ -12,7 +12,7 @@
         <description>The SendGrid package for the EPiCode Newsletter module allows you to send newsletters using SendGrid (http://www.sendgrid.com)</description>
         <dependencies>
             <dependency id="EPiCode.Newsletter"
-                        version="4.0.1" />
+                        version="4.1.2" />
             <dependency id="Sendgrid"
                         version="5.1.0" />
             <dependency id="SendGrid.SmtpApi"
@@ -20,9 +20,9 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="bin\BVNetwork.EPiSendMail.SendGrid.dll"
+        <file src="bin\$configuration$\BVNetwork.EPiSendMail.SendGrid.dll"
               target="lib\net45\BVNetwork.EPiSendMail.SendGrid.dll" />
-        <file src="bin\BVNetwork.EPiSendMail.SendGrid.dll"
+        <file src="bin\$configuration$\BVNetwork.EPiSendMail.SendGrid.dll"
               target="lib\net451\BVNetwork.EPiSendMail.SendGrid.dll" />
     </files>
 </package>

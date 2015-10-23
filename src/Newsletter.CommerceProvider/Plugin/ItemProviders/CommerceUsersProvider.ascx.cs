@@ -6,6 +6,7 @@ using BVNetwork.EPiSendMail.Plugin;
 using BVNetwork.EPiSendMail.Plugin.ItemProviders;
 using BVNetwork.EPiSendMail.Plugin.WorkItemProviders;
 using EPiServer.Framework.Localization;
+using EPiServer.Security;
 using Mediachase.BusinessFoundation.Core;
 using Mediachase.BusinessFoundation.Data.Business;
 using Mediachase.Commerce.Security;
@@ -20,7 +21,7 @@ namespace BVNetwork.EPiSendMail.CommerceProvider.Plugin.ItemProviders
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         protected override void OnDataBinding(EventArgs e)
@@ -38,7 +39,7 @@ namespace BVNetwork.EPiSendMail.CommerceProvider.Plugin.ItemProviders
                 List<KeyValuePair<string, string>> allCustomerViews = new List<KeyValuePair<string, string>>();
                 foreach (ListViewProfile listViewProfile in systemProfiles)
                 {
-                    arrayList.Add((object) listViewProfile.Id);
+                    arrayList.Add((object)listViewProfile.Id);
                     string name = listViewProfile.Name;
                     if (name.StartsWith("{"))
                     {
@@ -51,10 +52,11 @@ namespace BVNetwork.EPiSendMail.CommerceProvider.Plugin.ItemProviders
                 }
 
                 ListViewProfile[] userProfiles = ListViewProfile.GetProfiles(MetaClassName, "EntityList",
-                    SecurityContext.Current.CurrentContactId);
+                    PrincipalInfo.CurrentPrincipal.GetContactId());
+
                 foreach (ListViewProfile listViewProfile in userProfiles)
                 {
-                    if (!arrayList.Contains((object) listViewProfile.Id))
+                    if (!arrayList.Contains((object)listViewProfile.Id))
                         allCustomerViews.Add(new KeyValuePair<string, string>(listViewProfile.Id,
                             "  " + listViewProfile.Name));
                 }
@@ -123,7 +125,7 @@ namespace BVNetwork.EPiSendMail.CommerceProvider.Plugin.ItemProviders
         {
             _job = importer;
             _jobUi = feedbackUi;
-            
+
         }
     }
 }

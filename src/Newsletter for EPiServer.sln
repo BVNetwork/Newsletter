@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiCode.Newsletter", "Newsletter\EPiCode.Newsletter.csproj", "{E2EAD191-5D74-4558-BCA7-CA2686BB1759}"
 EndProject
@@ -20,6 +20,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiCode.Newsletter.SendGrid", "Newsletter.SendGrid\EPiCode.Newsletter.SendGrid.csproj", "{DC95640C-908A-49B6-B460-2157586A5DA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiCode.Newsletter.Configuration", "Newsletter.Configuration\EPiCode.Newsletter.Configuration.csproj", "{495118BF-965F-41B3-8077-4A1D789FCE51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Resources", "Solution Resources", "{CD87615D-8D12-4051-92CE-63F7FD0D760E}"
+	ProjectSection(SolutionItems) = preProject
+		packageTools.targets = packageTools.targets
+		packageVersion.targets = packageVersion.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

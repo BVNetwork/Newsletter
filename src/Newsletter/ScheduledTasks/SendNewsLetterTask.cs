@@ -18,7 +18,7 @@ namespace BVNetwork.EPiSendMail.ScheduledTasks
     [ScheduledPlugIn(
         DisplayName="Send Newsletter  Task", 
         Description="Sends newsletters that has been scheduled for sending.")]
-    public class SendNewsLetterTask : JobBase
+    public class SendNewsLetterTask : EPiServer.Scheduler.ScheduledJobBase
     {
         // Logger
         private static readonly ILogger _log = LogManager.GetLogger();

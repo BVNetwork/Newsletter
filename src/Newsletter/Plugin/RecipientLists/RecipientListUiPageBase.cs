@@ -9,26 +9,6 @@ namespace BVNetwork.EPiSendMail.Plugin
         private int _recipientListId = -1;
         private StatusMessage _messageControl;
 
-        private string _shellPath;
-
-        public string ShellPath
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_shellPath))
-                {
-                    VirtualPathNonUnifiedProvider shellProvider =
-                        VirtualPathHandler.GetProvider("EPiServerShell") as VirtualPathNonUnifiedProvider;
-
-                    if (shellProvider != null)
-                        _shellPath = shellProvider.VirtualPathRoot;
-                    else
-                        return "~/";
-                }
-                return _shellPath;
-            }
-        }
-
         public StatusMessage MessageControl
         {
             get

@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Drawing;
-using BVNetwork.EPiSendMail.Api;
-using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
-using BVNetwork.EPiSendMail.DataAccess.DataUtil;
-using EPiServer;
-using EPiServer.Core;
-using EPiServer.Framework.Web.Mvc.Html;
-using EPiServer.Shell.WebForms;
 
 namespace BVNetwork.EPiSendMail.Plugin.Admin
 

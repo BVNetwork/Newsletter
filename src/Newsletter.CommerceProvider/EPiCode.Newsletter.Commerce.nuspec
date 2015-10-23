@@ -12,7 +12,8 @@
         <description>The Commerce package for the EPiCode Newsletter module adds a work item provider for public contact lists in Commerce.</description>
         <dependencies>
             <dependency id="EPiCode.Newsletter"
-                        version="4.0.1" />
+                        version="4.1.2" />
+            <dependency id="EPiServer.Commerce.Core" version="[9.0, 10.0)" />
         </dependencies>
     </metadata>
     <files>
@@ -23,9 +24,9 @@
         <file src="web.config.install.xdt"
               target="content" />
 
-        <file src="bin\BVNetwork.EPiSendMail.CommerceProvider.dll"
+        <file src="bin\$configuration$\BVNetwork.EPiSendMail.CommerceProvider.dll"
               target="lib\net45\BVNetwork.EPiSendMail.CommerceProvider.dll" />
-        <file src="bin\BVNetwork.EPiSendMail.CommerceProvider.dll"
+        <file src="bin\$configuration$\BVNetwork.EPiSendMail.CommerceProvider.dll"
               target="lib\net451\BVNetwork.EPiSendMail.CommerceProvider.dll" />
     </files>
 </package>

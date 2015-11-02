@@ -1,21 +1,19 @@
 ﻿using System.Web;
-using BVNetwork.EPiSendMail.Contracts;
-using EPiServer.Core;
+using BVNetwork.EPiSendMail.Configuration;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell;
 
 namespace BVNetwork.EPiSendMail.UIExtensions
 {
-    [ServiceConfiguration(typeof(EPiServer.Shell.ViewConfiguration))]
+    [ServiceConfiguration(typeof(ViewConfiguration))]
     public class NewsLetterDetailsView : ViewConfiguration<INewsletterBase>
     {
         public NewsLetterDetailsView()
         {
             Key = "NewsletterDetailsView";
-            Name = "Newsletter Details";
-            Description = "Newsletter Details View";
+            LanguagePath = "/bvnetwork/sendmail/view";
             ControllerType = "epi-cms/widget/IFrameController";
-            ViewType = VirtualPathUtility.ToAbsolute(Configuration.NewsLetterConfiguration.GetModuleBaseDir("/Plugin/Jobs/JobEdit.aspx"));
+            ViewType = VirtualPathUtility.ToAbsolute(NewsLetterConfiguration.GetModuleBaseDir("/Plugin/Jobs/JobEdit.aspx"));
             IconClass = "newsletterView";
         }
     }

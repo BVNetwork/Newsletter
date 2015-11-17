@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Threading;
 using BVNetwork.EPiSendMail.DataAccess;
 using BVNetwork.EPiSendMail.Library;
-using EPiServer.BaseLibrary.Scheduling;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.Logging;
 using EPiServer.PlugIn;
+using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 
 namespace BVNetwork.EPiSendMail.ScheduledTasks
@@ -18,7 +18,7 @@ namespace BVNetwork.EPiSendMail.ScheduledTasks
     [ScheduledPlugIn(
         DisplayName="Send Newsletter  Task", 
         Description="Sends newsletters that has been scheduled for sending.")]
-    public class SendNewsLetterTask : JobBase
+    public class SendNewsLetterTask : ScheduledJobBase
     {
         // Logger
         private static readonly ILogger _log = LogManager.GetLogger();

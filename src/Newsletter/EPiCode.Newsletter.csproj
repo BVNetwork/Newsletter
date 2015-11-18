@@ -693,6 +693,7 @@
     <Content Include="lang\EPiCode.Newsletter.NO.xml" />
     <EmbeddedResource Include="Tools\newsletter-validating-query-301.sql" />
     <EmbeddedResource Include="Tools\newsletter-install-301.sql" />
+    <None Include="EPiCode.Newsletter.Core.nuspec" />
     <None Include="packages.config" />
     <None Include="Plugin\Newsletter.Master">
       <SubType>ASPXCodeBehind</SubType>

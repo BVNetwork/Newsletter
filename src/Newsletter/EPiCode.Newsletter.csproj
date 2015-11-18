@@ -752,6 +752,7 @@
     <ZipDirectory InputPath="$(TmpOutDir)\content" OutputFileName="$(OutDir)\$(ProjectName).zip" OverwriteExistingFile="true" />
     <!-- Create the package -->
     <Exec Command="$(NugetCommand)" />
+	<Exec Command="$(CoreNugetCommand)" />
     <!-- Cleanup -->
     <RemoveDir Directories="$(TmpOutDir)" />
   </Target>

@@ -17,9 +17,9 @@
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="Exists($(CoreNuspecFile))">
-		<NugetCommand>
+		<CoreNugetCommand>
 			"$(NuGetExe)" pack "$(CoreNuspecFile)" -OutputDirectory "$(PackageOutDir.TrimEnd('\\'))" -Version $(PackageVersion) -Properties Configuration=$(Configuration)
-		</NugetCommand>
+		</CoreNugetCommand>
 	</PropertyGroup>
 	
     <UsingTask TaskName="ZipDirectory" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">

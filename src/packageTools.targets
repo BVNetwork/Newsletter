@@ -6,6 +6,7 @@
         <NuGetExe>$(SolutionDir)\.nuget\NuGet.exe</NuGetExe>
         <TmpOutDir>$(SolutionDir)\tmp</TmpOutDir>
         <NuspecFile>$(ProjectDir)\$(ProjectName).nuspec</NuspecFile>
+		<CoreNuspecFile>$(ProjectDir)\$(ProjectName).Core.nuspec</CoreNuspecFile>
         <PackageOutDir>$(SolutionDir)</PackageOutDir>
     </PropertyGroup>
 
@@ -13,6 +14,12 @@
 		<NugetCommand>
 			"$(NuGetExe)" pack "$(NuspecFile)" -OutputDirectory "$(PackageOutDir.TrimEnd('\\'))" -Version $(PackageVersion) -Properties Configuration=$(Configuration)
 		</NugetCommand>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="Exists($(CoreNuspecFile))">
+		<CoreNugetCommand>
+			"$(NuGetExe)" pack "$(CoreNuspecFile)" -OutputDirectory "$(PackageOutDir.TrimEnd('\\'))" -Version $(PackageVersion) -Properties Configuration=$(Configuration)
+		</CoreNugetCommand>
 	</PropertyGroup>
 	
     <UsingTask TaskName="ZipDirectory" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">

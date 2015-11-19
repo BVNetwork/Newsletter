@@ -8,8 +8,8 @@
         <projectUrl>https://github.com/BVNetwork/Newsletter</projectUrl>
         <iconUrl>http://www.coderesort.com/favicon.ico</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Package contains assembly BVNetwork.EPiSendMail.dll.</description>
-        <summary>Sends pages as newsletters through the EPiServer UI.</summary>
+        <description>Reference package for the Newsletter module, only containing the assembly.</description>
+        <summary>This package is not needed for a regular installation, it can be used in libraries or other projects where you have references to classes or interfaces in the assembly, but do not need the UI parts of the install.</summary>
         <references>
             <reference file="BVNetwork.EPiSendMail.dll" />
         </references>

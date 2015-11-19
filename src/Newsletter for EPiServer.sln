@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Resources", "Solut
 	ProjectSection(SolutionItems) = preProject
 		packageTools.targets = packageTools.targets
 		packageVersion.targets = packageVersion.targets
+		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
 Global

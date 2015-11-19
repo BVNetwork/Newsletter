@@ -1,7 +1,7 @@
 # Newsletter for EPiServer #
 A free module for sending newsletters from your EPiServer CMS or Commerce site. You can send the content from pages based on one or more newsletter pagetypes to multiple recipients, using a cloud service or your own SMTP server.
 
->This is a port of the old EPiSendMail (BV Network Newsletter) module from EPiCode, rewritten to support EPiServer CMS and Commerce 7.5 and newer (including CMS 8).
+>This is a port of the old EPiSendMail (BV Network Newsletter) module from EPiCode, rewritten to support EPiServer CMS and Commerce 7.5 and newer (including CMS 8 and 9).
 
 ## Features ##
  * Create newsletters as pages in EPiServer
@@ -23,7 +23,7 @@ A free module for sending newsletters from your EPiServer CMS or Commerce site. 
 ## Installation ##
 The installation is done through Visual Studio using the EPiServer Nuget Feed (currently located on http://nuget.episerver.com/feed/packages.svc/) 
 
-Main Newsletter Add-on:
+Main Newsletter Add-on (includes SMTP and Mailgun senders):
 ```
 Install-Package EPiCode.Newsletter
 ```
@@ -193,7 +193,7 @@ Example setting up a virtual role (in `episerver.framework` section of web.confi
 If you get an error during startup like this: `Cannot add duplicate collection entry of type 'add' with unique key attribute 'name' set to 'ExtensionlessUrlHandler-Integrated-4.0'` please check your web.config and remove any duplicate `ExtensionlessUrlHandler-Integrated-4.0` handlers (under `system.webServer`)
 
 ### Missing Assembly Redirects ###
-In some cases, there are missing assembly redirects for some of the `System.Net` and `System.Web` assemblies. Make sure you have these in your web.config:
+In some cases, there are missing assembly redirects for some of the `System.Net` and `System.Web` assemblies. Make sure you have these (or newer versions) in your web.config:
 ```xml
 <assemblyBinding>
   ...
@@ -223,6 +223,7 @@ This module is open source and unsupported. Feel free to [register new issues](h
 
 ## Requirements ##
 Runtime:
+
 * EPiServer CMS 7.9 or newer
 * .NET 4.5
 
@@ -235,5 +236,5 @@ Runtime:
 * EPiServer Commerce 7.5 or newer for custom recipient lists
 
 ## Contributions by ##
-BV Network AS
-Departementenes sikkerhets- og serviceorganisasjon (DSS)
+* BV Network AS
+* Departementenes sikkerhets- og serviceorganisasjon (DSS)

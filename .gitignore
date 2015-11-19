@@ -160,3 +160,4 @@ $RECYCLE.BIN/
 #src/Newsletter/pack.cmd
 src/pack.cmd
 src/Newsletter.SendGrid/pack.cmd
+src/.vs/config/applicationhost.config

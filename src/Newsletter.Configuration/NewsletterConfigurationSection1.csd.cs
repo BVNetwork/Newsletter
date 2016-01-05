@@ -105,7 +105,34 @@ namespace BVNetwork.EPiSendMail.Configuration
             }
         }
         #endregion
-        
+
+
+        #region IgnoreServiceStatus Property
+        /// <summary>
+        /// The XML name of the <see cref="IgnoreServiceStatus"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.7")]
+        internal const string IgnoreServiceStatusPropertyName = "ignoreServiceStatus";
+
+        /// <summary>
+        /// Gets or sets the SenderType.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.7")]
+        [global::System.ComponentModel.DescriptionAttribute("Ignore service status in the admin UI.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BVNetwork.EPiSendMail.Configuration.NewsletterConfigurationSection.IgnoreServiceStatusPropertyName, IsRequired = false, IsKey = false, IsDefaultCollection = false, DefaultValue = false)]
+        public virtual bool IgnoreServiceStatus
+        {
+            get
+            {
+                return ((bool)(base[global::BVNetwork.EPiSendMail.Configuration.NewsletterConfigurationSection.IgnoreServiceStatusPropertyName]));
+            }
+            set
+            {
+                base[global::BVNetwork.EPiSendMail.Configuration.NewsletterConfigurationSection.IgnoreServiceStatusPropertyName] = value;
+            }
+        }
+        #endregion
+
         #region RecipientListProviders Property
         /// <summary>
         /// The XML name of the <see cref="RecipientListProviders"/> property.

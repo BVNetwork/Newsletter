@@ -51,7 +51,20 @@ namespace BVNetwork.EPiSendMail.Api
             status.EmailsFailed = job.GetWorkItemCountForStatus(JobWorkStatus.Failed);
             status.EmailsNotSent = job.GetWorkItemCountForStatus(JobWorkStatus.NotStarted);
             status.EmailsInQueue = job.GetWorkItemCountForStatus(JobWorkStatus.Sending);
-            status.SchedulerIsOnline = ScheduledJob.IsServiceOnline;
+
+            if(NewsletterConfigurationSection.Instance.IgnoreServiceStatus == false)
+            {
+                status.SchedulerIsOnline = ScheduledJob.IsServiceOnline;
+            }
+            else
+            {
+                // In a load balanced environment, you might not want
+                // to report that the scheduler is not enabled, as users
+                // could get confused (another server will be responsible)
+                status.SchedulerIsOnline = true;
+            }
+            
+
             status.Status = job.Status.ToString();
             if (jobDefinition != null)
             {

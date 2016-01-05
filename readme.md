@@ -76,7 +76,7 @@ When you install the module using Nuget, the following configuration is added to
     <section name="epicodeNewsletter" type="BVNetwork.EPiSendMail.Configuration.NewsletterConfigurationSection, BVNetwork.EPiSendMail" />
 </configSections>
 ...
-<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderNetSmtp, BVNetwork.EPiSendMail">
+<epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderNetSmtp, BVNetwork.EPiSendMail" ignoreServiceStatus="false">
     <recipientListProviders>
         <add name="RecipientList" displayName="Add from one of your Recipient Lists" url="/modules/epicode.newsletter/plugin/recipientitemproviders/recipientprovider.ascx" />
         <add name="TextImport" displayName="Import from text" url="/modules/epicode.newsletter/plugin/recipientitemproviders/TextImportProvider.ascx" />
@@ -189,6 +189,10 @@ Example setting up a virtual role (in `episerver.framework` section of web.confi
     </providers>
 </virtualRoles>
 ```
+
+### Disable Service Warning ###
+In a load balanced environment, it is common to only let one server run scheduled jobs. You might not want to report that the scheduler is disabled, as this could confuse editors to think that the module is not working. On servers where the scheduler is disabled, set `ignoreServiceStatus="true"` on the `epicodeNewsletter` section. This will remove "The Scheduler is not running!" warning from the Newsletter UI.
+
 ## Troubleshooting ##
 If you get an error during startup like this: `Cannot add duplicate collection entry of type 'add' with unique key attribute 'name' set to 'ExtensionlessUrlHandler-Integrated-4.0'` please check your web.config and remove any duplicate `ExtensionlessUrlHandler-Integrated-4.0` handlers (under `system.webServer`)
 

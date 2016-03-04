@@ -12,7 +12,7 @@
         <description>The Commerce package for the EPiCode Newsletter module adds a work item provider for public contact lists in Commerce.</description>
         <dependencies>
             <dependency id="EPiCode.Newsletter"
-                        version="4.1.2" />
+                        version="4.3.0" />
             <dependency id="EPiServer.Commerce.Core" version="[9.0, 10.0)" />
         </dependencies>
     </metadata>

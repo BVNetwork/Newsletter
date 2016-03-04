@@ -12,7 +12,7 @@
         <iconUrl>http://www.coderesort.com/favicon.ico</iconUrl>
         <dependencies>
             <dependency id="EPiCode.Newsletter"
-                        version="4.1.2" />
+                        version="4.3.0" />
         </dependencies>
     </metadata>
     <files>

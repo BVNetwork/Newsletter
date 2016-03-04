@@ -43,9 +43,15 @@ namespace BVNetwork.EPiSendMail.Library
 				throw new ArgumentNullException("mailInfo", "Missing from address.");
 			}
 
-			// Inline all css
-			InlineResult cssInline = PreMailer.Net.PreMailer.MoveCssInline(mailInfo.BodyHtml);
-			mailInfo.BodyHtml = cssInline.Html;
+            // Inline all css
+            PreMailer.Net.PreMailer preMailer = new PreMailer.Net.PreMailer(mailInfo.BodyHtml);
+            if (mailInfo.Utm.HasValidUtmCode)
+            {
+                preMailer.AddAnalyticsTags(mailInfo.Utm.Source, mailInfo.Utm.Medium, mailInfo.Utm.Campaign,
+                    mailInfo.Utm.Content);
+            }
+            InlineResult cssInline = preMailer.MoveCssInline();
+            mailInfo.BodyHtml = cssInline.Html;
 			
             // Log any messages, debug is only detected
             // if we have an HttpContext.

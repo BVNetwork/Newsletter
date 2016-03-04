@@ -1,7 +1,7 @@
 # Newsletter for EPiServer #
-A free module for sending newsletters from your EPiServer CMS or Commerce site. You can send the content from pages based on one or more newsletter pagetypes to multiple recipients, using a cloud service or your own SMTP server.
+An open source module for sending newsletters from your EPiServer CMS or Commerce site. You can send the content from pages based on one or more newsletter pagetypes to multiple recipients, using a cloud service or your own SMTP server.
 
->This is a port of the old EPiSendMail (BV Network Newsletter) module from EPiCode, rewritten to support EPiServer CMS and Commerce 7.5 and newer (including CMS 8 and 9).
+>This is a port of the old EPiSendMail (BV Network Newsletter) module from EPiCode, rewritten to support EPiServer CMS and Commerce 7.5 and newer (including 8 and 9).
 
 ## Features ##
  * Create newsletters as pages in EPiServer

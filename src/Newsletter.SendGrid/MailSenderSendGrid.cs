@@ -28,7 +28,6 @@ namespace BVNetwork.EPiSendMail.SendGrid
             public string Password { get; set; }
         }
 
-
         /// <summary>
         /// Send mail to mailreceivers using SendGrid REST API
         /// </summary>

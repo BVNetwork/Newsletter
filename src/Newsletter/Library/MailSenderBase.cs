@@ -55,6 +55,9 @@ namespace BVNetwork.EPiSendMail.Library
 			// Sender address
 			mailInfo.From = GetMailSender(mailPage);
 
+            // Campaign data
+		    mailInfo.Utm.Campaign = GetCampaign(mailPage);
+
 			return mailInfo;
 		}
 
@@ -83,6 +86,22 @@ namespace BVNetwork.EPiSendMail.Library
 				subject = NewsLetterConfiguration.GetAppSettingsConfigValueEx<string>("Newsletter.DefaultMailSubject", "Newsletter");
 
 			return subject;
+		}
+
+        /// <summary>
+        /// Looks for a UtmCampaign property on the page and uses that for Utm tracking
+        /// </summary>
+        /// <returns>The campaign name if it exists</returns>
+        public virtual string GetCampaign(PageData page)
+		{
+			string campaign = null;
+			if (page != null)
+			{
+				if (page["UtmCampaign"] != null)
+					campaign = page["UtmCampaign"].ToString();
+			}
+
+			return campaign;
 		}
 
 		/// <summary>

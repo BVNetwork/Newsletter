@@ -14,7 +14,9 @@ namespace BVNetwork.EPiSendMail.Library
 	    public MailInformation()
 		{
 		    EnableTracking = true;
-		}
+            Utm = new UtmCode();
+
+        }
 
 		public MailInformation(string from, string subject, string bodyText, string bodyHtml)
 		{
@@ -89,5 +91,8 @@ namespace BVNetwork.EPiSendMail.Library
 	        get { return _customProperties; }
 	        set { _customProperties = value; }
 	    }
+
+        public UtmCode Utm { get; set; }
+        
 	}
 }

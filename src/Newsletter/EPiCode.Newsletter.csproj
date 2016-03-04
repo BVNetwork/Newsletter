@@ -189,12 +189,12 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PreMailer.Net, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreMailer.Net.1.2.7\lib\net40\PreMailer.Net.dll</HintPath>
+    <Reference Include="PreMailer.Net, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PreMailer.Net.1.4.3\lib\net40\PreMailer.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="StructureMap, Version=3.1.6.186, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
@@ -352,6 +352,7 @@
     </Compile>
     <Compile Include="Initialization\InitializeNewsletterEvents.cs" />
     <Compile Include="Library\NewsletterBase.cs" />
+    <Compile Include="Library\UtmCode.cs" />
     <Compile Include="Models\NewsletterListModel.cs" />
     <Compile Include="Plugin\Admin\AdminSettingsModel.cs" />
     <Compile Include="Plugin\Admin\AdminSettingsRepository.cs" />
@@ -752,7 +753,7 @@
     <ZipDirectory InputPath="$(TmpOutDir)\content" OutputFileName="$(OutDir)\$(ProjectName).zip" OverwriteExistingFile="true" />
     <!-- Create the package -->
     <Exec Command="$(NugetCommand)" />
-	<Exec Command="$(CoreNugetCommand)" />
+    <Exec Command="$(CoreNugetCommand)" />
     <!-- Cleanup -->
     <RemoveDir Directories="$(TmpOutDir)" />
   </Target>

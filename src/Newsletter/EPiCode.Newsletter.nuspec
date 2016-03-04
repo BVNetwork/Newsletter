@@ -15,9 +15,9 @@
         </references>
 
         <dependencies>
-            <dependency id="PreMailer.Net" version="1.2.6" />
+            <dependency id="PreMailer.Net" version="[1.4.3, 1.5)" />
             <dependency id="Microsoft.AspNet.WebApi" version="5.1.2" />
-            <dependency id="RestSharp" version="104.4.0" />
+            <dependency id="RestSharp" version="105.2.3" />
             <dependency id="EPiServer.CMS.UI.Core" version="[9.0, 10.0)" />
             <dependency id="EPiServer.Framework" version="[9.0, 10.0)" />
             <dependency id="EPiServer.Logging.Log4Net" version="2.0.0" />

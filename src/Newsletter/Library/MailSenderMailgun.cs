@@ -10,6 +10,7 @@ using EPiServer.Core;
 using EPiServer.Logging;
 using PreMailer.Net;
 using RestSharp;
+using RestSharp.Authenticators;
 using RestSharp.Deserializers;
 // ReSharper disable PossibleMultipleEnumeration
 
@@ -101,7 +102,7 @@ namespace BVNetwork.EPiSendMail.Library
 				throw new ArgumentOutOfRangeException("recipients", "Mailgun supports maximum 1000 recipients per batch send.");
 
 			RestClient client = new RestClient();
-			client.BaseUrl = "https://api.mailgun.net/v2";
+	        client.BaseUrl = new Uri("https://api.mailgun.net/v2");
 			client.Authenticator = new HttpBasicAuthenticator("api", settings.ApiKey);
 
             if(string.IsNullOrEmpty(settings.ProxyAddress) == false)
@@ -236,16 +237,25 @@ namespace BVNetwork.EPiSendMail.Library
 			IPopulateCustomProperties customPropertiesProvider = mailPage as IPopulateCustomProperties;
 			if (customPropertiesProvider == null)
 			{
-				// The base class will add custom properties if the page type
-				// implements that - if NOT, we'll try to add them ourselves
-				// by looking for special property names relevant to Mailgun
-				if (mailPage[MAILGUN_CAMPAIGN_PROPERTYNAME] != null)
-				{
-					mailInformation.CustomProperties.Add("o:campaign",
-						mailPage[MAILGUN_CAMPAIGN_PROPERTYNAME]);
-				}
+                // The base class will add custom properties if the page type
+                // implements that - if NOT, we'll try to add them ourselves
+                // by looking for special property names relevant to Mailgun
+                var campaign = mailPage[MAILGUN_CAMPAIGN_PROPERTYNAME];
+			    if (campaign != null)
+			    {
+			        mailInformation.Utm.Campaign = campaign.ToString();
 
-				if (mailPage[MAILGUN_TAG_PROPERTYNAME] != null)
+			    }
+
+                // Since the Utm Campaign can be set independently, we check if it
+                // is set, and use it as a Mailgun campaign too
+                if(string.IsNullOrEmpty(mailInformation.Utm.Campaign) == false)
+                {
+                    mailInformation.CustomProperties.Add("o:campaign", campaign);
+                }
+
+
+                if (mailPage[MAILGUN_TAG_PROPERTYNAME] != null)
 				{
 					mailInformation.CustomProperties.Add("o:tag", mailPage[MAILGUN_TAG_PROPERTYNAME]);
 				}
@@ -313,7 +323,7 @@ namespace BVNetwork.EPiSendMail.Library
 
 		    MailgunSettings settings = GetSettings();
 		    RestClient client = new RestClient();
-			client.BaseUrl = "https://api.mailgun.net/v2";
+            client.BaseUrl = new Uri("https://api.mailgun.net/v2");
 			client.Authenticator = new HttpBasicAuthenticator("api", settings.PublicKey);
             
             if (string.IsNullOrEmpty(settings.ProxyAddress) == false)

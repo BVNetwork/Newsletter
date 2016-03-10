@@ -251,7 +251,7 @@ namespace BVNetwork.EPiSendMail.Library
                 // is set, and use it as a Mailgun campaign too
                 if(string.IsNullOrEmpty(mailInformation.Utm.Campaign) == false)
                 {
-                    mailInformation.CustomProperties.Add("o:campaign", campaign);
+                    mailInformation.CustomProperties.Add("o:campaign", mailInformation.Utm.Campaign);
                 }
 
 

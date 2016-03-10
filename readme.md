@@ -140,7 +140,7 @@ You can also use a pick up directory if you have a SMTP server on your network t
 **Note!** The `pickupDirectoryLocation` can be on a network share.
 
 ### Configuring Mailgun ###
-Change the `senderType` to the `<epicodeNewsletter>` section in web.config to use Mailgun:
+Change the `senderType` of the `<epicodeNewsletter>` section in web.config to use Mailgun:
 ```xml
 <epicodeNewsletter senderType="BVNetwork.EPiSendMail.Library.MailSenderMailgun, BVNetwork.EPiSendMail">
  ...
@@ -160,9 +160,12 @@ The Api keys can be found on the Mailgun Account home page: https://mailgun.com/
 You also need to configure your mail sending domain for your Mailgun account, which is well described on your Mailgun account page. For testing purposes, you can use the sandbox domain that is created when you register your Mailgun account.
 
 ### Configuring SendGrid ###
-Add the following keys to the `<appSettings>` section in web.config to use SendGrid:
+Change the `senderType` of the `<epicodeNewsletter>` section in web.config to use SendGrid:
 ```xml
-<add key="Newsletter.SenderType" value="BVNetwork.EPiSendMail.SendGrid.MailSenderSendGrid, BVNetwork.EPiSendMail.SendGrid" />
+<epicodeNewsletter senderType="BVNetwork.EPiSendMail.SendGrid.MailSenderSendGrid, BVNetwork.EPiSendMail.SendGrid">
+ ...
+</epicodeNewsletter>
+
 ```
 
 Add a new connectionString to configure your SendGrid account:
@@ -172,7 +175,7 @@ Add a new connectionString to configure your SendGrid account:
   <add name="EPiCode.Newsletter.SendGrid" connectionString="username=sendgridusername;password=sendgridpassword" providerName="Custom" />
 </connectionStrings>
 ```
-**Note!** You can create additional SendGrid users that only has access to the API, and not the full administration interface. It is recommended to create a separate account in order to authorize access to the SendGrid API.
+**Note!** You can create additional SendGrid users that only has access to the API, and not the full administration interface. It is recommended to create a separate account in order to provide access to the SendGrid API only.
 
 ### Access Rights ###
 By default, only members of the `CmsAdmins` and `NewsletterEditors` roles are allowed to send newsletters. You can add `NewsletterEditors` as a virtual role and add other roles to it if you do not want to add it as a group with individual users.

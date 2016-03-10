@@ -4,12 +4,8 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using BVNetwork.EPiSendMail.DataAccess;
 using BVNetwork.EPiSendMail.Library;
-using PreMailer.Net;
 using SendGrid;
 
 // ReSharper disable PossibleMultipleEnumeration
@@ -19,7 +15,6 @@ namespace BVNetwork.EPiSendMail.SendGrid
     public class MailSenderSendGrid : MailSenderBatchBase, IMailSenderVerification
     {
         private const string ConnectionStringName = "EPiCode.Newsletter.SendGrid";
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(MailSenderSendGrid));
 
 
         public class SendGridSettings
@@ -27,38 +22,6 @@ namespace BVNetwork.EPiSendMail.SendGrid
             public string Username { get; set; }
             public string Password { get; set; }
         }
-
-        /// <summary>
-        /// Send mail to mailreceivers using SendGrid REST API
-        /// </summary>
-        /// <param name="mailInfo"></param>
-        /// <param name="recepients">receivers</param>
-        /// <param name="testMode">No mails are sent, generating report for user</param>
-        /// <returns>A html formatted report of the send process</returns>
-        public override SendMailLog SendEmail(MailInformation mailInfo, JobWorkItems recepients, bool testMode)
-        {
-            _log.Debug("Starting SendGrid Send");
-
-            // Inline all css
-            InlineResult cssInline = PreMailer.Net.PreMailer.MoveCssInline(mailInfo.BodyHtml);
-            mailInfo.BodyHtml = cssInline.Html;
-
-            // Base will send
-            SendMailLog log = base.SendEmail(mailInfo, recepients, testMode);
-
-            // Log any messages, debug is only detected
-            // if we have an HttpContext.
-            if (IsInDebugMode())
-            {
-                log.WarningMessages.Add("Premailer CSS warning messages are only shown in debug mode. Primarily for developers.");
-                log.WarningMessages.AddRange(cssInline.Warnings.ToArray());
-            }
-
-            _log.Debug("Ending SendGrid Send");
-            // return report 
-            return log;
-        }
-
 
         /// <summary>
         /// Sends the mail batch using the SendGrid API
@@ -72,7 +35,6 @@ namespace BVNetwork.EPiSendMail.SendGrid
         {
             var settings = GetSettings();
 
-            
             if (recipients == null || recipients.Any() == false)
                 throw new ArgumentException("No workitems", "recipients");
 

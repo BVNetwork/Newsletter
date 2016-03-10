@@ -14,7 +14,7 @@
             <dependency id="EPiCode.Newsletter"
                         version="4.3.0" />
             <dependency id="Sendgrid"
-                        version="5.1.0" />
+                        version="[5.1.0, 6.0)" />
             <dependency id="SendGrid.SmtpApi"
                         version="1.2.1" />
         </dependencies>

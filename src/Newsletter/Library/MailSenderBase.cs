@@ -332,10 +332,10 @@ namespace BVNetwork.EPiSendMail.Library
 		        }
 		        else
 		        {
-		            // Always look up based on page
-		            SiteDefinitionResolver repo = ServiceLocator.Current.GetInstance<SiteDefinitionResolver>();
-		            SiteDefinition siteDefinition = repo.GetDefinitionForContent(page.ContentLink,
-		                fallbackToWildcardMapped: true, fallbackToEmpty: false);
+                    // Always look up based on page
+                    var repo = ServiceLocator.Current.GetInstance<ISiteDefinitionResolver>();
+		            var siteDefinition = repo.GetByContent(page.ContentLink,
+                        fallbackToWildcard: true, fallbackToEmpty: false);
 
 		            if (siteDefinition == null || siteDefinition.SiteUrl == null)
 		            {

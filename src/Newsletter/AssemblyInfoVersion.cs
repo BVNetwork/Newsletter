@@ -1,3 +1,8 @@
 using System.Reflection;
 
-[assembly: AssemblyVersion("4.2.1")]
+#if CMS9
+    [assembly: AssemblyVersion("9.0.0")]
+#else
+    [assembly: AssemblyVersion("10.0.0")]
+#endif
+

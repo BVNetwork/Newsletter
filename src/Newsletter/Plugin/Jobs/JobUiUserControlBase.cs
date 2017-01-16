@@ -226,7 +226,11 @@ namespace BVNetwork.EPiSendMail.Plugin
             {
                 if (ContentReference.IsNullOrEmpty(this._currentLink))
                 {
+#if CMS9
                     this._currentLink = ServiceLocator.Current.GetInstance<ContentRouteHelper>().ContentLink;
+#else
+                    this._currentLink = ServiceLocator.Current.GetInstance<IContentRouteHelper>().ContentLink;
+#endif
                     if (ContentReference.IsNullOrEmpty(this._currentLink))
                     {
                         RouteData routeData = ServiceLocator.Current.GetInstance<ClassicLinkRoute>().GetRouteData(HttpContextExtensions.ContextBaseOrNull(HttpContext.Current));

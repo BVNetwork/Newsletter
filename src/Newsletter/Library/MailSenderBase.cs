@@ -332,12 +332,15 @@ namespace BVNetwork.EPiSendMail.Library
 		        }
 		        else
 		        {
-		            // Always look up based on page
-		            SiteDefinitionResolver repo = ServiceLocator.Current.GetInstance<SiteDefinitionResolver>();
-		            SiteDefinition siteDefinition = repo.GetDefinitionForContent(page.ContentLink,
-		                fallbackToWildcardMapped: true, fallbackToEmpty: false);
-
-		            if (siteDefinition == null || siteDefinition.SiteUrl == null)
+#if CMS9
+                    // Always look up based on page
+                    SiteDefinitionResolver repo = ServiceLocator.Current.GetInstance<SiteDefinitionResolver>();
+		            SiteDefinition siteDefinition = repo.GetDefinitionForContent(page.ContentLink, fallbackToWildcardMapped: true, fallbackToEmpty: false);
+#else
+                    ISiteDefinitionResolver repo = ServiceLocator.Current.GetInstance<ISiteDefinitionResolver>();
+                    SiteDefinition siteDefinition = repo.GetByContent(page.ContentLink, fallbackToWildcard: true, fallbackToEmpty: false);
+#endif
+                    if (siteDefinition == null || siteDefinition.SiteUrl == null)
 		            {
 		                // Still haven't found it, can't go on
 		                throw new ApplicationException("Cannot find a SiteDefinition with a valid SiteUrl for page: " +

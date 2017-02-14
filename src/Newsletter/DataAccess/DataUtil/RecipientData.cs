@@ -11,11 +11,12 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
     /// </summary>
     internal class RecipientData : DataAccessBase
     {
-        public RecipientData(IDatabaseHandler databaseHandler)
+        public RecipientData(IDatabaseExecutor databaseHandler)
             : base(databaseHandler)
         {
-            this.Database = databaseHandler;
+            this.Executor = databaseHandler;
         }
+
         /// <summary>
         /// Create a new recipientlist.
         /// </summary>
@@ -27,7 +28,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         {
             int recipientId = 0;
 
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = base.CreateCommand("NewsletterRecipientListCreate");
                                      cmd.Parameters.Add(base.CreateParameter("listType", listType));
@@ -62,7 +63,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="description"></param>
         public void RecipientListEdit(int recipientListId, RecipientListType listType, string name, string description)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = base.CreateCommand("NewsletterRecipientListEdit");
                                      cmd.Parameters.Add(base.CreateParameter("recipientlistid", recipientListId));
@@ -82,7 +83,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable RecipientListGetAll()
         {
             DataTable recipientLists = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = base.CreateCommand("NewsletterRecipientListGetAll");
                                      DbDataAdapter adapter = base.CreateDataAdapter(cmd);
@@ -99,7 +100,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable RecipientListGetAllByEmail(string email)
         {
             DataTable recipientLists = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                   {
                                       DbCommand cmd = base.CreateCommand("NewsletterRecipientListGetAllByEmail");
                                       cmd.Parameters.Add(base.CreateParameter("email", email));
@@ -111,7 +112,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         }
 
         /// <summary>
-        /// Gets all email items for a given recipient lists from the database.
+        /// Gets all email items for a given recipient lists from the Executor.
         /// </summary>
         /// <remarks>
         /// The list is sorted by added date, with the most recently added items first
@@ -121,7 +122,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable RecipientListGetAllItems(int recipientListId)
         {
             DataTable recipientListItems = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                               {
                                   DbCommand cmd = base.CreateCommand("NewsletterRecipientListGetAllItems");
                                   cmd.Parameters.Add(base.CreateParameter("recipientlistid", recipientListId));
@@ -140,7 +141,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable RecipientListGetById(int recipientListId)
         {
             DataTable recipientList = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = base.CreateCommand("NewsletterRecipientListGet");
                                      cmd.Parameters.Add(base.CreateParameter("recipientlistid", recipientListId));
@@ -156,7 +157,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// </summary>
         /// <remarks>
         /// The added field will be set automatically to the timestamp
-        /// the address is added to the database.
+        /// the address is added to the Executor.
         /// </remarks>
         /// <param name="recipientListId">The recipient list id to store this email address on.</param>
         /// <param name="emailAddress">The email address.</param>
@@ -164,7 +165,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="source">Emailaddress source (Enum)</param>
         public void RecipientListEditItem(int recipientListId, string emailAddress, string comment, EmailAddressSource source)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                   {
                                       DbCommand cmd = base.CreateCommand("NewsletterRecipientListEditItem");
                                       cmd.Parameters.Add(base.CreateParameter("recipientlistid", recipientListId));
@@ -178,7 +179,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
 
         public void RecipientListAddItem(int recipientListId, string emailAddress, string comment, EmailAddressSource source)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand
                                          cmd = base.CreateCommand("NewsletterRecipientListAddItem");
@@ -198,7 +199,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="emailAddress">The email address.</param>
         public void RecipientListRemoveItem(int recipientListId, string emailAddress)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = base.CreateCommand("NewsletterRecipientListRemoveItem");
                                      cmd.Parameters.Add(base.CreateParameter("recipientlistid", recipientListId));
@@ -214,7 +215,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="recipientListId">The recipient list id.</param>
         public void RecipientListRemoveAllItems(int recipientListId)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = base.CreateCommand("NewsletterRecipientListRemoveAllItems");
                                      cmd.Parameters.Add(base.CreateParameter("recipientlistid", recipientListId));
@@ -228,7 +229,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="recipientListId">The recipient list id.</param>
         public void RecipientListDelete(int recipientListId)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = base.CreateCommand("NewsletterRecipientListDelete");
                                      cmd.Parameters.Add(base.CreateParameter("recipientlistid", recipientListId));
@@ -240,7 +241,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable RecipientListSearch(int recipientListId, string searchFor)
         {
             DataTable items = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                   {
                                       DbCommand  cmd = base.CreateCommand("NewsletterRecipientListSearch");
                                       cmd.Parameters.Add(base.CreateParameter("recipientListid", recipientListId));
@@ -262,7 +263,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataRow RecipientListGetItem(int recipientListId, string emailAddress)
         {
             DataTable emailAddresses = new DataTable();
-            return Database.Execute(() =>
+            return Executor.Execute(() =>
                              {
                                  DbCommand  cmd = base.CreateCommand("NewsletterRecipientListGetItem");
                                  cmd.Parameters.Add(base.CreateParameter("recipientlistid", recipientListId));
@@ -298,7 +299,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public int RecipientItemInsertFromRecipientList(int recipientListIdTo, int recipientListFrom)
         {
             int count = 0;
-            Database.Execute(() =>
+            Executor.Execute(() =>
                              {
                                  DbCommand  cmd = CreateCommand("NewsletterRecipientListInsertFromRecipientList");
                                  cmd.Parameters.Add(CreateParameter("recipientListFrom", recipientListFrom));
@@ -327,7 +328,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public int RecipientListWashList(int recipientListId, int recipientListWashListId)
         {
             int count = 0;
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand  cmd = CreateCommand("NewsletterRecipientListWash");
                                      cmd.Parameters.Add(CreateParameter("recipientListId", recipientListId));

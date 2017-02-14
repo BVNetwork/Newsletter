@@ -11,18 +11,19 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
     /// </summary>
     public class JobData : DataAccessBase
     {
-        public JobData(IDatabaseHandler databaseHandler)
+        public JobData(IDatabaseExecutor databaseHandler)
             : base(databaseHandler)
         {
-            this.Database = databaseHandler;
+            this.Executor = databaseHandler;
         }
+
 
         public int JobCreate(string name, int pageId, string description)
         {
             JobStatus status = JobStatus.Editing;
             int id = 0;
 
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                       {
                                           DbCommand cmd = CreateCommand("NewsletterJobCreate");
                                           cmd.Parameters.Add(CreateParameter("name", name));
@@ -48,7 +49,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
 
         public void JobEdit(int jobId, string name, JobStatus status, int pageId, string description)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                       {
                                           DbCommand cmd = CreateCommand("NewsletterJobEdit");
                                           cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -69,7 +70,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         {
             DataSet jobs = new DataSet();
 
-            Database.Execute<DataSet>(() =>
+            Executor.Execute<DataSet>(() =>
                                           {
                                               DbCommand cmd = CreateCommand("NewsletterJobGetAll");
                                               DbDataAdapter adapter = CreateDataAdapter(cmd);
@@ -87,7 +88,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataSet JobGetAllByStatus(JobStatus status)
         {
             DataSet jobs = new DataSet();
-            Database.Execute<DataSet>(() =>
+            Executor.Execute<DataSet>(() =>
                                           {
                                               DbCommand cmd = CreateCommand("NewsletterJobGetAllByStatus");
                                               cmd.Parameters.Add(base.CreateParameter("status", status));
@@ -106,7 +107,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataSet JobGetById(int jobId)
         {
             DataSet jobs = new DataSet();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                           {
                                               DbCommand cmd = base.CreateCommand("NewsletterJobGet");
                                               cmd.Parameters.Add(base.CreateParameter("jobid", jobId));
@@ -124,7 +125,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable JobGetByPage(int pageId)
         {
             DataTable jobs = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                           {
                                               DbCommand  cmd = base.CreateCommand("NewsletterJobGetByPage");
                                               cmd.Parameters.Add(base.CreateParameter("pageId", pageId));
@@ -140,7 +141,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="jobId">The id to locate the job by.</param>
         public void JobDelete(int jobId)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                           {
                                               DbCommand cmd = CreateCommand("NewsletterJobDelete");
                                               cmd.Parameters.Add(CreateParameter("jobid", jobId));

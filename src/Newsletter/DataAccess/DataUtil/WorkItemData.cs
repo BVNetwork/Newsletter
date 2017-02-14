@@ -11,11 +11,12 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
     /// </summary>
     internal class WorkItemData : DataAccessBase
     {
-        public WorkItemData(IDatabaseHandler databaseHandler)
+        public WorkItemData(IDatabaseExecutor databaseHandler)
             : base(databaseHandler)
         {
-            this.Database = databaseHandler;
+            this.Executor = databaseHandler;
         }
+
         /// <summary>
         /// Gets one work item based on job id and email address.
         /// </summary>
@@ -25,7 +26,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataRow WorkItemGet(int jobId, string emailAddress)
         {
             DataTable workItem = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                              {
                                  DbCommand  cmd = base.CreateCommand("NewsletterWorkItemGet");
                                  cmd.Parameters.Add(base.CreateParameter("jobid", jobId));
@@ -57,7 +58,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable WorkItemGetAllForJob(int jobId)
         {
             DataTable workItems = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                               {
                                   DbCommand cmd = base.CreateCommand("NewsletterWorkItemGetAllForJob");
                                   cmd.Parameters.Add(base.CreateParameter("jobid", jobId));
@@ -79,7 +80,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable WorkItemGetBatchForProcessing(int jobId, JobWorkStatus getStatus, JobWorkStatus setStatus, int count)
         {
             DataTable workItems = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                              {
                                  DbCommand  cmd = base.CreateCommand("NewsletterWorkItemGetBatchForProcessing");
                                  cmd.Parameters.Add(base.CreateParameter("jobid", jobId));
@@ -102,7 +103,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable WorkItemGetAllForJob(int jobId, JobWorkStatus status)
         {
             DataTable workItems = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                               {
                                   DbCommand  cmd = base.CreateCommand("NewsletterWorkItemGetAllWithStatusForJob");
                                   cmd.Parameters.Add(base.CreateParameter("jobid", jobId));
@@ -124,7 +125,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public DataTable WorkItemSearch(int jobId, string searchFor)
         {
             DataTable workItems = new DataTable();
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = base.CreateCommand("NewsletterWorkItemSearch");
                                      cmd.Parameters.Add(base.CreateParameter("jobid", jobId));
@@ -150,7 +151,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="info">The info.</param>
         public void WorkItemEdit(int jobId, string emailAddress, JobWorkStatus status, string info)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = CreateCommand("NewsletterWorkItemEdit");
                                      cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -173,7 +174,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="status">The status.</param>
         public void WorkItemChangeStatus(int jobId, string emailAddress, JobWorkStatus status)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = CreateCommand("NewsletterWorkItemChangeStatus");
                                      cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -194,7 +195,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="status">The status to update all work items with.</param>
         public void WorkItemChangeStatusForAllWorkerItems(int jobId, JobWorkStatus status)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = CreateCommand("NewsletterWorkItemChangeStatusForAll");
                                      cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -227,7 +228,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
 
                 emailAddressesSeperated = string.Join(",", emailAddresses, i * numberOfWorkItemsToSend + 1, numberOfWorkItemsToSend);
 
-                Database.Execute(() =>
+                Executor.Execute(() =>
                                      {
                                          DbCommand cmd = CreateCommand("NewsletterWorkItemSetComplete");
                                          cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -249,7 +250,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="emailAddress">The email address to delete.</param>
         public void WorkItemDelete(int jobId, string emailAddress)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = CreateCommand("NewsletterWorkItemRemoveItem");
                                      cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -264,7 +265,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         /// <param name="jobId">The job id.</param>
         public void WorkItemDeleteAllForJob(int jobId)
         {
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = CreateCommand("NewsletterWorkItemDeleteAllForJob");
                                      cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -284,7 +285,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public int WorkItemFilterAgainstRecipientList(int jobId, int recipientListId)
         {
             int count = 0;
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = CreateCommand("NewsletterWorkItemFilterList");
                                      cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -314,7 +315,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public int WorkItemGetCountByStatus(int jobId, JobWorkStatus status)
         {
             int count = 0;
-            Database.Execute<int>(() =>
+            Executor.Execute<int>(() =>
                                  {
                                      DbCommand cmd = CreateCommand("NewsletterWorkItemGetCountForStatusForJob");
                                      cmd.Parameters.Add(CreateParameter("jobid", jobId));
@@ -354,7 +355,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public int WorkItemInsertFromRecipientList(int jobId, int recipientListId, JobWorkStatus status)
         {
             int count = 0;
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                  {
                                      DbCommand cmd = CreateCommand("NewsletterWorkItemInsertFromRecipient");
                                      cmd.Parameters.Add(CreateParameter("jobid", jobId));

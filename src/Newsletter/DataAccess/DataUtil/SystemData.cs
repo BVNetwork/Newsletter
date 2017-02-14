@@ -16,10 +16,10 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
     /// </summary>
     public class SystemData : DataAccessBase
     {
-        public SystemData(IDatabaseHandler databaseHandler)
+        public SystemData(IDatabaseExecutor databaseHandler)
             : base(databaseHandler)
         {
-            this.Database = databaseHandler;
+            this.Executor = databaseHandler;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
 
             int version = 0;
 
-            Database.Execute(() =>
+            Executor.Execute(() =>
                                       {
                                           DbCommand cmd = CreateCommand("NewsletterDatabaseVersion");
                                           DbParameter parameter = CreateParameter("@ReturnVal", DbType.Int32);
@@ -71,7 +71,7 @@ namespace BVNetwork.EPiSendMail.DataAccess.DataUtil
         public void SetNewsletterDatabaseVersion(int version)
         {
 
-            Database.Execute(() =>
+            Executor.Execute(() =>
             {
                 string sqlCommand =
                     @"if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[NewsletterDatabaseVersion]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -82,7 +82,7 @@ DROP PROCEDURE [dbo].NewsletterDatabaseVersion
                 cmd.ExecuteNonQuery();
             });
 
-            Database.Execute(() =>
+            Executor.Execute(() =>
             {
                 string sqlCommand =
                     @"CREATE PROCEDURE [dbo].[NewsletterDatabaseVersion]
@@ -109,7 +109,7 @@ DROP PROCEDURE [dbo].NewsletterDatabaseVersion
             string[] splitter = { "\r\nGO\r\n" };
             string[] commandTexts = script.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
 
-            Database.Execute(() =>
+            Executor.Execute(() =>
                 {
                     foreach (string commandText in commandTexts)
                     {

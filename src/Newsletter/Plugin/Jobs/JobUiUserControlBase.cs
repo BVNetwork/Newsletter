@@ -200,7 +200,9 @@ namespace BVNetwork.EPiSendMail.Plugin
             {
                 if (PrincipalInfo.CurrentPrincipal.Identity.IsAuthenticated)
                     throw new AccessDeniedException();
-                DefaultAccessDeniedHandler.AccessDenied((object)this);
+                IAccessDeniedHandler handler =
+                    ServiceLocator.Current.GetInstance<IAccessDeniedHandler>();
+                handler.AccessDenied(new HttpContextWrapper(Context)); // Man - we really need to get rid of web forms soon!
             }
             return obj;
         }
@@ -226,7 +228,11 @@ namespace BVNetwork.EPiSendMail.Plugin
             {
                 if (ContentReference.IsNullOrEmpty(this._currentLink))
                 {
+#if CMS9
                     this._currentLink = ServiceLocator.Current.GetInstance<ContentRouteHelper>().ContentLink;
+#else
+                    this._currentLink = ServiceLocator.Current.GetInstance<IContentRouteHelper>().ContentLink;
+#endif
                     if (ContentReference.IsNullOrEmpty(this._currentLink))
                     {
                         RouteData routeData = ServiceLocator.Current.GetInstance<ClassicLinkRoute>().GetRouteData(HttpContextExtensions.ContextBaseOrNull(HttpContext.Current));

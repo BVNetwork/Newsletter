@@ -116,7 +116,7 @@ namespace BVNetwork.EPiSendMail.Api
             }
             catch (Exception e)
             {
-                _log.Error("Errpr validating recipent list", e);
+                _log.Error("Error validating recipent list", e);
                 throw new HttpResponseException(
                     Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Cannot validate emails: " + e.Message));
             }

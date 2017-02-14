@@ -217,8 +217,13 @@ namespace BVNetwork.EPiSendMail.ScheduledTasks
 
         public static ScheduledJob GetJobDefinition()
         {
+#if CMS9
             ScheduledJobRepository repository =
                 ServiceLocator.Current.GetInstance<ScheduledJobRepository>();
+#else
+            IScheduledJobRepository repository =
+                ServiceLocator.Current.GetInstance<IScheduledJobRepository>();
+#endif
             ScheduledJob job = repository.Get("Execute", typeof (SendNewsLetterTask).FullName,
                 typeof (SendNewsLetterTask).Assembly.GetName().Name);
             return job;

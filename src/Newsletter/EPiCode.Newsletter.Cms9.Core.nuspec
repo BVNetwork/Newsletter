@@ -18,15 +18,15 @@
             <dependency id="PreMailer.Net" version="[1.4.3, 1.5)" />
             <dependency id="Microsoft.AspNet.WebApi" version="5.1.2" />
             <dependency id="RestSharp" version="105.2.3" />
-            <dependency id="EPiServer.CMS.UI.Core" version="[10.1.0, 11.0)" />
-            <dependency id="EPiServer.Framework" version="[10.1.0, 11.0)" />
-            <dependency id="EPiServer.Logging.Log4Net" version="2.1.0" />
+            <dependency id="EPiServer.CMS.UI.Core" version="[9.0, 10.0)" />
+            <dependency id="EPiServer.Framework" version="[9.0, 10.0)" />
+            <dependency id="EPiServer.Logging.Log4Net" version="2.0.0" />
         </dependencies>
     </metadata>
     <files>       
-        <file src="bin\$configuration$\BVNetwork.EPiSendMail.dll"
+        <file src="bin\CMS9\$configuration$\BVNetwork.EPiSendMail.dll"
               target="lib\net45\BVNetwork.EPiSendMail.dll" />
-        <file src="bin\$configuration$\BVNetwork.EPiSendMail.dll"
+        <file src="bin\CMS9\$configuration$\BVNetwork.EPiSendMail.dll"
               target="lib\net451\BVNetwork.EPiSendMail.dll" />        
     </files>
 </package>

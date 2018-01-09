@@ -15,6 +15,7 @@ build/
 [Bb]in/
 [Oo]bj/
 
+
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 # !packages/*/build/
 packages/
@@ -160,4 +161,5 @@ $RECYCLE.BIN/
 #src/Newsletter/pack.cmd
 src/pack.cmd
 src/Newsletter.SendGrid/pack.cmd
-src/.vs/config/applicationhost.config
+src/.vs/
+

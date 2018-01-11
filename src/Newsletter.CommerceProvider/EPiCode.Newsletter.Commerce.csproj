@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CMS9</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -26,7 +26,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CMS9</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -268,7 +268,7 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <!-- This holds the version of the package -->
-  <Import Project="$(SolutionDir)\packageVersion.Cms9.targets" Condition="Exists('$(SolutionDir)\packageVersion.Cms9.targets')" />
+  <Import Project="$(SolutionDir)\packageVersion.targets" Condition="Exists('$(SolutionDir)\packageVersion.targets')" />
   <!-- Pack -->
   <Import Project="$(SolutionDir)\packageTools.targets" Condition="Exists('$(SolutionDir)\packageTools.targets')" />
   <Target Name="CreateNugetPackage" AfterTargets="Build" Condition="'$(Configuration)' == 'Release' ">

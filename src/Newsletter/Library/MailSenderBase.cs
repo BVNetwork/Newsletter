@@ -7,6 +7,7 @@ using BVNetwork.EPiSendMail.Contracts;
 using BVNetwork.EPiSendMail.DataAccess;
 using EPiServer;
 using EPiServer.Core;
+using EPiServer.Framework.Localization;
 using EPiServer.Logging;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
@@ -217,8 +218,7 @@ namespace BVNetwork.EPiSendMail.Library
 				_log.Debug("Beginning to generate Page Html for {0}. Has HttpContext: {1}", pageData.PageLink.ToString(), hasHttpContext);
 
 			// Standard way of getting a url
-			UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-			url = UrlResolver.Current.GetUrl(pageData.PageLink, pageData.LanguageBranch);
+			url = UrlResolver.Current.GetUrl(pageData.PageLink, ((ILocalizable)pageData).Language.Name);
 			_log.Debug("UrlResolver says link to newsletter is: {0}", url);
 
 			hostUrl = GetSiteUrl(pageData);

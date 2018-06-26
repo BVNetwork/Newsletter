@@ -223,6 +223,29 @@ namespace BVNetwork.EPiSendMail.Configuration
             return defaultValue;
         }
 
+        /// <summary>
+        /// Gets the value of an appSettings key as an bool. If not defined
+        /// or not parsable, the defaultValue parameter will be returned.
+        /// </summary>
+        /// <param name="key">The key in the appSettings section whose value to return.</param>
+        /// <param name="defaultValue">The default value to returned if the setting is null or not parsable.</param>
+        /// <returns>The appSettings value if parsable, defaultValue if not</returns>
+        public static bool GetAppSettingsConfigValueBool(string key, bool defaultValue)
+        {
+            string stringValue = WebConfigurationManager.AppSettings[key];
+            if (string.IsNullOrEmpty(stringValue))
+                return defaultValue;
+
+            bool retValue;
+            bool parsed = false;
+            parsed = bool.TryParse(stringValue, out retValue);
+            if (parsed)
+                return retValue;
+
+            // Could not parse, return default value
+            return defaultValue;
+        }
+
         public static T GetAppSettingsConfigValueEx<T>(string key, T defaultValue)
         {
             object val = GetAppSettingsConfigValue(key);

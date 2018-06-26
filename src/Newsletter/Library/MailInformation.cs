@@ -13,14 +13,14 @@ namespace BVNetwork.EPiSendMail.Library
 
 	    public MailInformation()
 		{
-		    EnableTracking = true;
+		    EnableTracking = Configuration.NewsLetterConfiguration.GetAppSettingsConfigValueBool("Newsletter.EnableTracking", true);
             Utm = new UtmCode();
 
         }
 
 		public MailInformation(string from, string subject, string bodyText, string bodyHtml)
 		{
-            EnableTracking = true;
+            EnableTracking = Configuration.NewsLetterConfiguration.GetAppSettingsConfigValueBool("Newsletter.EnableTracking", true);
 			From = from;
 			Subject = subject;
 			BodyText = bodyText;

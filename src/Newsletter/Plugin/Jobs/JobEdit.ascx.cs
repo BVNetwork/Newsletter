@@ -1,7 +1,9 @@
 using System;
+using System.Web;
 using BVNetwork.EPiSendMail.Configuration;
 using BVNetwork.EPiSendMail.DataAccess;
 using BVNetwork.EPiSendMail.Library;
+using EPiServer;
 using EPiServer.Framework.Web.Mvc.Html;
 using EPiServer.Logging;
 
@@ -50,7 +52,7 @@ namespace BVNetwork.EPiSendMail.Plugin
                     pnlMiscActions.Visible = false;
                     pnlNewNewsLetter.Visible = true;
                 }
-                Session.Remove("CurrentSelection");
+                CacheManager.Remove("CurrentSelection" + HttpContext.Current.User.Identity.Name);
             }
 
             cmdSendTest.DataBind();

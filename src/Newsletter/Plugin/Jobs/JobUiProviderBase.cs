@@ -1,9 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BVNetwork.EPiSendMail.Plugin.ItemProviders;
 using BVNetwork.EPiSendMail.Plugin.WorkItemProviders;
+using EPiServer;
+using EPiServer.Data;
+using EPiServer.Data.Dynamic;
+using EPiServer.Framework.Cache;
 
 namespace BVNetwork.EPiSendMail.Plugin
 {
@@ -126,15 +132,8 @@ namespace BVNetwork.EPiSendMail.Plugin
 
         public string CurrentProvider
         {
-            get
-            {
-                return (string)Session["CurrentSelection"];//(string)ViewState["CurrentSelection"];
-            }
-            set
-            {
-                Session["CurrentSelection"] = value;
-                //ViewState["CurrentSelection"] = value;
-            }
+            get => CacheManager.Get("CurrentSelection" + HttpContext.Current.User.Identity.Name) as string;
+            set => CacheManager.Insert("CurrentSelection" + HttpContext.Current.User.Identity.Name, value);
         }
 
         protected void ProviderCommandClick(object sender, CommandEventArgs e)
@@ -147,6 +146,5 @@ namespace BVNetwork.EPiSendMail.Plugin
             // Bind here
             ShowWorkItemProvider();
         }
- 
     }
 }

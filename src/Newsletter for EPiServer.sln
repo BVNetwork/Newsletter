@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiCode.Newsletter", "Newsletter\EPiCode.Newsletter.csproj", "{E2EAD191-5D74-4558-BCA7-CA2686BB1759}"
 EndProject
@@ -55,6 +55,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		LessCompiler = e2ead191-5d74-4558-bca7-ca2686bb1759
 		SolutionGuid = {B6755144-1E8B-446C-BEEC-FC5064B634CE}
 	EndGlobalSection
 EndGlobal

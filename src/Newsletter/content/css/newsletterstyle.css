@@ -1,9 +1,8 @@
-﻿html {
+html {
   font-size: 16px;
 }
 .newsletter {
-  /*font: 12px Myriad, Helvetica, Tahoma, Arial, clean, sans-serif;
-    background-color: #ffffff;*/
+  padding-top: 2em;
 }
 .newsletterView {
   background: url("../images/mailbox_full.png");
@@ -14,8 +13,6 @@
   /* Override Shell Core */
 }
 .newsletter .well {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 .newsletter .well h3 {

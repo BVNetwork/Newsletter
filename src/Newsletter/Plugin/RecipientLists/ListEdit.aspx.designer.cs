@@ -13,13 +13,13 @@ namespace BVNetwork.EPiSendMail.Plugin {
     public partial class RecipientListEdit {
         
         /// <summary>
-        /// ShellMenu1 control.
+        /// ShellMenu2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EPiServer.Shell.Web.UI.WebControls.ShellMenu ShellMenu1;
+        protected global::EPiServer.Shell.Web.UI.WebControls.PlatformNavigationMenu ShellMenu2;
         
         /// <summary>
         /// h2ListName control.

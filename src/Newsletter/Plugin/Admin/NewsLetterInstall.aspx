@@ -12,7 +12,7 @@
 </asp:content>
 <asp:content runat="server" contentplaceholderid="FullRegion">
     
-	<EPiServerShell:ShellMenu ID="ShellMenu2" runat="server" SelectionPath="/global/newsletter/install" Area="Newsletter" />
+    <EPiServerShell:PlatformNavigationMenu ID="ShellMenu2" runat="server" Area="Newsletter" />
     <div class="container newsletter">
         <div class="row" style="padding-top: 2em;">
             <div class="col-md-2"></div>

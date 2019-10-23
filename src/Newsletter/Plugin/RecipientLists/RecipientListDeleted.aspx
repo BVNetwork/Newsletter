@@ -7,7 +7,7 @@
     <EPiSendMail:PluginStyles runat="server" />
 </asp:content>
 <asp:content runat="server" ContentPlaceHolderID="FullRegion" >
-    <EPiServerShell:ShellMenu ID="ShellMenu2" runat="server" SelectionPath="/global/newsletter/lists" Area="Newsletter" />
+    <EPiServerShell:PlatformNavigationMenu ID="ShellMenu2" runat="server" Area="Newsletter" />
     <div class="epi-contentContainer epi-padding newsletter">
         <h1>The Recipient List has been deleted</h1>
     </div>

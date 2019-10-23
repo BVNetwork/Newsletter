@@ -42,11 +42,42 @@ namespace BVNetwork.EPiSendMail.Plugin
                 urlMenuItem.SortIndex = 100;
                 menuItems.Add(urlMenuItem);
 
+                urlMenuItem = new UrlMenuItem(string.Empty, "/global/newsletter/newsletters/jobeditstandalone", NewsLetterConfiguration.GetModuleBaseDir("/plugin/jobs/jobeditstandalone.aspx"));
+                urlMenuItem.IsAvailable = ((RequestContext request) => false);
+                urlMenuItem.SortIndex = 110;
+                menuItems.Add(urlMenuItem);
+
+                urlMenuItem = new UrlMenuItem(string.Empty, "/global/newsletter/newsletters/workitemsedit", NewsLetterConfiguration.GetModuleBaseDir("/plugin/jobs/workitemsedit.aspx"));
+                urlMenuItem.IsAvailable = ((RequestContext request) => false);
+                urlMenuItem.SortIndex = 120;
+                menuItems.Add(urlMenuItem);
+
+
                 urlMenuItem = new UrlMenuItem("Lists", "/global/newsletter/lists", NewsLetterConfiguration.GetModuleBaseDir("/plugin/lists.aspx"));
                 urlMenuItem.IsAvailable = ((RequestContext request) => true);
                 urlMenuItem.SortIndex = 200;
                 menuItems.Add(urlMenuItem);
-                
+
+                urlMenuItem = new UrlMenuItem(string.Empty, "/global/newsletter/lists/listedit", NewsLetterConfiguration.GetModuleBaseDir("/plugin/recipientlists/listedit.aspx"));
+                urlMenuItem.IsAvailable = ((RequestContext request) => false);
+                urlMenuItem.SortIndex = 210;
+                menuItems.Add(urlMenuItem);
+
+                urlMenuItem = new UrlMenuItem(string.Empty, "/global/newsletter/lists/newrecipientlist", NewsLetterConfiguration.GetModuleBaseDir("/plugin/recipientlists/newrecipientlist.aspx"));
+                urlMenuItem.IsAvailable = ((RequestContext request) => false);
+                urlMenuItem.SortIndex = 220;
+                menuItems.Add(urlMenuItem);
+
+                urlMenuItem = new UrlMenuItem(string.Empty, "/global/newsletter/lists/recipientitemsedit", NewsLetterConfiguration.GetModuleBaseDir("/plugin/recipientlists/recipientitemsedit.aspx"));
+                urlMenuItem.IsAvailable = ((RequestContext request) => false);
+                urlMenuItem.SortIndex = 230;
+                menuItems.Add(urlMenuItem);
+
+                urlMenuItem = new UrlMenuItem(string.Empty, "/global/newsletter/lists/recipientlistdeleted", NewsLetterConfiguration.GetModuleBaseDir("/plugin/recipientlists/recipientlistdeleted.aspx"));
+                urlMenuItem.IsAvailable = ((RequestContext request) => false);
+                urlMenuItem.SortIndex = 230;
+                menuItems.Add(urlMenuItem);
+
                 //TODO: Add this menu item, when admin settings are ready to be moved from appsettings to dds
                 //UrlMenuItem urlAdminMenuItem = new UrlMenuItem("Admin", "/global/newsletter/admin",
                 //    NewsLetterConfiguration.GetModuleBaseDir() + "/plugin/Admin/NewsLetterAdmin.aspx");

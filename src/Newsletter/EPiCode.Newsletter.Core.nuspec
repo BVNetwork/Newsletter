@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>EPiCode.Newsletter.Core</id>
-        <version>$version$</version>
+        <version>11.4.0</version>
         <authors>The EPiCode Community</authors>
         <owners>BV Network AS</owners>
         <projectUrl>https://github.com/BVNetwork/Newsletter</projectUrl>

@@ -11,7 +11,7 @@
     <EPiSendMail:PluginStyles runat="server" />
 </asp:content>
 <asp:content runat="server" contentplaceholderid="FullRegion">
-		<EPiServerShell:ShellMenu ID="ShellMenu2" runat="server" SelectionPath="/global/newsletter/newsletters" Area="Newsletter" />
+    <EPiServerShell:PlatformNavigationMenu ID="ShellMenu2" runat="server" Area="Newsletter" />
 		<div class="newsletter">
 			<div class="container" id="pnlJobList" runat="server">
 				<div class="row">

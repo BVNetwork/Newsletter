@@ -19,6 +19,6 @@ namespace BVNetwork.EPiSendMail.Plugin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EPiServer.Shell.Web.UI.WebControls.ShellMenu ShellMenu2;
+        protected global::EPiServer.Shell.Web.UI.WebControls.PlatformNavigationMenu ShellMenu2;
     }
 }

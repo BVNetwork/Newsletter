@@ -8,6 +8,6 @@
     <EPiSendMail:PluginStyles runat="server" />
 </asp:content>
 <asp:content runat="server" ContentPlaceHolderID="FullRegion" >
-    <EPiServerShell:ShellMenu ID="ShellMenu2" runat="server" SelectionPath="/global/newsletter/newsletters" Area="Newsletter" />
+    <EPiServerShell:PlatformNavigationMenu ID="ShellMenu2" runat="server" Area="Newsletter" />
     <EPiSendMail:JobEdit ClientIDMode="Static" runat="server" />
 </asp:content>

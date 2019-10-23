@@ -1,4 +1,7 @@
-﻿.newsletter {
+﻿html {
+  font-size: 16px;
+}
+.newsletter {
   /*font: 12px Myriad, Helvetica, Tahoma, Arial, clean, sans-serif;
     background-color: #ffffff;*/
 }
@@ -37,7 +40,7 @@
 	
 	    text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
 		    */
-  color: #999999;
+  color: #999;
   /*color: rgba(0,0,0,0.5)*/
   text-shadow: 2px 6px 6px rgba(0, 0, 0, 0.2), 0px -5px 35px rgba(255, 255, 255, 0.3);
 }
@@ -61,7 +64,7 @@
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
-  color: #999999;
+  color: #999;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -75,7 +78,7 @@
   margin-bottom: 1em;
 }
 .newsletter .help-text {
-  color: #999999;
+  color: #999;
   font-size: 0.95em;
 }
 .newsletter p.help-text {

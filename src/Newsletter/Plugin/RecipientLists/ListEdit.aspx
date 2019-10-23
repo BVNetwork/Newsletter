@@ -29,7 +29,7 @@
     </script>
 </asp:content>
 <asp:content runat="server" contentplaceholderid="FullRegion">
-    <EPiServerShell:ShellMenu ID="ShellMenu1" runat="server" SelectionPath="/global/newsletter/lists" Area="Newsletter" />
+    <EPiServerShell:PlatformNavigationMenu ID="ShellMenu2" runat="server" Area="Newsletter" />
 
     <div class="container newsletter">
         <div class="col-lg-12">

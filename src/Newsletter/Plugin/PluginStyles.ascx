@@ -5,4 +5,4 @@
 
 <%= Page.ClientResources("ShellWidgets")%>
 <link rel="stylesheet" type="text/css" href="<%= BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir("/content/css/bootstrap.min.css") %>">
-<link rel="stylesheet" type="text/css" href="<%= BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir("/content/css/newsletterstyle.css") %>">
+<link rel="stylesheet" type="text/css" href="<%= BVNetwork.EPiSendMail.Configuration.NewsLetterConfiguration.GetModuleBaseDir("/content/css/newsletterstyle.css") %>?v=2">

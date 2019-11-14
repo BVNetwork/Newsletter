@@ -167,6 +167,14 @@ Change the `senderType` of the `<epicodeNewsletter>` section in web.config to us
 </epicodeNewsletter>
 
 ```
+#### EPiCode.Newsletter.SendGrid 11.4.1 or newer ####
+Add a new appsetting to web.config:
+```xml
+<appSettings>
+  ...
+  <add key="Newsletter.SendGrid.ApiKey" value="yoursendgridapikey"  />
+</appSettings>
+```
 
 #### EPiCode.Newsletter.SendGrid 9.0.0 or older ####
 Add a new connectionString to configure your SendGrid account:
@@ -178,14 +186,6 @@ Add a new connectionString to configure your SendGrid account:
 ```
 **Note!** You can create additional SendGrid users that only has access to the API, and not the full administration interface. It is recommended to create a separate account in order to provide access to the SendGrid API only.
 
-#### EPiCode.Newsletter.SendGrid > 11.4.1 ####
-Add a new appsetting to web.config:
-```xml
-<appSettings>
-  ...
-  <add key="Newsletter.SendGrid.ApiKey" value="yoursendgridapikey"  />
-</appSettings>
-```
 
 
 ### Access Rights ###

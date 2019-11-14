@@ -168,6 +168,7 @@ Change the `senderType` of the `<epicodeNewsletter>` section in web.config to us
 
 ```
 
+#### EPiCode.Newsletter.SendGrid 9.0.0 or older ####
 Add a new connectionString to configure your SendGrid account:
 ```xml
 <connectionStrings>
@@ -176,6 +177,16 @@ Add a new connectionString to configure your SendGrid account:
 </connectionStrings>
 ```
 **Note!** You can create additional SendGrid users that only has access to the API, and not the full administration interface. It is recommended to create a separate account in order to provide access to the SendGrid API only.
+
+#### EPiCode.Newsletter.SendGrid > 11.4.1 ####
+Add a new appsetting to web.config:
+```xml
+<appSettings>
+  ...
+  <add key="Newsletter.SendGrid.ApiKey" value="yoursendgridapikey"  />
+</appSettings>
+```
+
 
 ### Access Rights ###
 By default, only members of the `CmsAdmins` and `NewsletterEditors` roles are allowed to send newsletters. You can add `NewsletterEditors` as a virtual role and add other roles to it if you do not want to add it as a group with individual users.

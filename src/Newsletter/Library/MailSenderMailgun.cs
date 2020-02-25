@@ -27,12 +27,26 @@ namespace BVNetwork.EPiSendMail.Library
 
         public class MailgunSettings
 		{
-			public string ApiKey { get; set; }
-			public string Domain { get; set; }
-			public string PublicKey { get; set; }
-		    public string ProxyAddress { get; set; }
-		    public int ProxyPort { get; set; }
-		}
+            public string ApiKey { get; set; }
+            public string Domain { get; set; }
+            public string PublicKey { get; set; }
+
+            public int ApiVersion { get; set; }
+            public bool EuDomain { get; set; }
+
+            public Uri ApiBaseUrl
+            {
+                get
+                {
+                    var regionSubDomain = EuDomain ? ".eu" : "";
+
+                    return new Uri($"https://api{regionSubDomain}.mailgun.net/v{ApiVersion}");
+                }
+            }
+
+            public string ProxyAddress { get; set; }
+            public int ProxyPort { get; set; }
+        }
 
 		/// <summary>
 		/// Verifies the environment, called before the send process 
@@ -101,9 +115,11 @@ namespace BVNetwork.EPiSendMail.Library
 			if(recipients.Count() > 1000)
 				throw new ArgumentOutOfRangeException("recipients", "Mailgun supports maximum 1000 recipients per batch send.");
 
-			RestClient client = new RestClient();
-	        client.BaseUrl = new Uri("https://api.mailgun.net/v2");
-			client.Authenticator = new HttpBasicAuthenticator("api", settings.ApiKey);
+            RestClient client = new RestClient
+            {
+                BaseUrl = settings.ApiBaseUrl,
+                Authenticator = new HttpBasicAuthenticator("api", settings.ApiKey)
+            };
 
             if(string.IsNullOrEmpty(settings.ProxyAddress) == false)
             {
@@ -277,6 +293,11 @@ namespace BVNetwork.EPiSendMail.Library
 			settings.PublicKey = Configuration.NewsLetterConfiguration.GetAppSettingsConfigValueEx<string>("Mailgun.PublicKey", null);
 
             // Optional
+            settings.ApiVersion =
+                Configuration.NewsLetterConfiguration.GetAppSettingsConfigValueInt("Mailgun.ApiVersion", 2);
+            settings.EuDomain =
+                Configuration.NewsLetterConfiguration.GetAppSettingsConfigValueBool("Mailgun.EuDomain", false);
+
             settings.ProxyAddress = Configuration.NewsLetterConfiguration.GetAppSettingsConfigValueEx<string>("Mailgun.ProxyAddress", null);
             settings.ProxyPort = Configuration.NewsLetterConfiguration.GetAppSettingsConfigValueInt("Mailgun.ProxyPort", 0);
 
@@ -322,9 +343,11 @@ namespace BVNetwork.EPiSendMail.Library
                 return new List<string>();
 
 		    MailgunSettings settings = GetSettings();
-		    RestClient client = new RestClient();
-            client.BaseUrl = new Uri("https://api.mailgun.net/v2");
-			client.Authenticator = new HttpBasicAuthenticator("api", settings.PublicKey);
+            RestClient client = new RestClient
+            {
+                BaseUrl = settings.ApiBaseUrl,
+                Authenticator = new HttpBasicAuthenticator("api", settings.PublicKey)
+            };
             
             if (string.IsNullOrEmpty(settings.ProxyAddress) == false)
             {

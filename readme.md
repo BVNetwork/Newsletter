@@ -153,9 +153,10 @@ You also need to add the following `<appSettings>` values in order for the Mailg
 <add key="Mailgun.ApiKey"    value="your-mailgun-api-key-here" />
 <add key="Mailgun.Domain"    value="your-mailgun-domain-here" />
 <add key="Mailgun.PublicKey" value="your-mailgun-public-key-here" />
+<add key="Mailgun.EuDomain"  value="true" />
 ```
 
-The Api keys can be found on the Mailgun Account home page: https://mailgun.com/cp
+The Api keys can be found on the Mailgun Account home page: https://app.mailgun.com/app/dashboard
 
 You also need to configure your mail sending domain for your Mailgun account, which is well described on your Mailgun account page. For testing purposes, you can use the sandbox domain that is created when you register your Mailgun account.
 

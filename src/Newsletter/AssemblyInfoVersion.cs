@@ -5,5 +5,5 @@ using System.Reflection;
 #elif CMS10
     [assembly: AssemblyVersion("10.0.0")]
 #else 
-    [assembly: AssemblyVersion("11.4.1")]
+    [assembly: AssemblyVersion("11.4.2")]
 #endif
